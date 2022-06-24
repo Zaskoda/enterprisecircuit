@@ -1,18 +1,22 @@
 import { defineStore } from 'pinia'
-import { ethers, BigNumber, providers } from "ethers"
+import { ethers } from "ethers"
+import availableNetworks from "../../libraries/galactic/availableNetworks"
+import supportedNetworks from "../../libraries/galactic/supportedNetworks"
 
 import AvatarArtifact from '../../../evm/contract-artifacts/AvatarControls.json'
 
 // useTaco is a placeholder
 // useXxxx is a naming convention
-export const useTaco = defineStore('taco', {
+export const useWeb3 = defineStore('web3', {
   state: () => {
     return {
       hasWallet: false,
       signer: null,
       signerAddress: '',
       provider: null,
-      avatarCount: 0
+      supportedNetworks: supportedNetworks,
+      availableNetworks: availableNetworks,
+      block: null
     }
   },
   actions: {
