@@ -38,7 +38,10 @@ export default {
       if (this.hoverId != null) {
         return this.hoverId
       }
-      return this.wallet.chainId
+      if (this.wallet.chainId != null) {
+        return this.wallet.chainId
+      }
+      return 0
     }
   }
 }
@@ -55,35 +58,40 @@ export default {
       <line :x1="ui.left + 50" :x2="ui.right-50" y1="60" y2="60" stroke="#ffffff44" stroke-width="4" />
     </g>
     <text font-size="2em" :transform="'translate(0 ' + (ui.top + 200) + ')'">Choose a Network</text>
-    <g :transform="'translate(-100 ' + (networkCount * -15 ) + ')'">
-      <g v-for="(network, key, index) in deployments" :transform="'translate(0 ' + index * 30 + ')'" @mouseenter="this.hoverId = key" @mouseleave="this.hoverId = null">
-        <btn :val="key" :width="120" @click="switchNetwork" font-size="0.9em" :text="networks[key].shortName" :selected="wallet.chainId == key" />
+    <g transform="scale(1.4)">
+      <g :transform="'translate(-100 ' + (networkCount * -15 ) + ')'">
+        <g v-for="(network, key, index) in deployments" :transform="'translate(0 ' + index * 30 + ')'" @mouseenter="this.hoverId = key" @mouseleave="this.hoverId = null">
+          <btn :val="key" :width="120" :height="28" @click="switchNetwork" font-size="0.9em" :text="networks[key].shortName" :selected="wallet.chainId == key" />
+        </g>
+      </g>
+      <g transform="translate(-40 -150)" v-if="networkToShow > 0">
+        <rect
+          x="0"
+          y="0"
+          fill="#000000"
+          fill-opacity="0.1"
+          stroke-opacity="0.6"
+          stroke="#ffffff"
+          stroke-width="6"
+          rx="15"
+          ry="15"
+          width="240"
+          height="320" />
+        <text transform="translate(120 30)">{{ networks[networkToShow] ? networks[networkToShow].name : 'Select A Network' }}</text>
+        <g v-if="networks[networkToShow]">
+          <g font-size="0.75em" opacity="0.75">
+            <text transform="translate(120 60)">Native Token: {{ networks[networkToShow].currency.symbol }}</text>
+            <text transform="translate(120 80)">Chain ID: {{ networks[networkToShow].hexId }}</text>
+          </g>
+          <text transform="translate(120 150)">{{ networks[networkToShow].description }}</text>
+          <g v-if="wallet.chainId == networkToShow" transform="translate(120 280)">
+            <text opacity="0.5" font-size="0.8em" transform="translate(0 -40)">you are connected to this network</text>
+            <btn :width="210" :height="50" @click="routing.switchScreen('play')" font-size="1em" :text="'Play on ' + networks[networkToShow].shortName"  />
+          </g>
+        </g>
       </g>
     </g>
-    <g transform="translate(-40 -150)" v-if="networkToShow != null">
-      <rect
-        x="0"
-        y="0"
-        fill="#000000"
-        fill-opacity="0.1"
-        stroke-opacity="0.6"
-        stroke="#ffffff"
-        stroke-width="6"
-        rx="15"
-        ry="15"
-        width="240"
-        height="320" />
-      <text transform="translate(120 30)">{{ networks[networkToShow].name }}</text>
-      <g font-size="0.75em" opacity="0.75" >
-        <text transform="translate(120 60)">Native Token: {{ networks[networkToShow].currency.symbol }}</text>
-        <text transform="translate(120 80)">Chain ID: {{ networks[networkToShow].hexId }}</text>
-      </g>
-      <text transform="translate(120 150)">{{ networks[networkToShow].description }}</text>
-      <g v-if="wallet.chainId == networkToShow" transform="translate(120 280)">
-        <text opacity="0.5" font-size="0.8em" transform="translate(0 -40)">you are connected to this network</text>
-        <btn :width="210" :height="50" @click="routing.switchScreen('play')" font-size="1em" :text="'Play on ' + networks[networkToShow].shortName"  />
-      </g>
-    </g>
+
     <g v-if="wallet.switchingNetwork">
       <rect
         :x="ui.left + 50"

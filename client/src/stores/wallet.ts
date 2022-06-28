@@ -6,9 +6,9 @@ export const useWallet = defineStore('wallet', {
     return {
       hasWallet: false,
       isConnected: false,
-      signer: null,
+      signer: null as ethers.Signer | null,
       signerAddress: null,
-      provider: null,
+      provider: null as ethers.providers.Web3Provider | null,
       chain: null,
       chainId: null,
       status: '',
@@ -74,6 +74,7 @@ export const useWallet = defineStore('wallet', {
     },
 
     applyEvents () {
+      window.ethereum.removeAllListeners()
       window.ethereum.on('accountsChanged', async () => {
         console.log('account changed')
         this.signer = null
@@ -97,9 +98,11 @@ export const useWallet = defineStore('wallet', {
         console.log('chain changed')
         this.getChainData()
       }),
+      this.provider.removeAllListeners()
       this.provider.on("block", (blockNumber:Number) => {
         this.block = blockNumber
       })
+      this.switchingNetwork = false
     },
 
     async switchNetwork(chainId:String) {
@@ -135,6 +138,11 @@ export const useWallet = defineStore('wallet', {
         }
       }
       setTimeout(function(){ this.switchingNetwork = false }.bind(this), 500)
+    },
+
+    async getContract(address:string, abi:any) {
+      const avatarContract =  await new ethers.Contract(address, abi, this.signer)
+      return avatarContract
     }
   }
 })
