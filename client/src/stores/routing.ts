@@ -6,7 +6,7 @@ export const useRouting = defineStore('routing', {
   }),
   actions: {
     async switchScreen(newScreen:string) {
-      //check to see if it's in an array
+      //TODO: check to see if it's in an array
       this.currentScreen = newScreen
     },
   },
