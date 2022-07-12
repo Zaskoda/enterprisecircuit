@@ -5,6 +5,8 @@
     },
   ],
   "settings": {
-    "solidity.packageDefaultDependenciesDirectory": "evm/node_modules"
+    "solidity.packageDefaultDependenciesDirectory": "evm/node_modules",
+    "editor.tabSize": 2,
+    "files.trimTrailingWhitespace": true
   }
 }

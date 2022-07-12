@@ -1,25 +1,38 @@
 <script setup lang="ts">
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
-import HelloWorld from './components/HelloWorld.vue'
-
+import Configuration from './components/Configuration.vue'
+import NetworkSelect from './components/NetworkSelect.vue'
+import Settings from './components/Settings.vue'
+import Splash from './components/Splash.vue'
+import Play from './components/Play.vue'
+import { useRouting } from './stores/routing'
+const routing = useRouting()
 </script>
 
 <template>
-  <HelloWorld msg="Orbiter 8" />
+  <Splash v-if="routing.isScreen('splash')"/>
+  <Settings v-if="routing.isScreen('settings')"/>
+  <NetworkSelect v-if="routing.isScreen('network')"/>
+  <Configuration v-if="routing.isScreen('configuration')"/>
+  <Play v-if="routing.isScreen('play')" />
 </template>
 
 <style lang="scss">
 body {
+  @import url('https://fonts.googleapis.com/css?family=Ubuntu');
+  font-family: 'Ubuntu', sans-serif;
   background: var(--color-bg);
-}
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  color: var(--color-light);
+
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  padding: 0;
+}
+#app {
   text-align: center;
-  color: #ffffff;
-  margin-top: 60px;
+}
+.canclick:hover {
+  cursor: pointer;
 }
 </style>
 
@@ -27,12 +40,16 @@ body {
 <style lang="scss">
 //Default Theme
 :root {
-  --color-bg: #ffffff;
+  --color-bg: #000000;
+  --color-text: #ffffff;
+  --color-btn-text: #000000;
 }
 
 //Orbiter 8 Theme
 [data-theme="orbiter8"] {
   --color-bg: #310e5c;
+  --color-light: #c3b3da;
+  --color-btn: #ffffff;
 }
 
 //Test Theme
