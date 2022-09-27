@@ -4,7 +4,6 @@ import backdrop from './assets/backdrop.svg.vue'
 import btn from './ui-primitives/button-basic.svg.vue'
 import logo from './assets/logo.svg.vue'
 import ship from './assets/ship08.svg.vue'
-import portal from './assets/portal.svg.vue'
 import starfield from './assets/starfield.svg.vue'
 
 import { useUI } from '../stores/ui'
@@ -35,22 +34,8 @@ export default {
     <backdrop  transform="scale(2)" />
   </g>
 
-    <logo  :transform="'translate(0 ' + (ui.top + 80) + ') scale(0.4)'" />
+    <logo  :transform="'translate(0 ' + (ui.top + 120) + ') scale(0.4)'" />
 
-      <text
-        font-size="28px"
-        fill-opacity="0.75"
-        fill="#ffffff"
-        :transform="'translate(0 ' + (ui.top + 180) + ')'">
-        Multiverse Portals
-      </text>
-      <text
-        font-size="14px"
-        fill-opacity="0.5"
-        fill="#ffffff"
-        :transform="'translate(0 ' + (ui.top + 210) + ')'">
-        D E M O
-      </text>
 
     <g>
       <starfield />
