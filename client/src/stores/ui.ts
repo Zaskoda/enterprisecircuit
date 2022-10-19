@@ -4,6 +4,7 @@ export const useUI = defineStore('ui', {
   state: () => ({
     //overall scaling
     isAutoPresent: false,
+    showText: true,
     scale: 1,
     maxScale: 4,
     minScale: 0.25,

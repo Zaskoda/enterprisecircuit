@@ -143,7 +143,7 @@ export default {
     <panel05 v-if="panel == 4" v-on:pre="prev()" v-on:next="next" />
     <panel06 v-if="panel == 5" v-on:pre="prev()" v-on:finish="finish" />
 
-    <g :transform="'translate(0 ' + (ui.top + 15) + ')'" opacity="0"  >
+    <g :transform="'translate(0 ' + (ui.top + 15) + ')'" v-if="ui.showText"  >
       <g transform="scale(1)">
         <g fill="#000000"
           fill-opacity="0.25"
