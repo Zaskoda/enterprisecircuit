@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import star from './star.svg.vue'
-import ship from './ship08.svg.vue'
+import ship from './shipO8.svg.vue'
 </script>
 
 <script lang="ts">

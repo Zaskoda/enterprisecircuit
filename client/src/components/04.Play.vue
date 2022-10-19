@@ -2,7 +2,7 @@
 import svgContainer from './layouts/svgContainer.vue'
 import backdrop from './assets/backdrop.svg.vue'
 import btn from './ui-primitives/button-basic.svg.vue'
-import ship from './assets/ship08.svg.vue'
+import ship from './assets/shipO8.svg.vue'
 import portal from './assets/portal.svg.vue'
 import starfield from './assets/starfield.svg.vue'
 

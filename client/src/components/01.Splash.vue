@@ -3,8 +3,11 @@ import svgContainer from './layouts/svgContainer.vue'
 import backdrop from './assets/backdrop.svg.vue'
 import btn from './ui-primitives/button-basic.svg.vue'
 import logo from './assets/logo.svg.vue'
-import ship from './assets/ship08.svg.vue'
+import ship1 from './assets/shipO8.svg.vue'
+import ship2 from './assets/shipMB.svg.vue'
+import ship3 from './assets/shipPG.svg.vue'
 import starfield from './assets/starfield.svg.vue'
+import portal from './assets/portal.svg.vue'
 
 import { useUI } from '../stores/ui'
 import { useRouting } from '../stores/routing'
@@ -54,30 +57,65 @@ export default {
     <g transform="translate(0 40) scale(2)">
       <g>
         <g>
-          <portal transform="scale(1.5)" />
-
-          <animateTransform
-            attributeName="transform"
-            attributeType="XML"
-            type="scale"
-            values="0.8; 1.2; 0.8"
-            dur="60s"
-            repeatCount="indefinite"
-          />
-        </g>
-        <g transform="translate(-40 40) rotate(45) scale(2)" opacity="1">
           <g>
-            <ship :showEngines="true" />
+            <portal transform="scale(1.5)" />
 
             <animateTransform
               attributeName="transform"
               attributeType="XML"
               type="scale"
-              values="0.90; 1; 0.90"
-              dur="4s"
+              values="0.8; 1.2; 0.8"
+              dur="60s"
               repeatCount="indefinite"
             />
           </g>
+          <g transform="translate(-40 40) rotate(45) scale(2)" opacity="1">
+            <g>
+              <ship1 :showEngines="true" />
+
+              <animateTransform
+                attributeName="transform"
+                attributeType="XML"
+                type="scale"
+                values="0.90; 1; 0.90"
+                dur="4s"
+                repeatCount="indefinite"
+              />
+            </g>
+          </g>
+          <g transform="rotate(-35)">
+            <g transform="translate(-40 40) rotate(45) scale(2)" opacity="1">
+              <g>
+                <ship2 :showEngines="true" />
+
+                <animateTransform
+                  attributeName="transform"
+                  attributeType="XML"
+                  type="scale"
+                  values="0.90; 1; 0.90"
+                  dur="4s"
+                  repeatCount="indefinite"
+                />
+              </g>
+            </g>
+          </g>
+          <g transform="rotate(35)">
+            <g transform="translate(-40 40) rotate(45) scale(2)" opacity="1">
+              <g>
+                <ship3 :showEngines="true" />
+
+                <animateTransform
+                  attributeName="transform"
+                  attributeType="XML"
+                  type="scale"
+                  values="0.90; 1; 0.90"
+                  dur="4s"
+                  repeatCount="indefinite"
+                />
+              </g>
+            </g>
+          </g>
+
         </g>
 
         <animateTransform

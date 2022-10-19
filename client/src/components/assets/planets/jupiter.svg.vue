@@ -3,7 +3,7 @@ import orbit from '../../containment/_orbit.svg.vue'
 import planet from '../../assets/planet.svg.vue'
 import moon from '../../assets/moon.svg.vue'
 import station from '../../assets/station.svg.vue'
-import shipO8 from '../../assets/ship08.svg.vue'
+import shipO8 from '../shipO8.svg.vue'
 </script>
 
 
