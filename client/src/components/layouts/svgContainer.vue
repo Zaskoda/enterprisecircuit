@@ -1,5 +1,6 @@
 <script setup lang="ts">
   import { useUI } from '../../stores/ui'
+  import DefaultDefinitions from '../definitions/Orbiter8.svg.vue'
   </script>
 
   <script lang="ts">
@@ -59,6 +60,8 @@
       text-rendering="auto"
       shape-rendering="auto"
       fill="#ffffff">
+
+      <default-definitions />
       <slot />
 
       <rect

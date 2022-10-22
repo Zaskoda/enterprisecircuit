@@ -1,18 +1,17 @@
 <script setup lang="ts">
-import svgContainer from './layouts/svgContainer.vue'
-import btn from './ui-primitives/button-basic.svg.vue'
-import panel01 from './storyboard-panels/panel01.svg.vue'
-import panel02 from './storyboard-panels/panel02.svg.vue'
-import panel03 from './storyboard-panels/panel03.svg.vue'
-import panel04 from './storyboard-panels/panel04.svg.vue'
-import panel05 from './storyboard-panels/panel05.svg.vue'
-import panel06 from './storyboard-panels/panel06.svg.vue'
-import minerva from './assets/minervaBox.svg.vue'
-import backdrop from './assets/backdrop.svg.vue'
+import btn from '../ui-primitives/button-basic.svg.vue'
+import AboutPanel01 from './AboutPanel01.svg.vue'
+import AboutPanel02 from './AboutPanel02.svg.vue'
+import AboutPanel03 from './AboutPanel03.svg.vue'
+import AboutPanel04 from './AboutPanel04.svg.vue'
+import AboutPanel05 from './AboutPanel05.svg.vue'
+import AboutPanel06 from './AboutPanel06.svg.vue'
+import minerva from '../assets/minervaBox.svg.vue'
+import SpaceBackground from '../sprites/SpaceBackground.svg.vue'
 
 
-import { useUI } from '../stores/ui'
-import { useRouting } from '../stores/routing'
+import { useUI } from '../../stores/ui'
+import { useRouting } from '../../stores/routing'
 </script>
 
 <script lang="ts">
@@ -56,8 +55,8 @@ export default {
         ],
       ],
       scale: [
-        3,
-        2.5,
+        2,
+        1.5,
         4,
         2,
         0.5,
@@ -71,13 +70,14 @@ export default {
         8000,
         10000
       ],
-      lastScale: 2
+      lastScale: 1
     }
   },
   mounted() {
-    setTimeout(() => { this.autoPlay() }, this.waitTime[this.panel])
+    if (this.ui.isAutoPresent) {
+      setTimeout(() => { this.autoPlay() }, this.waitTime[this.panel])
+    }
     //this.panel=4
-
   },
   methods: {
     autoPlay() {
@@ -116,10 +116,9 @@ export default {
 </script>
 
 <template>
-  <svgContainer>
-
+  <g>
     <g>
-      <backdrop  />
+      <SpaceBackground  />
 
       <animateTransform
         ref="adjustbackdrop"
@@ -136,12 +135,12 @@ export default {
       />
     </g>
 
-    <panel01 v-if="panel == 0" v-on:next="next" />
-    <panel02 v-if="panel == 1" v-on:pre="prev()" v-on:next="next" />
-    <panel03 v-if="panel == 2" v-on:pre="prev()" v-on:next="next" />
-    <panel04 v-if="panel == 3" v-on:pre="prev()" v-on:next="next" />
-    <panel05 v-if="panel == 4" v-on:pre="prev()" v-on:next="next" />
-    <panel06 v-if="panel == 5" v-on:pre="prev()" v-on:finish="finish" />
+    <AboutPanel01 v-if="panel == 0" v-on:next="next" />
+    <AboutPanel02 v-if="panel == 1" v-on:pre="prev()" v-on:next="next" />
+    <AboutPanel03 v-if="panel == 2" v-on:pre="prev()" v-on:next="next" />
+    <AboutPanel04 v-if="panel == 3" v-on:pre="prev()" v-on:next="next" />
+    <AboutPanel05 v-if="panel == 4" v-on:pre="prev()" v-on:next="next" />
+    <AboutPanel06 v-if="panel == 5" v-on:pre="prev()" v-on:finish="finish" />
 
     <g :transform="'translate(0 ' + (ui.top + 15) + ')'" v-if="ui.showText"  >
       <g transform="scale(1)">
@@ -234,7 +233,7 @@ export default {
             v-if="panel == 0"
             fill="#ff88ff"
             :width="40" :height="20"
-            @click="routing.switchScreen('splash')" text="Close"
+            @click="routing.switchScreen('title')" text="Close"
             transform="scale(1.5)" />
             />
         </g>
@@ -266,8 +265,7 @@ export default {
         :transform="'translate(' + ((n * 50) - ((panelCount + 1) * 25)) + ' 0) scale(1.25)'" />
 
     </g>
-
-  </svgContainer>
+  </g>
 </template>
 
 <style scoped>

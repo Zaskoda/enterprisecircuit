@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 
 export const useRouting = defineStore('routing', {
   state: () => ({
-    currentScreen: 'splash',
+    currentScreen: 'title',
   }),
   actions: {
     async switchScreen(newScreen:string) {

@@ -1,20 +1,20 @@
 <script setup lang="ts">
-import Configuration from './components/Configuration.vue'
 import Settings from './components/Settings.vue'
-import Splash from './components/01.Splash.vue'
-import About from './components/02.AboutOrbiter8.vue'
-import NetworkSelect from './components/03.NetworkSelect.vue'
-import Play from './components/04.Play.vue'
+import TitleScreen from './components/TitleScreen.vue'
+import AssetViewer from './components/AssetViewer.vue'
+import About from './components/About.vue'
+import NetworkSelect from './components/NetworkSelect.vue'
+import Play from './components/Play.vue'
 import { useRouting } from './stores/routing'
 const routing = useRouting()
 </script>
 
 <template>
-  <Splash v-if="routing.isScreen('splash')"/>
+  <TitleScreen v-if="routing.isScreen('title')"/>
   <About v-if="routing.isScreen('about')" />
   <Settings v-if="routing.isScreen('settings')"/>
   <NetworkSelect v-if="routing.isScreen('network')"/>
-  <Configuration v-if="routing.isScreen('configuration')"/>
+  <AssetViewer v-if="routing.isScreen('assets')" />
   <Play v-if="routing.isScreen('play')" />
 </template>
 
