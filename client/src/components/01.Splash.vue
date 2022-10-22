@@ -6,6 +6,7 @@ import logo from './assets/logo.svg.vue'
 import ship1 from './assets/shipO8.svg.vue'
 import ship2 from './assets/shipMB.svg.vue'
 import ship3 from './assets/shipPG.svg.vue'
+import ship4 from './assets/shipBB.svg.vue'
 import starfield from './assets/starfield.svg.vue'
 import portal from './assets/portal.svg.vue'
 
@@ -83,7 +84,7 @@ export default {
               />
             </g>
           </g>
-          <g transform="rotate(-35)">
+          <g transform="rotate(-20)">
             <g transform="translate(-40 40) rotate(45) scale(2)" opacity="1">
               <g>
                 <ship2 :showEngines="true" />
@@ -99,10 +100,26 @@ export default {
               </g>
             </g>
           </g>
-          <g transform="rotate(35)">
+          <g transform="rotate(20)">
             <g transform="translate(-40 40) rotate(45) scale(2)" opacity="1">
               <g>
                 <ship3 :showEngines="true" />
+
+                <animateTransform
+                  attributeName="transform"
+                  attributeType="XML"
+                  type="scale"
+                  values="0.90; 1; 0.90"
+                  dur="4s"
+                  repeatCount="indefinite"
+                />
+              </g>
+            </g>
+          </g>
+          <g transform="rotate(40)">
+            <g transform="translate(-40 40) rotate(45) scale(2)" opacity="1">
+              <g>
+                <ship4 :showEngines="true" />
 
                 <animateTransform
                   attributeName="transform"

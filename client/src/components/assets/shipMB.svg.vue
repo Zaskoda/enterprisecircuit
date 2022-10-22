@@ -26,12 +26,12 @@ export default {
 <g>
   <g :transform="'scale(' + size +  ')'">
     <defs v-if="showEngines">
-        <linearGradient id="engineGradient"
+        <linearGradient id="engineGradientmb"
         gradientTransform="rotate(90)"
         x1="0%" y1="0%" x2="100%" y2="0">
-            <stop offset="0%" stop-color="#ffaaff" stop-opacity="0.8"/>
-            <stop offset="3%" stop-color="#ff88ff" stop-opacity="0.1"/>
-            <stop offset="100%" stop-color="#ff00ff" stop-opacity="0"/>
+            <stop offset="0%" stop-color="#E1177C" stop-opacity="0.8"/>
+            <stop offset="3%" stop-color="#FFFFFF" stop-opacity="0.1"/>
+            <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
         </linearGradient>
     </defs>
     <g transform="scale(0.0025)">
@@ -44,21 +44,21 @@ export default {
             x="-700"
             y="950"
             width="550"
-            height="6000"
+            height="12000"
             ry="200"
             rx="200"
             stroke-width="0"
-            fill="url(#engineGradient)" />
+            fill="url(#engineGradientmb)" />
 
         <rect
             x="150"
             y="950"
             width="550"
-            height="6000"
+            height="12000"
             ry="200"
             rx="200"
             stroke-width="0"
-            fill="url(#engineGradient)" />
+            fill="url(#engineGradientmb)" />
       </g>
 
         <g

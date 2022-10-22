@@ -4,10 +4,10 @@ export const useTheme = defineStore('theme', {
   state: () => ({
     objects: {
       fill: '#ffffff',
-      fillOpacity: 0,
+      fillOpacity: 0.1,
       stroke: '#ffffff',
       strokeWidth: 100,
-      strokeOpacity: 1
+      strokeOpacity: 0.8
     }
   }),
   getters: {
