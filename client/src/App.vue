@@ -5,6 +5,7 @@ import AssetViewer from './components/AssetViewer.vue'
 import About from './components/About.vue'
 import NetworkSelect from './components/NetworkSelect.vue'
 import Play from './components/Play.vue'
+import FourShips from './components/FourShips.vue'
 import { useRouting } from './stores/routing'
 const routing = useRouting()
 </script>
@@ -14,6 +15,7 @@ const routing = useRouting()
   <About v-if="routing.isScreen('about')" />
   <Settings v-if="routing.isScreen('settings')"/>
   <NetworkSelect v-if="routing.isScreen('network')"/>
+  <FourShips v-if="routing.isScreen('four')"/>
   <AssetViewer v-if="routing.isScreen('assets')" />
   <Play v-if="routing.isScreen('play')" />
 </template>

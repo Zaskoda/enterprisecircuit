@@ -4,6 +4,7 @@ import backdrop from './sprites/SpaceBackground.svg.vue'
 import btn from './ui-primitives/button-basic.svg.vue'
 import LogoOrbiter8 from './sprites/LogoOrbiter8.svg.vue'
 import SpaceStation from './sprites/SpaceStation.svg.vue'
+import PlayerShip from './sprites/PlayerShip.svg.vue'
 import starfield from './assets/starfield.svg.vue'
 import LogoPartavate from './assets/LogoPartavate.svg.vue'
 
@@ -50,15 +51,130 @@ export default {
     <g transform="translate(0 0)">
       <g>
         <g>
-          <g transform="translate(-260 0) scale(1)" opacity="1">
+          <g transform="translate(-300 0) scale(1.25)" opacity="1">
             <g>
               <SpaceStation :size="30" />
+              <g transform="translate(30 0) scale(0.30) rotate(180)">
+                <PlayerShip :type="137" />
+              </g>
+              <g transform="translate(-30 0) scale(0.30)">
+                <PlayerShip :type="288" />
+              </g>
+              <g transform="translate(0 30) scale(0.35) rotate(270)">
+                <PlayerShip :type="1284" />
+              </g>
+              <g transform="translate(0 -30) scale(0.30) rotate(90)">
+                <PlayerShip :type="1" />
+              </g>
+
+              <g transform="translate(20 0)">
+                <g>
+                  <circle r="8" stroke="#ffffff" stroke-opacity="0.75" stroke-width="1" fill="none" stroke-dasharray="1 30" />
+                  <animateTransform
+                    attributeName="transform"
+                    attributeType="XML"
+                    type="rotate"
+                    values="0; 360"
+                    dur="10s"
+                    repeatCount="indefinite"
+                  />
+                </g>
+                <g>
+                  <circle r="10" stroke="#ffffff" stroke-opacity="0.75" stroke-width="1" fill="none" stroke-dasharray="1 20" />
+                  <animateTransform
+                    attributeName="transform"
+                    attributeType="XML"
+                    type="rotate"
+                    values="360; 0"
+                    dur="14s"
+                    repeatCount="indefinite"
+                  />
+                </g>
+              </g>
+
+              <g transform="translate(-20 0)">
+                <g>
+                  <circle r="8" stroke="#ffffff" stroke-opacity="0.75" stroke-width="1" fill="none" stroke-dasharray="1 30" />
+                  <animateTransform
+                    attributeName="transform"
+                    attributeType="XML"
+                    type="rotate"
+                    values="0; 360"
+                    dur="14s"
+                    repeatCount="indefinite"
+                  />
+                </g>
+                <g>
+                  <circle r="10" stroke="#ffffff" stroke-opacity="0.75" stroke-width="1" fill="none" stroke-dasharray="1 20" />
+                  <animateTransform
+                    attributeName="transform"
+                    attributeType="XML"
+                    type="rotate"
+                    values="360; 0"
+                    dur="10s"
+                    repeatCount="indefinite"
+                  />
+                </g>
+              </g>
+
+
+              <g transform="translate(0 20)">
+                <g>
+                  <circle r="8" stroke="#ffffff" stroke-opacity="0.75" stroke-width="1" fill="none" stroke-dasharray="1 30" />
+                  <animateTransform
+                    attributeName="transform"
+                    attributeType="XML"
+                    type="rotate"
+                    values="0; 360"
+                    dur="10s"
+                    repeatCount="indefinite"
+                  />
+                </g>
+                <g>
+                  <circle r="10" stroke="#ffffff" stroke-opacity="0.75" stroke-width="1" fill="none" stroke-dasharray="1 20" />
+                  <animateTransform
+                    attributeName="transform"
+                    attributeType="XML"
+                    type="rotate"
+                    values="360; 0"
+                    dur="14s"
+                    repeatCount="indefinite"
+                  />
+                </g>
+              </g>
+
+
+              <g transform="translate(0 -20)">
+                <g>
+                  <circle r="8" stroke="#ffffff" stroke-opacity="0.75" stroke-width="1" fill="none" stroke-dasharray="1 30" />
+                  <animateTransform
+                    attributeName="transform"
+                    attributeType="XML"
+                    type="rotate"
+                    values="0; 360"
+                    dur="14s"
+                    repeatCount="indefinite"
+                  />
+                </g>
+                <g>
+                  <circle r="10" stroke="#ffffff" stroke-opacity="0.75" stroke-width="1" fill="none" stroke-dasharray="1 20" />
+                  <animateTransform
+                    attributeName="transform"
+                    attributeType="XML"
+                    type="rotate"
+                    values="360; 0"
+                    dur="10s"
+                    repeatCount="indefinite"
+                  />
+                </g>
+              </g>
+
               <animateTransform
                 attributeName="transform"
                 attributeType="XML"
                 type="rotate"
                 values="0; 360"
-                dur="20s"
+                dur="30s"
                 repeatCount="indefinite"
               />
             </g>
@@ -114,6 +230,13 @@ export default {
           :width="120" :height="20"
           text="Asset Viewer"
            @click="routing.switchScreen('assets')"
+          transform="translate(0 -25)" />
+      </g>
+      <g  font-size="10px" transform="translate(0 160)">
+        <btn
+          :width="80" :height="15"
+          text="Ships"
+           @click="routing.switchScreen('four')"
           transform="translate(0 -25)" />
       </g>
     </g>

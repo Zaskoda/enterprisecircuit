@@ -49,7 +49,7 @@ export default {
           <ship-boba />
           <ship-boba-engine v-if="showEngines" />
         </g>
-        <g v-if="type == 1284">s
+        <g v-if="type == 1284">
           <ship-moonbeam />
           <ship-moonbeam-engine v-if="showEngines" />
         </g>
