@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { useUI } from '../../stores/ui'
-import portal from '../assets/portal.svg.vue'
-import starfield from '../assets/starfield.svg.vue'
+import portal from '../../assets/portal.svg.vue'
+import starfield from '../../assets/starfield.svg.vue'
 </script>
 
 <script lang="ts">

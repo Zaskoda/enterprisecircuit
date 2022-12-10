@@ -213,10 +213,15 @@ export default {
       </g>
       <g  font-size="18px" transform="translate(0 55)">
         <btn
-          :width="240" :height="36"
-          text="The Story"
-           @click="routing.switchScreen('about')"
-          transform="translate(0 -25)" />
+          :width="120" :height="36"
+          text="Story A"
+           @click="routing.switchScreen('storya')"
+          transform="translate(-65 -25)" />
+        <btn
+          :width="120" :height="36"
+          text="Story B"
+           @click="routing.switchScreen('storyb')"
+          transform="translate(65 -25)" />
       </g>
       <g  font-size="14px" transform="translate(0 100)">
         <btn

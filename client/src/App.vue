@@ -2,7 +2,8 @@
 import Settings from './components/Settings.vue'
 import TitleScreen from './components/TitleScreen.vue'
 import AssetViewer from './components/AssetViewer.vue'
-import About from './components/About.vue'
+import StoryA from './components/StoryA.vue'
+import StoryB from './components/StoryB.vue'
 import NetworkSelect from './components/NetworkSelect.vue'
 import Play from './components/Play.vue'
 import FourShips from './components/FourShips.vue'
@@ -12,7 +13,8 @@ const routing = useRouting()
 
 <template>
   <TitleScreen v-if="routing.isScreen('title')"/>
-  <About v-if="routing.isScreen('about')" />
+  <StoryA v-if="routing.isScreen('storya')" />
+  <StoryB v-if="routing.isScreen('storyb')" />
   <Settings v-if="routing.isScreen('settings')"/>
   <NetworkSelect v-if="routing.isScreen('network')"/>
   <FourShips v-if="routing.isScreen('four')"/>

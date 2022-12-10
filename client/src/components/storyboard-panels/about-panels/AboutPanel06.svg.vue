@@ -1,20 +1,18 @@
 <script setup lang="ts">
-import { useUI } from '../../stores/ui'
-import btn from '../ui-primitives/button-basic.svg.vue'
-import starfield from '../assets/starfield.svg.vue'
-import portal from '../assets/portal.svg.vue'
-import ship from '../assets/shipO8.svg.vue'
-import shipb from '../assets/shipBB.svg.vue'
-import shipm from '../assets/shipMB.svg.vue'
-import shipp from '../assets/shipPG.svg.vue'
-import moonbeam from '../assets/moonbeam.svg.vue'
-import boba from '../assets/boba.svg.vue'
-import ethereum from '../assets/ethereum.svg.vue'
+import { useUI } from '../../../stores/ui'
+import starfield from '../../assets/starfield.svg.vue'
+import portal from '../../assets/portal.svg.vue'
+import ship from '../../assets/shipO8.svg.vue'
+import shipb from '../../assets/shipBB.svg.vue'
+import shipm from '../../assets/shipMB.svg.vue'
+import shipp from '../../assets/shipPG.svg.vue'
+import moonbeam from '../../assets/moonbeam.svg.vue'
+import boba from '../../assets/boba.svg.vue'
+import ethereum from '../../assets/ethereum.svg.vue'
 </script>
 
 <script lang="ts">
 export default {
-  emits: ['prev', 'next', 'finish'],
   data() {
     return {
       ui: useUI()

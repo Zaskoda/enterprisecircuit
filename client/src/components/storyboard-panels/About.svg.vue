@@ -1,12 +1,13 @@
 <script setup lang="ts">
-import btn from '../ui-primitives/button-basic.svg.vue'
-import AboutPanel01 from './AboutPanel01.svg.vue'
-import AboutPanel02 from './AboutPanel02.svg.vue'
-import AboutPanel03 from './AboutPanel03.svg.vue'
-import AboutPanel04 from './AboutPanel04.svg.vue'
-import AboutPanel05 from './AboutPanel05.svg.vue'
-import AboutPanel06 from './AboutPanel06.svg.vue'
-import minerva from '../assets/minervaBox.svg.vue'
+import panelNavigation from './panelNavigation.svg.vue'
+import panelDialogue from './panelDialogue.svg.vue'
+
+import AboutPanel01 from './about-panels/AboutPanel01.svg.vue'
+import AboutPanel02 from './about-panels/AboutPanel02.svg.vue'
+import AboutPanel03 from './about-panels/AboutPanel03.svg.vue'
+import AboutPanel04 from './about-panels/AboutPanel04.svg.vue'
+import AboutPanel05 from './about-panels/AboutPanel05.svg.vue'
+import AboutPanel06 from './about-panels/AboutPanel06.svg.vue'
 import SpaceBackground from '../sprites/SpaceBackground.svg.vue'
 
 
@@ -22,6 +23,7 @@ export default {
       panel: 0,
       panelCount: 6,
       routing: useRouting(),
+      //why not just in the panel itself?
       words: [
         [
           'By the year 2140,',
@@ -54,13 +56,13 @@ export default {
           'into a multiverse.',
         ],
       ],
-      scale: [
+      backgroundScale: [
         2,
         1.5,
         4,
         2,
-        0.5,
-        1
+        1.5,
+        0.75
       ],
       waitTime: [
         3000,
@@ -77,7 +79,12 @@ export default {
     if (this.ui.isAutoPresent) {
       setTimeout(() => { this.autoPlay() }, this.waitTime[this.panel])
     }
-    //this.panel=4
+  },
+  watch: {
+    panel(newPanel, oldPanel) {
+      this.lastScale = this.backgroundScale[oldPanel]
+      this.$refs.adjustbackdrop.beginElement()
+    }
   },
   methods: {
     autoPlay() {
@@ -89,28 +96,13 @@ export default {
         }
       },  this.waitTime[this.panel])
     },
-    next() {
-      this.lastScale = this.scale[this.panel]
-      this.panel = (this.panel + 1) % this.panelCount
-      this.$refs.adjustbackdrop.beginElement()
-    },
-    prev() {
-      this.lastScale = this.scale[this.panel]
-      if (this.panel > 0) {
-        this.panel --
-      }
-      this.$refs.adjustbackdrop.beginElement()
-    },
-    switchTo(n:number) {
-      this.lastScale = this.scale[this.panel]
-      if ((n >= 0) && (n < this.panelCount)) {
-        this.panel = n
-      }
-      this.$refs.adjustbackdrop.beginElement()
-    },
     finish() {
       this.routing.switchScreen('network')
+    },
+    close() {
+      this.routing.switchScreen('title')
     }
+
   }
 }
 </script>
@@ -127,7 +119,7 @@ export default {
         type="scale"
         dur="2s"
         :from="lastScale"
-        :to="scale[panel]"
+        :to="backgroundScale[panel]"
         calcMode="linear"
         restart="always"
         fill="freeze"
@@ -135,136 +127,20 @@ export default {
       />
     </g>
 
-    <AboutPanel01 v-if="panel == 0" v-on:next="next" />
-    <AboutPanel02 v-if="panel == 1" v-on:pre="prev()" v-on:next="next" />
-    <AboutPanel03 v-if="panel == 2" v-on:pre="prev()" v-on:next="next" />
-    <AboutPanel04 v-if="panel == 3" v-on:pre="prev()" v-on:next="next" />
-    <AboutPanel05 v-if="panel == 4" v-on:pre="prev()" v-on:next="next" />
-    <AboutPanel06 v-if="panel == 5" v-on:pre="prev()" v-on:finish="finish" />
+    <AboutPanel01 v-if="panel == 0"  />
+    <AboutPanel02 v-if="panel == 1"  />
+    <AboutPanel03 v-if="panel == 2"  />
+    <AboutPanel04 v-if="panel == 3"  />
+    <AboutPanel05 v-if="panel == 4"  />
+    <AboutPanel06 v-if="panel == 5"  />
 
-    <g :transform="'translate(0 ' + (ui.top + 15) + ')'" v-if="ui.showText"  >
-      <g transform="scale(1)">
-        <g fill="#000000"
-          fill-opacity="0.25"
-          stroke="#ffffff"
-          stroke-width="0.5"
-          stroke-opacity="0.25">
-          <rect
-            v-if="ui.portrait"
-            x="-290"
-            y="0"
-            width="590"
-            height="170"
-            rx="20"
-            ry="20"
-          />
-          <rect
-            v-else
-            x="-390"
-            y="0"
-            width="790"
-            height="115"
-            rx="20"
-            ry="20"
-          />
-        </g>
+    <panelDialogue :words="words[panel]" />
 
-        <g v-if="ui.portrait" transform="translate(-250 45)">
-          <minerva transform="translate(0 0) scale(0.5)" />
-        </g>
-        <g v-else transform="translate(-350 45)">
-          <minerva transform="translate(0 0) scale(0.5)" />
-        </g>
-
-        <g v-if="ui.portrait" transform="translate(-170 0)" text-anchor="start">
-          <text
-            font-size="40px"
-            transform="translate(0 35)"
-          >{{ words[panel][0] }}
-          </text>
-          <text
-            font-size="30px"
-            transform="translate(0 85)"
-          >{{ words[panel][1] }}
-          </text>
-          <text
-            font-size="30px"
-            transform="translate(0 135)"
-          >{{ words[panel][2] }}
-          </text>
-        </g>
-        <g v-else transform="translate(-275 0)" text-anchor="start">
-          <text
-            font-size="35px"
-            transform="translate(0 35)"
-          >{{ words[panel][0] }}
-          </text>
-          <text
-            font-size="25px"
-            transform="translate(0 85)"
-          >{{ words[panel][1] }} {{ words[panel][2] }}
-          </text>
-        </g>
-      </g>
-    </g>
-
-
-    <g :transform="'translate(0 ' + (ui.bottom - 50) + ')'" v-if="!ui.isAutoPresent">
-      <rect
-        :x="ui.left"
-        y="-50"
-        :width="ui.right - ui.left"
-        height="100"
-        fill="#000000"
-        fill-opacity="0.2"
-        />
-      <g font-size="10px">
-        <g fill-opacity="0.5"
-          :transform="'translate(' + ((panelCount + 3) * -25) + ' 0)'"
-        >
-          <btn
-            v-if="panel > 0"
-            fill="#ffff88"
-            :width="20" :height="20"
-            @click="prev" text="&larr;"
-            transform="scale(1.75)" />
-            />
-          <btn
-            v-if="panel == 0"
-            fill="#ff88ff"
-            :width="40" :height="20"
-            @click="routing.switchScreen('title')" text="Close"
-            transform="scale(1.5)" />
-            />
-        </g>
-        <g fill-opacity="0.75" fill="#ffff88"
-          :transform="'translate(' + ((panelCount + 3) * 25) + ' 0)'">
-          <btn
-            :width="60" :height="20"
-            @click="next" text="next &rarr;"
-            v-if="panel != (panelCount-1)"
-            transform="scale(1.75)" />
-          <btn
-            :width="60" :height="20"
-            @click="finish" text="Try It"
-            v-else
-            transform="scale(2)" />
-        </g>
-      </g>
-
-      <btn
-        v-for="n in panelCount"
-        v-bind:key="n"
-        font-size="12px"
-        fill="#ffffff"
-        :width="30"
-        :height="20"
-        :text="(n).toString()"
-        :selected="n <= panel + 1"
-        @click="switchTo(n - 1)"
-        :transform="'translate(' + ((n * 50) - ((panelCount + 1) * 25)) + ' 0) scale(1.25)'" />
-
-    </g>
+    <panelNavigation
+      :panel-count="panelCount"
+      @panel="(p) => panel = p"
+      @finish="finish()"
+      @close="close()" />
   </g>
 </template>
 

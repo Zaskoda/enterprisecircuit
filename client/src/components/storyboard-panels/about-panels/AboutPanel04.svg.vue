@@ -1,12 +1,11 @@
 <script setup lang="ts">
-import { useUI } from '../../stores/ui'
-import planets from '../assets/planets/_planets.svg.vue'
-import starfield from '../assets/starfield.svg.vue'
+import { useUI } from '../../../stores/ui'
+import planets from '../../assets/planets/_planets.svg.vue'
+import starfield from '../../assets/starfield.svg.vue'
 </script>
 
 <script lang="ts">
 export default {
-  emits: ['prev', 'next'],
   data() {
     return {
       ui: useUI(),
