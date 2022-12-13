@@ -10,6 +10,7 @@ import AboutPanel05 from './about-panels/AboutPanel05.svg.vue'
 import AboutPanel06 from './about-panels/AboutPanel06.svg.vue'
 import SpaceBackground from '../sprites/SpaceBackground.svg.vue'
 
+import { useAutoPlay } from './autoPlay'
 
 import { useUI } from '../../stores/ui'
 import { useRouting } from '../../stores/routing'
@@ -77,25 +78,21 @@ export default {
   },
   mounted() {
     if (this.ui.isAutoPresent) {
-      setTimeout(() => { this.autoPlay() }, this.waitTime[this.panel])
+      console.log(JSON.stringify(this.waitTime))
+      this.panel = useAutoPlay(this.waitTime)
     }
   },
   watch: {
     panel(newPanel, oldPanel) {
-      this.lastScale = this.backgroundScale[oldPanel]
-      this.$refs.adjustbackdrop.beginElement()
+      if (newPanel >= this.panelCount) {
+        this.finish()
+      } else {
+        this.lastScale = this.backgroundScale[oldPanel]
+        this.$refs.adjustbackdrop.beginElement()
+      }
     }
   },
   methods: {
-    autoPlay() {
-      setTimeout(() => {
-        console.log('autonexting')
-        if ((this.panel + 1)  < this.panelCount) {
-          this.next()
-          this.autoPlay()
-        }
-      },  this.waitTime[this.panel])
-    },
     finish() {
       this.routing.switchScreen('network')
     },

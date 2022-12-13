@@ -193,7 +193,7 @@ export default {
     </g>
 
 
-    <g :transform="'translate(0 90)'" v-if="!ui.isAutoPresent">
+    <g :transform="'translate(0 90)'">
       <g>
         <rect
           :x="ui.left"
@@ -214,12 +214,12 @@ export default {
       <g  font-size="18px" transform="translate(0 55)">
         <btn
           :width="120" :height="36"
-          text="Story A"
+          text="Portal"
            @click="routing.switchScreen('storya')"
           transform="translate(-65 -25)" />
         <btn
           :width="120" :height="36"
-          text="Story B"
+          text="Prezie"
            @click="routing.switchScreen('storyb')"
           transform="translate(65 -25)" />
       </g>

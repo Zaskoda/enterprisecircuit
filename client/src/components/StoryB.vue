@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import svgContainer from './layouts/svgContainer.vue'
-import About from './storyboard-panels/About.svg.vue'
+import About from './storyboard-panels/Prezie.svg.vue'
 
 
 </script>
@@ -14,7 +14,7 @@ export default {
   <svgContainer>
 
     <g>
-      <About />
+      <Prezie />
     </g>
 
   </svgContainer>
