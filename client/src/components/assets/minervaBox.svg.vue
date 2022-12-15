@@ -2,6 +2,18 @@
 import minerva from './minerva.svg.vue'
 </script>
 
+<script lang="ts">
+export default {
+  data() {
+    return {
+      state: '',
+      xOffset: 0,
+      heightPercent: 1
+    }
+  }
+}
+</script>
+
 <template>
 <g>
   <rect
@@ -17,6 +29,12 @@ import minerva from './minerva.svg.vue'
     rx="10"
     ry="10"
   />
+
+  <g fill-opacity="0.75">
+    <ellipse rx="4" :ry="4 * heightPercent" :cx="-28 + xOffset" cy="-2"  />
+    <ellipse rx="4" :ry="4 * heightPercent" :cx="28 + xOffset" cy="-2"  />
+  </g>
+
   <minerva />
 </g>
 </template>

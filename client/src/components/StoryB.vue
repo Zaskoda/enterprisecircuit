@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import svgContainer from './layouts/svgContainer.vue'
-import About from './storyboard-panels/Prezie.svg.vue'
+import Prezie from './storyboard-panels/Prezie.svg.vue'
 
 
 </script>

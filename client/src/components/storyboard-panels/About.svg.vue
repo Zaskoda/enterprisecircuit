@@ -10,7 +10,7 @@ import AboutPanel05 from './about-panels/AboutPanel05.svg.vue'
 import AboutPanel06 from './about-panels/AboutPanel06.svg.vue'
 import SpaceBackground from '../sprites/SpaceBackground.svg.vue'
 
-import { useAutoPlay } from './autoPlay'
+import { useAutoPlay } from './composables/autoPlay'
 
 import { useUI } from '../../stores/ui'
 import { useRouting } from '../../stores/routing'
@@ -78,7 +78,6 @@ export default {
   },
   mounted() {
     if (this.ui.isAutoPresent) {
-      console.log(JSON.stringify(this.waitTime))
       this.panel = useAutoPlay(this.waitTime)
     }
   },

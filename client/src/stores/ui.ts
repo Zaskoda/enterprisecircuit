@@ -3,7 +3,7 @@ import { defineStore } from 'pinia'
 export const useUI = defineStore('ui', {
   state: () => ({
     //overall scaling
-    isAutoPresent: true,
+    isAutoPresent: false,
     showText: true,
     scale: 1,
     maxScale: 4,
