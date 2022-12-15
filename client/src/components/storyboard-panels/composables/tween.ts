@@ -4,13 +4,16 @@ import { storeToRefs } from 'pinia'
 
 import { useClock } from '../../../stores/clock'
 
+// add these
+// https://9to5answer.com/ease-in-and-ease-out-animation-formula
+
 export function useTween(
   fromValue:number=0,
   toValue:number=1,
-  duration:number=50,
+  duration:number=2000,
   easing:number=0,
   loop:boolean=false,
-  pingpong:boolean = true
+  pingpong:boolean=true
 ):number {
 
   const clock = useClock()
@@ -19,13 +22,8 @@ export function useTween(
     return clock.gameTime
   })
 
-  function alter() {
-    return 'time: ' + gameTime.value
-  }
 
   const currentValue = ref(0)
-
-  console.log('the time is ', gameTime.value)
 
   function percentage() {
     if (duration <=0) return 1
@@ -35,28 +33,21 @@ export function useTween(
     if (loop) {
       percentage = percentage % 1
     } else if (pingpong) {
-      if (Math.floor(percentage) % 2 == 0) {
-        //even
+      if (Math.floor(percentage) % 2 == 0) { //even
         percentage = percentage % 1
-      } else {
-        //odd
+      } else { //odd
         percentage = (1 - percentage % 1)
       }
     } else {
       percentage = Math.min(1, percentage)
     }
-    return percentage.toFixed(3)
+    return percentage
   }
 
   watchEffect(() => {
-    console.log('percent ' + percentage())
     const progress = (toValue - fromValue) * percentage()
-    console.log('Progress', progress)
     const value = fromValue + progress
-    console.log(value)
-    currentValue.value = value
-
-//   currentValue.value = alter()
+    currentValue.value = value.toFixed(3)
   })
 
   return currentValue

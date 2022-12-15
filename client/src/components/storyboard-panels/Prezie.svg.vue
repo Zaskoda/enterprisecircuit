@@ -33,9 +33,6 @@ export default {
       ],
     }
   },
-  mounted() {
-    this.clock.play()
-  },
   watch: {
     panel(newPanel, oldPanel) {
       this.lastScale = this.backgroundScale[oldPanel]
@@ -43,7 +40,7 @@ export default {
     },
   },
   computed: {
-    ...mapState(useClock, ['gameTime'])
+    ...mapState(useClock, ['gameTime', 'gameTimeInSeconds'])
   },
   methods: {
     pauseClock() {
@@ -60,7 +57,7 @@ export default {
   <g>
     <g>
       <SpaceBackground  />
-      <text font-size="50">{{ testtween }} | {{ gameTime }}</text>
+      <text font-size="50">{{ testtween }} | {{ gameTimeInSeconds }}</text>
     </g>
 
 
@@ -71,7 +68,8 @@ export default {
         :height="20"
         text="Play"
         @click="playClock()"
-        transform="translate(-50 100)" />
+        transform="translate(0 100)"
+        v-if="!clock.isRunning" />
     <btn
         font-size="12px"
         fill="#ffffff"
@@ -79,7 +77,8 @@ export default {
         :height="20"
         text="Pause"
         @click="pauseClock()"
-        transform="translate(50 100)" />
+        transform="translate(0 100)"
+        v-else />
 
 
     <panelDialogue :words="words[panel]" />

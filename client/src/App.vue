@@ -8,7 +8,10 @@ import NetworkSelect from './components/NetworkSelect.vue'
 import Play from './components/Play.vue'
 import FourShips from './components/FourShips.vue'
 import { useRouting } from './stores/routing'
+import { useClock } from './stores/clock'
 const routing = useRouting()
+const clock = useClock()
+clock.play()
 </script>
 
 <template>
