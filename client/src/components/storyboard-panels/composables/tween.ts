@@ -13,7 +13,7 @@ export function useTween(
   duration:number=2000,
   easing:number=0,
   loop:boolean=false,
-  pingpong:boolean=true
+  pingpong:boolean=false
 ):number {
 
   const clock = useClock()

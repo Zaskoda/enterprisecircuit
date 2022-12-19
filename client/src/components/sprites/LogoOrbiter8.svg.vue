@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import LogoOrbiter8 from '../geometry/LogoOrbiter8.svg.vue'
+import LogoOrbiter8 from '../assets/geometry/LogoOrbiter8.svg.vue'
 </script>
 
 <template>

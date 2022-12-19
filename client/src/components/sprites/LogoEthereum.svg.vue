@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import LogoEthereum from '../geometry/LogoEthereum.svg.vue'
+import LogoEthereum from '../assets/geometry/LogoEthereum.svg.vue'
 </script>
 
 <template>

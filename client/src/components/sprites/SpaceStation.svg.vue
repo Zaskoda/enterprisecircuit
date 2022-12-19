@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import SpaceStation from '../geometry/SpaceStation.svg.vue'
+import SpaceStation from '../assets/geometry/SpaceStation.svg.vue'
 </script>
 
 <script lang="ts">

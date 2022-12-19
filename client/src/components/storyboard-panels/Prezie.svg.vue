@@ -10,7 +10,6 @@ import { useTween } from './composables/tween'
 import { useUI } from '../../stores/ui'
 import { useRouting } from '../../stores/routing'
 import { useClock } from '../../stores/clock'
-
 </script>
 
 <script lang="ts">
@@ -19,7 +18,7 @@ export default {
     return {
       ui: useUI(),
       clock: useClock(),
-      testtween: useTween(),
+      testtween: useTween(-100, 100, 10000, 0, false, true),
       panel: 0,
       panelCount: 2,
       routing: useRouting(),
