@@ -1,25 +1,25 @@
 <script setup lang="ts">
 import svgContainer from './layouts/svgContainer.vue'
-import backdrop from './sprites/SpaceBackground.svg.vue'
+import backdrop from './assets/sprites/SpaceBackground.svg.vue'
 import btn from './ui-primitives/button-basic.svg.vue'
 
-import PlayerShip from './sprites/PlayerShip.svg.vue'
+import PlayerShip from './assets/sprites/PlayerShip.svg.vue'
 
-import LogoOrbiter8 from './sprites/LogoOrbiter8.svg.vue'
-import LogoPartavate from './sprites/LogoPartavate.svg.vue'
-import LogoEthereum from './sprites/LogoEthereum.svg.vue'
-import LogoBoba from './sprites/LogoBoba.svg.vue'
-import LogoMoonbeam from './sprites/LogoMoonbeam.svg.vue'
-import LogoPolygon from './sprites/LogoPolygon.svg.vue'
+import LogoOrbiter8 from './assets/sprites/LogoOrbiter8.svg.vue'
+import LogoPartavate from './assets/sprites/LogoPartavate.svg.vue'
+import LogoEthereum from './assets/sprites/LogoEthereum.svg.vue'
+import LogoBoba from './assets/sprites/LogoBoba.svg.vue'
+import LogoMoonbeam from './assets/sprites/LogoMoonbeam.svg.vue'
+import LogoPolygon from './assets/sprites/LogoPolygon.svg.vue'
 
-import Planet from './sprites/Planet.svg.vue'
-import Moon from './sprites/Moon.svg.vue'
-import Star from './sprites/Star.svg.vue'
-import SpaceStation from './sprites/SpaceStation.svg.vue'
+import Planet from './assets/sprites/Planet.svg.vue'
+import Moon from './assets/sprites/Moon.svg.vue'
+import Star from './assets/sprites/Star.svg.vue'
+import SpaceStation from './assets/sprites/SpaceStation.svg.vue'
 
-import MinervaScreen from './sprites/MinervaScreen.svg.vue'
+import MinervaScreen from './assets/sprites/MinervaScreen.svg.vue'
 
-import Portal from './sprites/Portal.svg.vue'
+import Portal from './assets/sprites/Portal.svg.vue'
 
 import { useUI } from '../stores/ui'
 import { useRouting } from '../stores/routing'

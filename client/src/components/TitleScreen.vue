@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import svgContainer from './layouts/svgContainer.vue'
-import backdrop from './sprites/SpaceBackground.svg.vue'
+import backdrop from './assets/sprites/SpaceBackground.svg.vue'
 import btn from './ui-primitives/button-basic.svg.vue'
-import LogoOrbiter8 from './sprites/LogoOrbiter8.svg.vue'
-import SpaceStation from './sprites/SpaceStation.svg.vue'
-import PlayerShip from './sprites/PlayerShip.svg.vue'
+import LogoOrbiter8 from './assets/sprites/LogoOrbiter8.svg.vue'
+import SpaceStation from './assets/sprites/SpaceStation.svg.vue'
+import PlayerShip from './assets/sprites/PlayerShip.svg.vue'
 import starfield from './assets/starfield.svg.vue'
 import LogoPartavate from './assets/LogoPartavate.svg.vue'
 

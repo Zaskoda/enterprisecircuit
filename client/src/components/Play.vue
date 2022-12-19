@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import svgContainer from './layouts/svgContainer.vue'
-import LogoOrbiter8 from './sprites/LogoOrbiter8.svg.vue'
+import LogoOrbiter8 from './assets/sprites/LogoOrbiter8.svg.vue'
 import btn from './ui-primitives/button-basic.svg.vue'
 import web3Containment from './containment/web3Containment.vue'
-import SpaceBackground from './sprites/SpaceBackground.svg.vue'
+import SpaceBackground from './assets/sprites/SpaceBackground.svg.vue'
 
 import { useUI } from '../stores/ui'
 import { useRouting } from '../stores/routing'

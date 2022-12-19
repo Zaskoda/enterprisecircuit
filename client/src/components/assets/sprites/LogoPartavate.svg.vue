@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import LogoPartavate from '../assets/geometry/LogoPartavate.svg.vue'
+import LogoPartavate from '../geometry/LogoPartavate.svg.vue'
 </script>
 
 <template>

@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { useTheme } from '../../stores/theme'
-import ShipBoba from '../assets/geometry/ShipBoba.svg.vue'
-import ShipBobaEngine from '../assets/geometry/ShipBobaEngine.svg.vue'
-import ShipMoonbeam from '../assets/geometry/ShipMoonbeam.svg.vue'
-import ShipMoonbeamEngine from '../assets/geometry/ShipMoonbeamEngine.svg.vue'
-import ShipOrbiter8 from '../assets/geometry/ShipOrbiter8.svg.vue'
-import ShipOrbiter8Engine from '../assets/geometry/ShipOrbiter8Engine.svg.vue'
-import ShipPolygon from '../assets/geometry/ShipPolygon.svg.vue'
-import ShipPolygonEngine from '../assets/geometry/ShipPolygonEngine.svg.vue'
+import { useTheme } from '../../../stores/theme'
+import ShipBoba from '../geometry/ShipBoba.svg.vue'
+import ShipBobaEngine from '../geometry/ShipBobaEngine.svg.vue'
+import ShipMoonbeam from '../geometry/ShipMoonbeam.svg.vue'
+import ShipMoonbeamEngine from '../geometry/ShipMoonbeamEngine.svg.vue'
+import ShipOrbiter8 from '../geometry/ShipOrbiter8.svg.vue'
+import ShipOrbiter8Engine from '../geometry/ShipOrbiter8Engine.svg.vue'
+import ShipPolygon from '../geometry/ShipPolygon.svg.vue'
+import ShipPolygonEngine from '../geometry/ShipPolygonEngine.svg.vue'
 </script>
 
 <script lang="ts">

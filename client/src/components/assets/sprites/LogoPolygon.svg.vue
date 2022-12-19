@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import LogoPolygon from '../assets/geometry/LogoPolygon.svg.vue'
+import LogoPolygon from '../geometry/LogoPolygon.svg.vue'
 </script>
 
 <template>

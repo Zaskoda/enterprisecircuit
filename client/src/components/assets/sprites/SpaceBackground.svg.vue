@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import SpaceBackground from '../assets/geometry/SpaceBackground.svg.vue'
+import SpaceBackground from '../geometry/SpaceBackground.svg.vue'
 </script>
 
 <script lang="ts">

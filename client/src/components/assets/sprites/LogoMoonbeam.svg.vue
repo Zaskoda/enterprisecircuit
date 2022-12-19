@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import LogoMoonbeam from '../assets/geometry/LogoMoonbeam.svg.vue'
+import LogoMoonbeam from '../geometry/LogoMoonbeam.svg.vue'
 </script>
 
 <template>

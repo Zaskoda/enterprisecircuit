@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import minerva from '../assets/geometry/Minerva.svg.vue'
+import minerva from '../geometry/Minerva.svg.vue'
 </script>
 
 <template>

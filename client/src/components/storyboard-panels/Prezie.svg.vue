@@ -4,7 +4,7 @@ import panelNavigation from './panelNavigation.svg.vue'
 import panelDialogue from './panelDialogue.svg.vue'
 import btn from '../ui-primitives/button-basic.svg.vue'
 
-import SpaceBackground from '../sprites/SpaceBackground.svg.vue'
+import SpaceBackground from '../assets/sprites/SpaceBackground.svg.vue'
 
 import { useTween } from './composables/tween'
 import { useUI } from '../../stores/ui'

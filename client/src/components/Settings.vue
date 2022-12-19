@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import svgContainer from './layouts/svgContainer.vue'
 import btn from './ui-primitives/button-basic.svg.vue'
-import SpaceBackground from './sprites/SpaceBackground.svg.vue'
+import SpaceBackground from './assets/sprites/SpaceBackground.svg.vue'
 
 
-import LogoOrbiter8 from './sprites/LogoOrbiter8.svg.vue'
-import LogoPartavate from './sprites/LogoPartavate.svg.vue'
+import LogoOrbiter8 from './assets/sprites/LogoOrbiter8.svg.vue'
+import LogoPartavate from './assets/sprites/LogoPartavate.svg.vue'
 
-import MinervaScreen from './sprites/MinervaScreen.svg.vue'
+import MinervaScreen from './assets/sprites/MinervaScreen.svg.vue'
 
 import { useUI } from '../stores/ui'
 import { useRouting } from '../stores/routing'

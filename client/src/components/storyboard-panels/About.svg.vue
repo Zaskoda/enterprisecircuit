@@ -8,7 +8,7 @@ import AboutPanel03 from './about-panels/AboutPanel03.svg.vue'
 import AboutPanel04 from './about-panels/AboutPanel04.svg.vue'
 import AboutPanel05 from './about-panels/AboutPanel05.svg.vue'
 import AboutPanel06 from './about-panels/AboutPanel06.svg.vue'
-import SpaceBackground from '../sprites/SpaceBackground.svg.vue'
+import SpaceBackground from '../assets/sprites/SpaceBackground.svg.vue'
 
 import { useAutoPlay } from './composables/autoPlay'
 

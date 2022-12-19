@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import svgContainer from './layouts/svgContainer.vue'
-import SpaceBackground from './sprites/SpaceBackground.svg.vue'
+import SpaceBackground from './assets/sprites/SpaceBackground.svg.vue'
 import btn from './ui-primitives/button-basic.svg.vue'
-import PlayerShip from './sprites/PlayerShip.svg.vue'
-import LogoMoonbeam from './sprites/LogoMoonbeam.svg.vue'
-import LogoPolygon from './sprites/LogoPolygon.svg.vue'
-import LogoBoba from './sprites/LogoBoba.svg.vue'
-import LogoEthereum from './sprites/LogoEthereum.svg.vue'
+import PlayerShip from './assets/sprites/PlayerShip.svg.vue'
+import LogoMoonbeam from './assets/sprites/LogoMoonbeam.svg.vue'
+import LogoPolygon from './assets/sprites/LogoPolygon.svg.vue'
+import LogoBoba from './assets/sprites/LogoBoba.svg.vue'
+import LogoEthereum from './assets/sprites/LogoEthereum.svg.vue'
 
 import { useUI } from '../stores/ui'
 import { useRouting } from '../stores/routing'
