@@ -1,9 +1,12 @@
 <script setup lang="ts">
 import svgContainer from './layouts/svgContainer.vue'
-import logo from './assets/logo.svg.vue'
+import LogoOrbiter8 from './assets/sprites/LogoOrbiter8.svg.vue'
 import btn from './ui-primitives/button-basic.svg.vue'
 import web3Containment from './containment/web3Containment.vue'
+import SpaceBackground from './assets/sprites/SpaceBackground.svg.vue'
+
 import { useUI } from '../stores/ui'
+import { useRouting } from '../stores/routing'
 import { useAvatar } from '../stores/avatar'
 </script>
 
@@ -12,7 +15,8 @@ export default {
   data() {
     return {
       ui: useUI(),
-      avatar: useAvatar()
+      avatar: useAvatar(),
+      routing: useRouting(),
     }
   },
   methods: {
@@ -30,38 +34,57 @@ export default {
 
 <template>
 <svgContainer>
+  <SpaceBackground  />
   <web3Containment>
 
     <g :transform="'translate(0 ' + (ui.top + 80) + ')'">
-      <g transform="scale(0.5)">
-      <logo />
+      <g transform="scale(0.25)">
+      <LogoOrbiter8 />
       </g>
-      <line :x1="ui.left + 50" :x2="ui.right-50" y1="60" y2="60" stroke="#ffffff44" stroke-width="4" />
-    </g>
-    <g transform="translate(0 -300)">
-      <text fill="#888">Avatar Count: <tspan fill="#ffffff" font-weight="bold">{{ avatar.chainstate.avatarCount }}</tspan></text>
+      <g transform="translate(0 100)">
+        <text fill="#888">Avatar Count: <tspan fill="#ffffff" font-weight="bold">{{ avatar.chainstate.avatarCount }}</tspan></text>
+      </g>
     </g>
 
     <g v-if="!avatar.connected">
-      <btn :width="210" :height="50" @click="init()" font-size="1em" :text="'Connect'"  />
+      <btn :width="210" :height="50" @click="init()" font-size="20" :text="'Load Data'"  />
     </g>
     <g v-else>
-      <g v-if="!avatar.chainstate.haveAvatar">
-        <btn :width="210" :height="50" @click="createAvatar()" font-size="1em" :text="'Create Avatar'"  />
-      </g>
-      <g v-else>
-        <g transform="translate(0 -230)">
-          <text>My Avatar Name: {{ avatar.chainstate.myAvatarName }}</text>
+      <btn :width="210" :height="50" @click="init()" font-size="20" :text="'Reload Data'"  />
+      <g transform="translate(0 100)">
+        <g v-if="!avatar.chainstate.haveAvatar">
+          <g transform="translate(0 -30)">
+            <text>You have no avatar.</text>
+          </g>
+          <btn :width="140" :height="24" @click="createAvatar()" font-size="14" :text="'Create Avatar'"  />
         </g>
-        <g transform="translate(0 -210)">
-          <text>My Avatar Id: {{ avatar.chainstate.myAvatarId }}</text>
+        <g v-else>
+          <g transform="translate(0 -30)">
+            <text>My Avatar Name: {{ avatar.chainstate.myAvatarName }}</text>
+          </g>
+          <g transform="translate(0 0)">
+            <text>My Avatar Id: {{ avatar.chainstate.myAvatarId }}</text>
+          </g>
         </g>
       </g>
-      <btn :width="210" :height="50" @click="init()" font-size="1em" :text="'reConnect'"  />
     </g>
 
-
   </web3Containment>
+
+  <g  font-size="12px" :transform="'translate(0 ' + (ui.bottom - 70) + ')'">
+        <btn
+          :width="120" :height="20"
+          text="network"
+           @click="routing.switchScreen('network')"
+           />
+      </g>
+  <g  font-size="12px" :transform="'translate(0 ' + (ui.bottom - 40) + ')'">
+        <btn
+          :width="120" :height="20"
+          text="close"
+           @click="routing.switchScreen('title')"
+           />
+      </g>
 </svgContainer>
 </template>
 

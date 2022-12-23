@@ -1,18 +1,29 @@
 <script setup lang="ts">
-import Configuration from './components/Configuration.vue'
-import NetworkSelect from './components/NetworkSelect.vue'
 import Settings from './components/Settings.vue'
-import Splash from './components/Splash.vue'
+import TitleScreen from './components/TitleScreen.vue'
+import AssetViewer from './components/AssetViewer.vue'
+import StoryA from './components/StoryA.vue'
+import StoryB from './components/StoryB.vue'
+import NetworkSelect from './components/NetworkSelect.vue'
 import Play from './components/Play.vue'
+import FourShips from './components/FourShips.vue'
 import { useRouting } from './stores/routing'
+import { useClock } from './stores/clock'
+
 const routing = useRouting()
+const clock = useClock()
+clock.play()
+
 </script>
 
 <template>
-  <Splash v-if="routing.isScreen('splash')"/>
+  <TitleScreen v-if="routing.isScreen('title')"/>
+  <StoryA v-if="routing.isScreen('storya')" />
+  <StoryB v-if="routing.isScreen('storyb')" />
   <Settings v-if="routing.isScreen('settings')"/>
   <NetworkSelect v-if="routing.isScreen('network')"/>
-  <Configuration v-if="routing.isScreen('configuration')"/>
+  <FourShips v-if="routing.isScreen('four')"/>
+  <AssetViewer v-if="routing.isScreen('assets')" />
   <Play v-if="routing.isScreen('play')" />
 </template>
 

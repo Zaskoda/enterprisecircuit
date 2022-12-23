@@ -1,6 +1,6 @@
 # Enterprise Circuit Reference Cleint
 
-A Vue.js implementation of a client interface to the Enterprise Cricuit project.
+An Enterprise Circuit client implemented in Vue 3.
 
 ## Recommended IDE Setup
 
