@@ -219,7 +219,7 @@ export default {
           transform="translate(-65 -25)" />
         <btn
           :width="120" :height="36"
-          text="Prezie"
+          text="Tween"
            @click="routing.switchScreen('storyb')"
           transform="translate(65 -25)" />
       </g>

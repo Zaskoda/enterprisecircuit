@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import svgContainer from './layouts/svgContainer.vue'
-import Prezie from './storyboard-panels/Prezie.svg.vue'
+import TweenDemo from './storyboard-panels/TweenDemo.svg.vue'
 
 
 </script>
@@ -14,7 +14,7 @@ export default {
   <svgContainer>
 
     <g>
-      <Prezie />
+      <TweenDemo />
     </g>
 
   </svgContainer>

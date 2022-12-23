@@ -131,24 +131,6 @@ export default {
   <line x1="-120" y1="35" x2="120" y2="-35" stroke="#88ff88" stroke-dasharray="2 2" />
 
 
-
-  <g transform="translate(-125 -75) scale(1.5) rotate(0)">
-    <g>
-      <shipp  />
-    </g>
-  </g>
-
-<g transform="translate(250 -50) scale(5) rotate(0)">
-  <g>
-    <shipm  />
-  </g>
-</g>
-  <g transform="translate(-250 60) scale(5) rotate(0)">
-    <g>
-      <shipb  />
-    </g>
-  </g>
-
   <g transform="translate(-10 2.85) scale(1.5) rotate(-106)">
     <g>
       <ship :showEngines="true" />

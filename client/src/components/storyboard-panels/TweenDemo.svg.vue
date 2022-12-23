@@ -3,6 +3,7 @@ import { mapState } from 'pinia'
 import panelNavigation from './panelNavigation.svg.vue'
 import panelDialogue from './panelDialogue.svg.vue'
 import btn from '../ui-primitives/button-basic.svg.vue'
+import ship from '../assets/shipO8.svg.vue'
 
 import SpaceBackground from '../assets/sprites/SpaceBackground.svg.vue'
 
@@ -18,16 +19,16 @@ export default {
     return {
       ui: useUI(),
       clock: useClock(),
-      testtween: useTween(-100, 100, 10000, 0, false, true),
+      testtween: useTween(2, 10, 1000, 0, false, true),
       panel: 0,
-      panelCount: 2,
+      panelCount: 1,
       routing: useRouting(),
       //why not just in the panel itself?
       words: [
         [
-          'By the year 2140,',
-          'every planet in our solar',
-          'system is overpopulated.',
+          'Orbiter 8',
+          'This is a tween test.',
+          '',
         ],
       ],
     }
@@ -47,6 +48,9 @@ export default {
     },
     playClock() {
       this.clock.play()
+    },
+    close() {
+      this.routing.switchScreen('title')
     }
   }
 }
@@ -56,7 +60,11 @@ export default {
   <g>
     <g>
       <SpaceBackground  />
-      <text font-size="50">{{ testtween }} | {{ gameTimeInSeconds }}</text>
+      <text font-size="20">{{ testtween }} | {{ gameTimeInSeconds }}</text>
+    </g>
+
+    <g :transform="'translate(0 -50) scale(' + (testtween) + ')'">
+      <ship />
     </g>
 
 
@@ -67,7 +75,7 @@ export default {
         :height="20"
         text="Play"
         @click="playClock()"
-        transform="translate(0 100)"
+        transform="translate(-50 100)"
         v-if="!clock.isRunning" />
     <btn
         font-size="12px"
@@ -76,17 +84,22 @@ export default {
         :height="20"
         text="Pause"
         @click="pauseClock()"
-        transform="translate(0 100)"
+        transform="translate(-50 100)"
         v-else />
+
+
+    <btn
+        font-size="12px"
+        fill="#ffffff"
+        :width="50"
+        :height="20"
+        text="Title"
+        @click="close()"
+        transform="translate(50 100)" />
 
 
     <panelDialogue :words="words[panel]" />
 
-    <panelNavigation
-      :panel-count="panelCount"
-      @panel="(p) => panel = p"
-      @finish="finish()"
-      @close="close()" />
   </g>
 </template>
 
