@@ -6,7 +6,7 @@ import spinner from './ui-primitives/spinner.svg.vue'
 import web3Containment from './containment/web3Containment.vue'
 import { useRouting } from '../stores/routing'
 import { useUI } from '../stores/ui'
-import { useWallet} from '../stores/wallet'
+import { useEVM} from '../stores/evm'
 import deployments from "../../libraries/galactic/networkDeployments"
 import networks from "../../libraries/galactic/networkDetails"
 </script>
@@ -15,7 +15,7 @@ import networks from "../../libraries/galactic/networkDetails"
 export default {
   data() {
     return {
-      wallet: useWallet(),
+      evm: useEVM(),
       routing: useRouting(),
       ui: useUI(),
       deployments: deployments,
@@ -27,7 +27,7 @@ export default {
     switchNetwork(chainId:String) {
       const hexId = this.networks[chainId].hexId
       console.log('clicked', hexId)
-      this.wallet.switchNetwork(hexId)
+      this.evm.switchNetwork(hexId)
     }
   },
   computed: {
@@ -38,8 +38,8 @@ export default {
       if (this.hoverId != null) {
         return this.hoverId
       }
-      if (this.wallet.chainId != null) {
-        return this.wallet.chainId
+      if (this.evm.chainId != null) {
+        return this.evm.chainId
       }
       return 0
     }

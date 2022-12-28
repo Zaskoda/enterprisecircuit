@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import EVMStatus from './EVMStatus.svg.vue'
 import svgContainer from './layouts/svgContainer.vue'
 import backdrop from './assets/sprites/SpaceBackground.svg.vue'
 import btn from './ui-primitives/button-basic.svg.vue'
@@ -31,6 +32,9 @@ export default {
   <svgContainer>
   <g>
     <backdrop  transform="scale(1)" />
+  </g>
+  <g :transform="'translate(0 ' + (ui.top + 15) + ') scale(1.25)'">
+    <EVMStatus />
   </g>
 
 

@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { ethers } from "ethers"
-import { useWallet } from "./wallet"
+import { useEVM } from "./evm"
 import networkDeployments from "../../libraries/galactic/networkDeployments"
 import AvatarArtifact from '../../../evm/contract-artifacts/AvatarControls.json'
 
@@ -10,7 +10,7 @@ export const useAvatar = defineStore('avatar', {
       avatarContract: undefined as ethers.Contract | undefined,
       avatarContractAddress: '',
       networkDeployments: networkDeployments,
-      wallet: useWallet(),
+      evm: useEVM(),
       connected: false,
       chainstate: {
         myAvatarId: null,
@@ -23,14 +23,14 @@ export const useAvatar = defineStore('avatar', {
   actions: {
     async connect() {
       try {
-        this.avatarContractAddress = networkDeployments[this.wallet.chainId]['AvatarControls']
+        this.avatarContractAddress = networkDeployments[this.evm.chainId]['AvatarControls']
         console.log('Avatar contract address is ', this.avatarContractAddress)
       } catch (e:any) {
         console.log(e.message)
         return
       }
       try {
-        this.avatarContract = await this.wallet.getContract(this.avatarContractAddress, AvatarArtifact.abi)
+        this.avatarContract = await this.evm.getContract(this.avatarContractAddress, AvatarArtifact.abi)
       } catch (e:any) {
         console.log(e.message)
         return

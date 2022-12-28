@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import EVMStatus from './EVMStatus.svg.vue'
 import svgContainer from './layouts/svgContainer.vue'
 import LogoOrbiter8 from './assets/sprites/LogoOrbiter8.svg.vue'
 import btn from './ui-primitives/button-basic.svg.vue'
@@ -35,6 +36,9 @@ export default {
 <template>
 <svgContainer>
   <SpaceBackground  />
+  <g :transform="'translate(0 ' + (ui.top + 15) + ')'">
+    <EVMStatus />
+  </g>
   <web3Containment>
 
     <g :transform="'translate(0 ' + (ui.top + 80) + ')'">
