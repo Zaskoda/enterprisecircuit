@@ -38,8 +38,16 @@
         <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
       </radialGradient>
     </defs>
-  \
+
     <g>
+     <rect
+        :x="-2000"
+        :y="-2000"
+        :width="4000"
+        :height="4000"
+        fill-opacity="0"
+        fill="#000000"
+        rx="10" ry="10" />
       <g
         fill="url(#spinner-dot-background)"
         fill-opacity="1"

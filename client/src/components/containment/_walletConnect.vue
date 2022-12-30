@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import btn from '../ui-primitives/button-basic.svg.vue'
-import { useUI } from '../../stores/ui'
 import {  useEVM } from '../../stores/evm'
 </script>
 
@@ -8,8 +7,7 @@ import {  useEVM } from '../../stores/evm'
 export default {
   data() {
     return {
-      evm: useEVM(),
-      ui: useUI()
+      evm: useEVM()
     }
   },
   mounted() {

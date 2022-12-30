@@ -19,6 +19,7 @@ export default {
     }
   },
 }
+//TODO: this file should move into a folder for animations
 </script>
 
 <template>

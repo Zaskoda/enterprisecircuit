@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import EVMStatus from './EVMStatus.svg.vue'
 import svgContainer from './layouts/svgContainer.vue'
 import LogoOrbiter8 from './assets/sprites/LogoOrbiter8.svg.vue'
 import btn from './ui-primitives/button-basic.svg.vue'
@@ -36,59 +35,22 @@ export default {
 <template>
 <svgContainer>
   <SpaceBackground  />
-  <g :transform="'translate(0 ' + (ui.top + 15) + ')'">
-    <EVMStatus />
-  </g>
-  <web3Containment>
+  <web3Containment :restricted="true">
 
-    <g :transform="'translate(0 ' + (ui.top + 80) + ')'">
+    <g :transform="'translate(0 ' + (ui.top + 200) + ')'">
       <g transform="scale(0.25)">
-      <LogoOrbiter8 />
-      </g>
-      <g transform="translate(0 100)">
-        <text fill="#888">Avatar Count: <tspan fill="#ffffff" font-weight="bold">{{ avatar.chainstate.avatarCount }}</tspan></text>
+        <LogoOrbiter8 />
       </g>
     </g>
 
-    <g v-if="!avatar.connected">
-      <btn :width="210" :height="50" @click="init()" font-size="20" :text="'Load Data'"  />
+    <g  font-size="12px" :transform="'translate(0 ' + (ui.bottom - 40) + ')'">
+      <btn
+        :width="120" :height="20"
+        text="close"
+          @click="routing.switchScreen('title')"
+      />
     </g>
-    <g v-else>
-      <btn :width="210" :height="50" @click="init()" font-size="20" :text="'Reload Data'"  />
-      <g transform="translate(0 100)">
-        <g v-if="!avatar.chainstate.haveAvatar">
-          <g transform="translate(0 -30)">
-            <text>You have no avatar.</text>
-          </g>
-          <btn :width="140" :height="24" @click="createAvatar()" font-size="14" :text="'Create Avatar'"  />
-        </g>
-        <g v-else>
-          <g transform="translate(0 -30)">
-            <text>My Avatar Name: {{ avatar.chainstate.myAvatarName }}</text>
-          </g>
-          <g transform="translate(0 0)">
-            <text>My Avatar Id: {{ avatar.chainstate.myAvatarId }}</text>
-          </g>
-        </g>
-      </g>
-    </g>
-
   </web3Containment>
-
-  <g  font-size="12px" :transform="'translate(0 ' + (ui.bottom - 70) + ')'">
-        <btn
-          :width="120" :height="20"
-          text="network"
-           @click="routing.switchScreen('network')"
-           />
-      </g>
-  <g  font-size="12px" :transform="'translate(0 ' + (ui.bottom - 40) + ')'">
-        <btn
-          :width="120" :height="20"
-          text="close"
-           @click="routing.switchScreen('title')"
-           />
-      </g>
 </svgContainer>
 </template>
 
