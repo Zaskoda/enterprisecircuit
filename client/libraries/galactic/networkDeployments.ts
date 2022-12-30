@@ -1,20 +1,20 @@
 const deployments =  {
   //Ropsten
-  "3": {
-    'AvatarControls': '0xD4D17A31D6F2aa295D1B3aF91D15A91Bc8CcDF06',
-    'Credits': '0xa20b6ba2da8f24324AeF5b8fdD0cD33CfDDE4839',
-    'Galaxy': '0x73668aF7cC654634cc4EE81da6938416Eb45F4f6',
-    'PlanetTokens': '0xd4d3a49864567f97d0e206AA9929bcDc3B81FaCC',
-    'ShipTokens': '0x4614A110a5c0D0D6A72d762432723654B25b12Ee'
-  },
+  //"3": {
+  //  'AvatarControls': '0xD4D17A31D6F2aa295D1B3aF91D15A91Bc8CcDF06',
+  //  'Credits': '0xa20b6ba2da8f24324AeF5b8fdD0cD33CfDDE4839',
+  //  'Galaxy': '0x73668aF7cC654634cc4EE81da6938416Eb45F4f6',
+  //  'PlanetTokens': '0xd4d3a49864567f97d0e206AA9929bcDc3B81FaCC',
+  //  'ShipTokens': '0x4614A110a5c0D0D6A72d762432723654B25b12Ee'
+  //},
   //Rinkeby
-  "4": {
-    'AvatarControls': '0x8f1dC434E3D13f294B8FDe928B6235156a310239',
-    'Credits': '0xCB039aC09cd82aE7166B64d95D6050Fd8c2e5f09',
-    'Galaxy': '0x08d4e18F80fC910a46EF730130B32cE062AC4129',
-    'PlanetTokens': '0x30E6faCdD830700A08Bb5Fc15630c64658F1aaA0',
-    'ShipTokens': '0x46c55B6eAd1efFd5313236D1B5b7b8ca6F95325D'
-  },
+  //"4": {
+  //  'AvatarControls': '0x8f1dC434E3D13f294B8FDe928B6235156a310239',
+  //  'Credits': '0xCB039aC09cd82aE7166B64d95D6050Fd8c2e5f09',
+  //  'Galaxy': '0x08d4e18F80fC910a46EF730130B32cE062AC4129',
+  //  'PlanetTokens': '0x30E6faCdD830700A08Bb5Fc15630c64658F1aaA0',
+  //  'ShipTokens': '0x46c55B6eAd1efFd5313236D1B5b7b8ca6F95325D'
+  //},
   //Binance Test
   "97": {
     'AvatarControls': '0xc48E08D9367CbC7ebFA363A9467b3c9da286C99D',
@@ -39,6 +39,14 @@ const deployments =  {
     'PlanetTokens': '0x3093022a0bfD02cFf56CD5B87809027BF88731cE',
     'ShipTokens': '0xaa13867F1481579219187C587BB1a12FA5aBA5d1'
   },
+  //Bobabase
+  "1297": {
+    'AvatarControls': '0x3093022a0bfD02cFf56CD5B87809027BF88731cE',
+    'Credits': '0x9795e4E1fcD5d81399D6A7Acc404fD9Fd91c5747',
+    'Galaxy': '0x2fceAd2954C53Cdc35a2E2D3C8d9d11a847D2842',
+    'PlanetTokens': '0x4dEdce8EDCD60ED9dA91b55c1E9e76e23830535d',
+    'ShipTokens': '0x7a8950c192842820e0C12841DD52187896Db6030'
+  },
   //Mumbai
   "80001": {
     'AvatarControls': '0x137E576D7A22935e0FE33108Af39757a2957938B',
@@ -56,13 +64,13 @@ const deployments =  {
     'ShipTokens': '0xd748Eb47D5D9521C19EE8D08BC606893616ed764'
   },
   //Harmony
-  "1666700000": {
-    'AvatarControls': '0xFab77fA380F2694A74C6Aae9dE90DE2426f0F85b',
-    'Credits': '0x9d5A16F2f7CB152CD0fc29f2659c77ACc808fb8a',
-    'Galaxy': '0xd63D3C8d6833359Fc093e9D3C769BD13108AD946',
-    'PlanetTokens': '0x97A5be2aeA8397d7d3A82eC542d302852C1C1D28',
-    'ShipTokens': '0x58e60385A8883B3AA1539a0b969eC2EAd537589E'
-  },
+  //"1666700000": {
+  //  'AvatarControls': '0xFab77fA380F2694A74C6Aae9dE90DE2426f0F85b',
+  //  'Credits': '0x9d5A16F2f7CB152CD0fc29f2659c77ACc808fb8a',
+  //  'Galaxy': '0xd63D3C8d6833359Fc093e9D3C769BD13108AD946',
+  //  'PlanetTokens': '0x97A5be2aeA8397d7d3A82eC542d302852C1C1D28',
+  //  'ShipTokens': '0x58e60385A8883B3AA1539a0b969eC2EAd537589E'
+  //},
 }
 
 export default deployments

@@ -3,6 +3,7 @@ import btn from './ui-primitives/button-basic.svg.vue'
 import { useEVM } from '../stores/evm'
 import { useUI } from '../stores/ui'
 import LogoEthereum from './assets/geometry/LogoEthereum.svg.vue'
+import { useRouting } from '../stores/routing'
 </script>
 
 <script lang="ts">
@@ -11,6 +12,7 @@ export default {
     return {
       evm: useEVM(),
       ui: useUI(),
+      routing: useRouting(),
       isOpen: false
     }
   },
@@ -57,7 +59,7 @@ export default {
           :height="12" :width="50"
           font-size="8"
           transform="translate(100 20)"
-          @click="connectWallet"
+          @click="routing.switchScreen('network')"
           text="Change" />
 
 

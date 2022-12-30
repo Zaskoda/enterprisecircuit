@@ -31,7 +31,7 @@ export default {
 <template>
 
 
-<text font-size="2em" :transform="'translate(0 ' + (ui.top + 150) + ')'">Please connect your wallet.</text>
+<text font-size="2em" :transform="'translate(0 ' + (-100) + ')'">Please connect your wallet.</text>
 
 <btn font-size="30" :height="80" transform="translate(0 -20)" @click="connectWallet" text="Connect Wallet" />
 

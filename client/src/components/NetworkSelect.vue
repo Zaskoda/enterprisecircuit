@@ -51,16 +51,11 @@ export default {
 <svgContainer>
   <web3Containment>
 
-    <g :transform="'translate(0 ' + (ui.top + 50) + ')'">
-      <g transform="scale(0.2)">
-      <logo />
-      </g>
-    </g>
     <text font-size="1em" :transform="'translate(0 ' + (ui.top + 100) + ')'">Choose a Network</text>
     <g transform="scale(1)">
       <g :transform="'translate(-100 ' + (networkCount * -15 ) + ')'">
         <g v-for="(network, key, index) in deployments" :transform="'translate(0 ' + index * 30 + ')'" @mouseenter="this.hoverId = key" @mouseleave="this.hoverId = null">
-          <btn :val="key" :width="120" :height="28" @click="switchNetwork" font-size="0.9em" :text="networks[key].shortName" :selected="wallet.chainId == key" />
+          <btn :val="key" :width="120" :height="28" @click="switchNetwork" font-size="0.9em" :text="networks[key].shortName" :selected="evm.chainId == key" />
         </g>
       </g>
       <g transform="translate(-40 -150)" v-if="networkToShow > 0">
@@ -83,7 +78,7 @@ export default {
             <text transform="translate(120 80)">Chain ID: {{ networks[networkToShow].hexId }}</text>
           </g>
           <text transform="translate(120 150)">{{ networks[networkToShow].description }}</text>
-          <g v-if="wallet.chainId == networkToShow" transform="translate(120 280)">
+          <g v-if="evm.chainId == networkToShow" transform="translate(120 280)">
             <text opacity="0.5" font-size="0.8em" transform="translate(0 -40)">you are connected to this network</text>
             <btn :width="210" :height="50" @click="routing.switchScreen('play')" font-size="1em" :text="'Play on ' + networks[networkToShow].shortName"  />
           </g>
@@ -91,7 +86,7 @@ export default {
       </g>
     </g>
 
-    <g v-if="wallet.switchingNetwork">
+    <g v-if="evm.switchingNetwork">
       <rect
         :x="ui.left + 50"
         :y="ui.top + 150"
