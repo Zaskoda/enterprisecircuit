@@ -53,7 +53,7 @@ export const useAvatar = defineStore('avatar', {
         if (e.code == 'ACTION_REJECTED') {
           console.log('user cancelled')
         } else {
-          console.log('Error: ', e.message)
+          console.log('Error: ', e)
         }
       }
     },

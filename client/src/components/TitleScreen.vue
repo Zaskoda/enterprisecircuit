@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import EVMStatus from './EVMStatus.svg.vue'
 import svgContainer from './layouts/svgContainer.vue'
 import backdrop from './assets/sprites/SpaceBackground.svg.vue'
 import btn from './ui-primitives/button-basic.svg.vue'
@@ -8,6 +7,7 @@ import SpaceStation from './assets/sprites/SpaceStation.svg.vue'
 import PlayerShip from './assets/sprites/PlayerShip.svg.vue'
 import starfield from './assets/starfield.svg.vue'
 import LogoPartavate from './assets/LogoPartavate.svg.vue'
+import web3Containment from './containment/web3Containment.vue'
 
 import { useUI } from '../stores/ui'
 import { useRouting } from '../stores/routing'
@@ -30,6 +30,7 @@ export default {
 
 <template>
   <svgContainer>
+  <web3Containment>
   <g>
     <backdrop  transform="scale(1)" />
   </g>
@@ -256,9 +257,6 @@ export default {
     <LogoPartavate  :transform="'translate(0 ' + (ui.bottom - 25) + ') scale(0.1)'" />
 
 
-    <g>
-      <EVMStatus />
-    </g>
 
     <g v-if="false" :transform="'translate('+ ui.mouseX + ' ' + ui.mouseY  + ')'">
       <g :transform="'scale(' + 0.75 + ') rotate(' + (ui.window.mouseDirection - 90) + ')'">
@@ -268,6 +266,8 @@ export default {
       </g>
     </g>
 
+
+  </web3Containment>
   </svgContainer>
 </template>
 
