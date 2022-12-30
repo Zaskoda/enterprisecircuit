@@ -46,12 +46,8 @@ export const useEVM = defineStore('wallet', {
   actions: {
 
     async connect() {
-      try {
-        this.provider = new ethers.providers.Web3Provider(window.ethereum, "any")
-      } catch (e:any) {
-        console.log(e.message)
-        return
-      }
+
+      await this.init()
 
       try {
         await this.provider.send("eth_requestAccounts", [])
@@ -68,6 +64,15 @@ export const useEVM = defineStore('wallet', {
       }
 
       await this.getChainData()
+    },
+
+    async init() {
+      try {
+        this.provider = new ethers.providers.Web3Provider(window.ethereum, "any")
+      } catch (e:any) {
+        console.log(e.message)
+        return
+      }
     },
 
     async getChainData() {

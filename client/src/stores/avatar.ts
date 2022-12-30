@@ -12,6 +12,7 @@ export const useAvatar = defineStore('avatar', {
       networkDeployments: networkDeployments,
       evm: useEVM(),
       connected: false,
+      knowAvatars: {} as any,
       chainstate: {
         myAvatarId: null,
         myAvatarName: null,
@@ -79,6 +80,7 @@ export const useAvatar = defineStore('avatar', {
     },
     async getAvatarNameById(id) {
       const avatar = await this.avatarContract.getAvatarNameById(id)
+      this.knowAvatars[id] = avatar
       return avatar
     },
     async getAvatarNameByAddress(address){

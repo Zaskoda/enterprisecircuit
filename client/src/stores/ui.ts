@@ -7,18 +7,19 @@ export const useUI = defineStore('ui', {
     showText: true,
     scale: 1,
     maxScale: 4,
-    minScale: 0.25,
+    minScale: 0.5,
     //cached values for window size and mouse position
     window: {
       width: 1200,
       height: 1200,
       mouseX: 600,
-      mouseY: 600
+      mouseY: 600,
+      mouseDirection: 0
     },
     //current resolution of the window into the SVG
     viewport: {
-      width: 1200,
-      height: 1200
+      width: 20,
+      height: 20
     },
     //used to preserve 16:9 or 9:16 window when scaling
     protectedBox: {
@@ -33,13 +34,14 @@ export const useUI = defineStore('ui', {
       this.window.height = window.innerHeight
 
       //determine portrait vs landscape
-      let shortSide = Math.min(this.window.width, this.window.height)
-      let longSide = Math.max(this.window.width, this.window.height)
+      const shortSide = Math.min(this.window.width, this.window.height)
+      const longSide = Math.max(this.window.width, this.window.height)
 
       //determine scaler that best preserves the target box
-      let shortSideRatio = shortSide / this.protectedBox.short
-      let longSideRatio = longSide / this.protectedBox.long
+      const shortSideRatio = (shortSide / this.protectedBox.short)
+      const longSideRatio = (longSide / this.protectedBox.long)
 
+      //get the scaler for the most constrained direction
       let scaler = 1
       if (shortSideRatio > longSideRatio) {
         scaler = 1 / longSideRatio
@@ -53,6 +55,9 @@ export const useUI = defineStore('ui', {
     },
     mouseMoveHandler(event:any) {
       //we record the explicit mouse coords and calc SVG coords in getter
+      const xdif = this.window.mouseX - event.pageX
+      const ydif = this.window.mouseY - event.pageY
+      this.window.mouseDirection = Math.atan2(ydif, xdif) / Math.PI * 180
       this.window.mouseX = event.pageX
       this.window.mouseY = event.pageY
     },
@@ -96,14 +101,6 @@ export const useUI = defineStore('ui', {
       return Math.round(this.scale * this.viewport.height)
     },
 
-    //mouse coords in SVG context
-    mouseX():number {
-      return this.width * (this.window.mouseX / this.window.width) - (this.width / 2)
-    },
-    mouseY():number {
-      return this.height * (this.window.mouseY / this.window.height) - (this.height / 2)
-    },
-
     //viewable edges of SVG at current resolution
     top():number {
       return this.height / -2
@@ -142,7 +139,15 @@ export const useUI = defineStore('ui', {
         return this.protectedBox.long
       }
       return this.protectedBox.short
-    }
+    },
+
+    //mouse coords in SVG context
+    mouseX():number {
+      return this.width * (this.window.mouseX / this.window.width) - (this.width / 2)
+    },
+    mouseY():number {
+      return this.height * (this.window.mouseY / this.window.height) - (this.height / 2)
+    },
 
   }
 })
