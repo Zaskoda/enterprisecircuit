@@ -42,7 +42,7 @@ const networks =  {
     explorer: ['']
   },
   '3': {
-    name: 'Ethereum Ropsten Testnet',
+    name: 'Deprecated Ropsten Testnet',
     shortName: 'Ropsten',
     description: '',
     id: '3',
@@ -96,6 +96,20 @@ const networks =  {
     },
     rpc: ['https://kovan.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161'],
     explorer: ['https://kovan.etherscan.io']
+  },
+  '61': {
+    name: 'Ethereum Classic',
+    shortName: 'Classic',
+    description: '',
+    id: '61',
+    hexId: '0x3D',
+    currency: {
+      name: 'ETH Classic',
+      symbol: 'ETC',
+      decimals: 18
+    },
+    rpc: ['https://www.ethercluster.com/etc'],
+    explorer: ['https://blockscout.com/etc/mainnet/']
   },
   '69': {
     name: 'Optimism Kovan Testnet',
@@ -167,6 +181,20 @@ const networks =  {
     rpc: ['https://rpc.api.moonbase.moonbeam.network'],
     explorer:['https://moonbase.moonscan.io']
   },
+  '1297': {
+    name: 'Bobabase Test Network',
+    shortName: 'Bobabase',
+    description: '',
+    id: '1297',
+    hexId: '0x511',
+    currency: {
+      name: 'GLMRDEV',
+      symbol: 'DEV',
+      decimals: 18
+    },
+    rpc: ['https://bobabase.boba.network'],
+    explorer: ['https://blockexplorer.bobabase.boba.network']
+  },
   '4447': {
     name: 'Truffle Development Network',
     shortName: 'Truffle',
@@ -175,6 +203,20 @@ const networks =  {
     hexId: '0x115F',
     currency: {
       name: 'Truffle Ether',
+      symbol: 'ETH',
+      decimals: 18
+    },
+    rpc: [''],
+    explorer: ['']
+  },
+  '5777': {
+    name: 'Ganache Development Network',
+    shortName: 'Ganache',
+    description: '',
+    id: '5777',
+    hexId: '0x1691',
+    currency: {
+      name: 'Ganache Ether',
       symbol: 'ETH',
       decimals: 18
     },

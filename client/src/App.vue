@@ -4,6 +4,7 @@ import TitleScreen from './components/TitleScreen.vue'
 import AssetViewer from './components/AssetViewer.vue'
 import StoryA from './components/StoryA.vue'
 import StoryB from './components/StoryB.vue'
+import Avatars from './components/Avatars.vue'
 import NetworkSelect from './components/NetworkSelect.vue'
 import Play from './components/Play.vue'
 import FourShips from './components/FourShips.vue'
@@ -16,6 +17,8 @@ clock.play()
 
 </script>
 
+
+
 <template>
   <TitleScreen v-if="routing.isScreen('title')"/>
   <StoryA v-if="routing.isScreen('storya')" />
@@ -24,7 +27,10 @@ clock.play()
   <NetworkSelect v-if="routing.isScreen('network')"/>
   <FourShips v-if="routing.isScreen('four')"/>
   <AssetViewer v-if="routing.isScreen('assets')" />
+  <Avatars v-if="routing.isScreen('avatars')" />
   <Play v-if="routing.isScreen('play')" />
+
+
 </template>
 
 <style lang="scss">
@@ -58,7 +64,7 @@ body {
 
 //Orbiter 8 Theme
 [data-theme="orbiter8"] {
-  --color-bg: #310e5c;
+  --color-bg: #000000;
   --color-light: #c3b3da;
   --color-btn: #ffffff;
 }

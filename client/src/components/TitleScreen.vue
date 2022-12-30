@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import EVMStatus from './EVMStatus.svg.vue'
 import svgContainer from './layouts/svgContainer.vue'
 import backdrop from './assets/sprites/SpaceBackground.svg.vue'
 import btn from './ui-primitives/button-basic.svg.vue'
@@ -216,12 +217,17 @@ export default {
           :width="120" :height="36"
           text="Portal"
            @click="routing.switchScreen('storya')"
-          transform="translate(-65 -25)" />
+          transform="translate(-125 -25)" />
         <btn
           :width="120" :height="36"
           text="Tween"
            @click="routing.switchScreen('storyb')"
-          transform="translate(65 -25)" />
+          transform="translate(0 -25)" />
+        <btn
+          :width="120" :height="36"
+          text="Avatars"
+           @click="routing.switchScreen('avatars')"
+          transform="translate(125 -25)" />
       </g>
       <g  font-size="14px" transform="translate(0 100)">
         <btn
@@ -248,6 +254,19 @@ export default {
 
     <LogoOrbiter8  :transform="'translate(0 -80) scale(0.5)'" />
     <LogoPartavate  :transform="'translate(0 ' + (ui.bottom - 25) + ') scale(0.1)'" />
+
+
+    <g>
+      <EVMStatus />
+    </g>
+
+    <g v-if="false" :transform="'translate('+ ui.mouseX + ' ' + ui.mouseY  + ')'">
+      <g :transform="'scale(' + 0.75 + ') rotate(' + (ui.window.mouseDirection - 90) + ')'">
+        <g transform="translate(0 25)">
+        <PlayerShip :show-engines="true" />
+        </g>
+      </g>
+    </g>
 
   </svgContainer>
 </template>

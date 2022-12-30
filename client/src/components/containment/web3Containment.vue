@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useWallet } from '../../stores/wallet'
+import { useEVM } from '../../stores/evm'
 import walletConnect  from './_walletConnect.vue'
 </script>
 
@@ -7,13 +7,13 @@ import walletConnect  from './_walletConnect.vue'
 export default {
   data() {
     return {
-      wallet: useWallet()
+      evm: useEVM()
     }
   },
 }
 </script>
 
 <template>
-<slot v-if="wallet.isConnected" />
+<slot v-if="evm.isConnected" />
 <walletConnect v-else />
 </template>

@@ -1,21 +1,22 @@
 import { defineStore } from 'pinia'
 import { ethers } from "ethers"
-import { useWallet } from "./wallet"
+import { useEVM } from "./evm"
 import networkDeployments from "../../libraries/galactic/networkDeployments"
 import AvatarArtifact from '../../../evm/contract-artifacts/AvatarControls.json'
 
 export const useAvatar = defineStore('avatar', {
   state: () => {
     return {
-      avatarContract: undefined as ethers.Contract | undefined,
+      avatarContract: undefined as any,
       avatarContractAddress: '',
       networkDeployments: networkDeployments,
-      wallet: useWallet(),
+      evm: useEVM() as any,
       connected: false,
+      knownAvatars: {} as any,
       chainstate: {
         myAvatarId: null,
         myAvatarName: null,
-        avatarCount: null,
+        avatarCount: null as number | null,
         haveAvatar: false
       }
     }
@@ -23,70 +24,120 @@ export const useAvatar = defineStore('avatar', {
   actions: {
     async connect() {
       try {
-        this.avatarContractAddress = networkDeployments[this.wallet.chainId]['AvatarControls']
+        this.avatarContractAddress = networkDeployments[this.evm.chainId]['AvatarControls']
         console.log('Avatar contract address is ', this.avatarContractAddress)
       } catch (e:any) {
         console.log(e.message)
         return
       }
       try {
-        this.avatarContract = await this.wallet.getContract(this.avatarContractAddress, AvatarArtifact.abi)
+        this.avatarContract = await this.evm.getContract(this.avatarContractAddress, AvatarArtifact.abi)
       } catch (e:any) {
         console.log(e.message)
         return
       }
       this.connected = true
     },
-    async getAvatarCount() {
+
+    async call(contractMethod:Function, params:any[], callback:Function = ()=>{}) {
       try {
-        this.chainstate.avatarCount = await this.avatarContract.getAvatarCount()
-        console.log("avatarCount: ", this.chainstate.avatarCount)
+        const transaction = await contractMethod(...params)
+        const transactionReceipt = await transaction.wait()
+        if (transactionReceipt.status !== 1) {
+           alert('error problem thing happened')
+        } else {
+          callback()
+          console.log('called back')
+        }
       } catch (e:any) {
-        console.log(e.message)
-        return
+        if (e.code == 'ACTION_REJECTED') {
+          console.log('user cancelled')
+        } else {
+          console.log('Error: ', e.message)
+        }
       }
+    },
+
+    async createAvatar(name:string) {
+      this.call(this.avatarContract.createAvatar, [name], this.getMyAvatarName)
+    },
+
+    async read(contractMethod:Function, params:any[] = []) {
+      try {
+        const result = await contractMethod(...params)
+        return result
+      } catch (e:any) {
+          console.log('Error: ', e.message)
+      }
+      return null
+    },
+
+    async getAvatarCount() {
+      this.chainstate.avatarCount = await this.read(
+        this.avatarContract.getAvatarCount
+      )
     },
     async getMyAvatarName() {
-      try {
-        this.chainstate.myAvatarName = await this.avatarContract.getMyAvatarName()
-        console.log("myAvatar: ", this.chainstate.myAvatar)
-      } catch (e:any) {
-        console.log(e.message)
-        return
-      }
+      this.chainstate.myAvatarName = await this.read(
+        this.avatarContract.getMyAvatarName
+      )
     },
     async getMyAvatarId(){
-      this.chainstate.myAvatarId = await this.avatarContract.getMyAvatarId()
+      this.chainstate.myAvatarId = await this.read(
+        this.avatarContract.getMyAvatarId
+      )
     },
     async haveAvatar(){
-      this.chainstate.haveAvatar = await this.avatarContract.haveAvatar()
+      this.chainstate.haveAvatar = await this.read(
+        this.avatarContract.haveAvatar
+      )
     },
 
     async getAll() {
-      this.getAvatarCount()
-      this.getMyAvatarName()
-      this.getMyAvatarId()
-      this.haveAvatar()
+      await Promise.all([
+        this.getAvatarCount(),
+        this.getMyAvatarName(),
+        this.getMyAvatarId(),
+        this.haveAvatar()
+      ])
     },
 
-    async createAvatar(name) {
-      await this.avatarContract.createAvatar(name)
+
+    async getAllAvatars() {
+      for (let n = 0; n < this.chainstate.avatarCount; n++) {
+        console.log(n)
+        this.getAvatarNameById(n)
+      }
     },
 
-    async getAvatarIdByAddress(address) {
-      const avatar = await this.avatarContract.getAvatarIdByAddress(address)
+
+    async getAvatarIdByAddress(address:string) {
+      const avatar = await this.read(
+        this.avatarContract.getAvatarIdByAddress,
+        [address]
+      )
       return avatar
     },
-    async getAvatarNameById(id) {
-      const avatar = await this.avatarContract.getAvatarNameById(id)
+    async getAvatarNameById(id:number) {
+      const avatar = await this.read(
+        this.avatarContract.getAvatarNameById,
+        [id]
+      )
+      this.knownAvatars[id] = avatar
       return avatar
     },
-    async getAvatarNameByAddress(address){
-      const avatarName = await this.avatarContract.getAvatarNameByAddress(address)
+    async getAvatarNameByAddress(address:string) {
+      const avatarName = await this.read(
+        this.avatarContract.getAvatarNameByAddress,
+        [address]
+      )
       return avatarName
     },
-    async hasAvatar(address){
-      const hasAvatar = await this.avatarContract.hasAvatar(address)
+    async hasAvatar(address:string) {
+      const hasAvatar = await this.read(
+        this.avatarContract.hasAvatar,
+        [address]
+      )
       return hasAvatar
     },
 

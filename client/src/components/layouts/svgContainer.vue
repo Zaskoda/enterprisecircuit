@@ -71,23 +71,25 @@
         :width="ui.protectedBoxWidth"
         :height="ui.protectedBoxHeight"
         fill="none"
-        stroke="#ff0000"
-        stroke-width="0.5"
+        stroke="#ff00ff"
+        stroke-width="1.5"
         stroke-dasharray="2 1"
-        stroke-opacity="0.5" />
+        stroke-opacity="0.75" />
       <g v-if="debug">
         <rect
           :x="ui.left" :y="ui.top"
           :height="ui.height" :width="ui.width"
           fill="none" stroke="#ff00ff" stroke-width="20" />
         <circle :cx="ui.mouseX" :cy="ui.mouseY" :r="5 * ui.scale" fill="#ff0000" />
-        <text transform="translate(0 100)" fill="#ffffff">Top {{ ui.top }} Bottom {{ ui.bottom }}</text>
-        <text transform="translate(0 120)" fill="#ffffff">Left {{ ui.left }} Right {{ ui.right }}</text>
-        <text transform="translate(0 140)" fill="#ffffff">Scale {{ ui.scale }} Resolution {{ ui.resolution }}</text>
-        <text transform="translate(0 160)" fill="#ffffff">Screen orientation: <tspan v-if="ui.portrait">Portrait</tspan><tspan v-else-if="ui.landscape">Landscape</tspan><tspan v-else>Error</tspan></text>
-        <text transform="translate(0 180)" fill="#ffffff">MouseX: {{ ui.mouseX.toFixed(3) }} MouseY: {{ ui.mouseY.toFixed(3) }}</text>
-        <text transform="translate(0 200)" fill="#ffffff"></text>
 
+        <g  :transform="'translate(' + (ui.left + 200) + '  ' + (ui.top + 40) + ')'">
+          <text transform="translate(0 00)" fill="#ffffff">Top {{ ui.top }} Bottom {{ ui.bottom }}</text>
+          <text transform="translate(0 20)" fill="#ffffff">Left {{ ui.left }} Right {{ ui.right }}</text>
+          <text transform="translate(0 40)" fill="#ffffff">Scale {{ ui.scale }} Resolution {{ ui.resolution }}</text>
+          <text transform="translate(0 60)" fill="#ffffff">Screen orientation: <tspan v-if="ui.portrait">Portrait</tspan><tspan v-else-if="ui.landscape">Landscape</tspan><tspan v-else>Error</tspan></text>
+          <text transform="translate(0 80)" fill="#ffffff">MouseX: {{ ui.mouseX.toFixed(3) }} MouseY: {{ ui.mouseY.toFixed(3) }}</text>
+          <text transform="translate(0 100)" fill="#ffffff"></text>
+        </g>
 
 
       </g>

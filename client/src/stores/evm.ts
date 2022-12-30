@@ -1,37 +1,78 @@
 import { defineStore } from 'pinia'
 import { ethers } from "ethers"
+import deployments from "../../libraries/galactic/networkDeployments"
+import networks from "../../libraries/galactic/networkDetails"
 
-export const useWallet = defineStore('wallet', {
+export const useEVM = defineStore('wallet', {
   state: () => {
     return {
-      hasWallet: false,
       isConnected: false,
       signer: null as ethers.Signer | null,
       signerAddress: null,
       provider: null as ethers.providers.Web3Provider | null,
-      chain: null,
-      chainId: null,
-      status: '',
+      chain: null as any,
+      chainId: null as number | null,
       block: null,
-      switchingNetwork: false
+      switchingNetwork: false,
+      networks: networks,
+      deployments: deployments
+    }
+  },
+  getters: {
+    chainName():string {
+      if (this.chainId == null) {
+        return 'no network'
+      } else if (this.networks[this.chainId]) {
+        return this.networks[this.chainId].name
+      }
+      return 'unknown network'
+    },
+    suppportedNetwork():boolean {
+      if (this.deployments[this.chainId]) {
+        return true
+      }
+      return false
+    },
+    shortSigner():string {
+      const length = this.signerAddress.length
+      if (length >= 8) {
+        return this.signerAddress.substring(0, 5) +
+        '...' +
+        this.signerAddress.substring(length - 3)
+      }
+      return this.signerAddress
     }
   },
   actions: {
+
+    async connect() {
+
+      await this.init()
+
+      try {
+        await this.provider.send("eth_requestAccounts", [])
+      } catch (e:any) {
+        console.log(e.message)
+        return
+      }
+
+      try {
+        await this.getSigner()
+      } catch (e:any) {
+        console.log(e.message)
+        return
+      }
+
+      await this.getChainData()
+    },
 
     async init() {
       try {
         this.provider = new ethers.providers.Web3Provider(window.ethereum, "any")
       } catch (e:any) {
-        this.status = 'No wallet found.'
         console.log(e.message)
         return
       }
-      this.hasWallet = true
-      this.status = 'Wallet avaialble.'
-
-      //TODO: some wallets may not be able to return
-      //chain data until after there is a signer?
-      await this.getChainData()
     },
 
     async getChainData() {
@@ -42,21 +83,6 @@ export const useWallet = defineStore('wallet', {
         return
       }
       this.chainId = this.chain.chainId
-      this.status = 'Compatible EVM network discovered.'
-    },
-
-
-    async connect() {
-      if (!this.hasWallet) {
-        return
-      }
-      try {
-        await this.provider.send("eth_requestAccounts", [])
-        await this.getSigner()
-      } catch (e:any) {
-        console.log(e.message)
-        return
-      }
     },
 
     async getSigner() {
@@ -84,6 +110,7 @@ export const useWallet = defineStore('wallet', {
       })
       window.ethereum.on('connected', async () => {
         console.log('account re-connected')
+        this.isConnected = true
         this.getSigner()
       })
       window.ethereum.on('disconnect', async () => {
@@ -95,13 +122,15 @@ export const useWallet = defineStore('wallet', {
         }
       })
       window.ethereum.on('chainChanged', async () => {
-        console.log('chain changed')
-        this.getChainData()
-      }),
+        console.log('chain changed A')
+        this.connect()
+      })
+
       this.provider.removeAllListeners()
       this.provider.on("block", (blockNumber:Number) => {
         this.block = blockNumber
       })
+
       this.switchingNetwork = false
     },
 
@@ -115,6 +144,8 @@ export const useWallet = defineStore('wallet', {
       } catch (e) {
         console.log('Error requesting network.', e.message)
         /*
+        refactor to add any chain
+
         if (confirm('Polygon Mainnet was not found. Would you like us to try to add it?')) {
           let data = [{
             chainId: chainId,
