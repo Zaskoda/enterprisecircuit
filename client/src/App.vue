@@ -5,9 +5,11 @@ import AssetViewer from './components/AssetViewer.vue'
 import StoryA from './components/StoryA.vue'
 import StoryB from './components/StoryB.vue'
 import Avatars from './components/Avatars.vue'
+import Galaxy from './components/Galaxy.vue'
 import NetworkSelect from './components/NetworkSelect.vue'
 import Play from './components/Play.vue'
 import FourShips from './components/FourShips.vue'
+
 import { useRouting } from './stores/routing'
 import { useClock } from './stores/clock'
 
@@ -28,6 +30,7 @@ clock.play()
   <FourShips v-if="routing.isScreen('four')"/>
   <AssetViewer v-if="routing.isScreen('assets')" />
   <Avatars v-if="routing.isScreen('avatars')" />
+  <Galaxy v-if="routing.isScreen('galaxy')" />
   <Play v-if="routing.isScreen('play')" />
 
 
