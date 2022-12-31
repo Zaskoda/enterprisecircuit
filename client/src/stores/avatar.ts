@@ -1,5 +1,4 @@
 import { defineStore } from 'pinia'
-import { ethers } from "ethers"
 import { useEVM } from "./evm"
 import networkDeployments from "../../libraries/galactic/networkDeployments"
 import AvatarArtifact from '../../../evm/contract-artifacts/AvatarControls.json'
