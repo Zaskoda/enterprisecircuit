@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useUI } from '../../../stores/ui'
-import planets from '../../assets/planets/_planets.svg.vue'
-import starfield from '../../assets/starfield.svg.vue'
+import planets from '../../assets/sprites/planets/_planets.svg.vue'
+import starfield from '../../assets/Starfield.svg.vue'
 </script>
 
 <script lang="ts">

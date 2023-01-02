@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import { mapState } from 'pinia'
-import panelNavigation from './panelNavigation.svg.vue'
 import panelDialogue from './panelDialogue.svg.vue'
-import btn from '../ui-primitives/button-basic.svg.vue'
-import ship from '../assets/shipO8.svg.vue'
+import btn from '../ui/button-basic.svg.vue'
+import ship from '../assets/graphics/ShipOrbiter8.svg.vue'
 
 import SpaceBackground from '../assets/sprites/SpaceBackground.svg.vue'
 
-import { useTween } from './composables/tween'
+import { useTween } from '../../composables/tween'
 import { useUI } from '../../stores/ui'
 import { useRouting } from '../../stores/routing'
 import { useClock } from '../../stores/clock'
@@ -19,7 +18,7 @@ export default {
     return {
       ui: useUI(),
       clock: useClock(),
-      testtween: useTween(2, 10, 1000, 0, false, true),
+      testtween: useTween(1, 10, 1000, 0, false, true),
       panel: 0,
       panelCount: 1,
       routing: useRouting(),
@@ -49,6 +48,9 @@ export default {
     playClock() {
       this.clock.play()
     },
+    alter() {
+      this.testtween = useTween(1, 5, 5000, 0, false, true)
+    },
     close() {
       this.routing.switchScreen('title')
     }
@@ -60,13 +62,14 @@ export default {
   <g>
     <g>
       <SpaceBackground  />
-      <text font-size="20">{{ testtween }} | {{ gameTimeInSeconds }}</text>
+      <text font-size="20">{{ testtween }}</text>
     </g>
 
-    <g :transform="'translate(0 -50) scale(' + (testtween) + ')'">
-      <ship />
+    <g v-for="n in 10" opacity="0.5">
+      <g :transform="'translate(' + (n * 100 - 550 + (testtween / 10)) + ' -120) scale(' + ((testtween)) + ') rotate(' + (testtween*-50+n) + ')'">
+        <ship />
+      </g>
     </g>
-
 
     <btn
         font-size="12px"
@@ -86,6 +89,15 @@ export default {
         @click="pauseClock()"
         transform="translate(-50 100)"
         v-else />
+
+    <btn
+        font-size="12px"
+        fill="#ffffff"
+        :width="50"
+        :height="20"
+        text="Alter"
+        @click="alter()"
+        transform="translate(0 100)" />
 
 
     <btn

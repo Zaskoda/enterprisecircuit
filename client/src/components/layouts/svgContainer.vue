@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import fps from '../ui/fps.svg.vue'
   import { useUI } from '../../stores/ui'
   import DefaultDefinitions from '../definitions/Orbiter8.svg.vue'
   </script>
@@ -10,7 +11,9 @@
         mouseHold: false,
         ui: useUI(),
         debug: false,
+        showFPS: true,
         rect: false
+        //TODO: move debug toggles to UI store & settings page
       }
     },
     mounted () {
@@ -80,9 +83,9 @@
           :x="ui.left" :y="ui.top"
           :height="ui.height" :width="ui.width"
           fill="none" stroke="#ff00ff" stroke-width="20" />
-        <circle :cx="ui.mouseX" :cy="ui.mouseY" :r="5 * ui.scale" fill="#ff0000" />
+        <circle :cx="ui.mouseX" :cy="ui.mouseY" :r="5 * ui.scale" fill="none" stroke="#ff0000" stroke-size="#ff0000" />
 
-        <g  :transform="'translate(' + (ui.left + 200) + '  ' + (ui.top + 40) + ')'">
+        <g  :transform="'translate(' + (ui.left + 150) + '  ' + (ui.bottom - 100) + ')'">
           <text transform="translate(0 00)" fill="#ffffff">Top {{ ui.top }} Bottom {{ ui.bottom }}</text>
           <text transform="translate(0 20)" fill="#ffffff">Left {{ ui.left }} Right {{ ui.right }}</text>
           <text transform="translate(0 40)" fill="#ffffff">Scale {{ ui.scale }} Resolution {{ ui.resolution }}</text>
@@ -91,8 +94,11 @@
           <text transform="translate(0 100)" fill="#ffffff"></text>
         </g>
 
-
       </g>
+
+      <g v-if="debug || showFPS" :transform="'translate(' + (ui.right - 150) + '  ' + (ui.bottom - 60) + ')'">
+          <fps />
+        </g>
     </svg>
     </div>
   </template>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import svgContainer from './layouts/svgContainer.vue'
 import SpaceBackground from './assets/sprites/SpaceBackground.svg.vue'
-import btn from './ui-primitives/button-basic.svg.vue'
+import btn from './ui/button-basic.svg.vue'
 import PlayerShip from './assets/sprites/PlayerShip.svg.vue'
 import LogoMoonbeam from './assets/sprites/LogoMoonbeam.svg.vue'
 import LogoPolygon from './assets/sprites/LogoPolygon.svg.vue'

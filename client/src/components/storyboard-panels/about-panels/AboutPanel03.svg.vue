@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useUI } from '../../../stores/ui'
-import planets from '../../assets/planets/_planets.svg.vue'
-import ship from '../../assets/shipO8.svg.vue'
+import planets from '../../assets/sprites/planets/_planets.svg.vue'
+import ship from '../../assets/graphics/ShipOrbiter8.svg.vue'
 </script>
 
 <script lang="ts">

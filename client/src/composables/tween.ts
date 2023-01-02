@@ -2,7 +2,7 @@
 import { ref, computed, toRefs, watch, watchEffect } from 'vue'
 import { storeToRefs } from 'pinia'
 
-import { useClock } from '../../../stores/clock'
+import { useClock } from '../stores/clock'
 
 // add these
 // https://9to5answer.com/ease-in-and-ease-out-animation-formula
