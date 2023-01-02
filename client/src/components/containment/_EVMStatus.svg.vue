@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import LogoEthereum from '../assets/geometry/LogoEthereum.svg.vue'
+import LogoEthereum from '../assets/graphics/LogoEthereum.svg.vue'
 import networkSelect from './_networkSelect.svg.vue'
-import btn from '../ui-primitives/button-basic.svg.vue'
+import btn from '../ui/button-basic.svg.vue'
 import { useEVM } from '../../stores/evm'
 import { useUI } from '../../stores/ui'
 </script>

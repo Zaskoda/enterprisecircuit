@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import orbit from '../../containment/_orbit.svg.vue'
-import planet from '../../assets/planet.svg.vue'
-import moon from '../../assets/moon.svg.vue'
-import station from '../../assets/station.svg.vue'
-import shipO8 from '../shipO8.svg.vue'
+import orbit from '../../animations/_orbit.svg.vue'
+import planet from '../../graphics/Planet.svg.vue'
+import station from '../../graphics/Station.svg.vue'
+import shipO8 from '../../graphics/ShipOrbiter8.svg.vue'
 </script>
 
 

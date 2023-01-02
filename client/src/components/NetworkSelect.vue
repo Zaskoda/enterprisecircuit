@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import svgContainer from './layouts/svgContainer.vue'
-import logo from './assets/logo.svg.vue'
-import btn from './ui-primitives/button-basic.svg.vue'
-import spinner from './ui-primitives/spinner.svg.vue'
+import logo from './assets/graphics/LogoOrbiter8.svg.vue'
+import btn from './ui/button-basic.svg.vue'
+import spinner from './ui/spinner.svg.vue'
 import web3Containment from './containment/web3Containment.vue'
 import { useRouting } from '../stores/routing'
 import { useUI } from '../stores/ui'

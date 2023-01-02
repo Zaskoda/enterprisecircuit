@@ -93,7 +93,7 @@ export default {
   },
   methods: {
     finish() {
-      this.routing.switchScreen('network')
+      this.routing.switchScreen('play')
     },
     close() {
       this.routing.switchScreen('title')

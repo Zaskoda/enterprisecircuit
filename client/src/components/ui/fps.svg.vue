@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { mapState } from 'pinia'
-import { useClock } from '../stores/clock'
+import { useClock } from '../../stores/clock'
 </script>
 
 <script lang="ts">

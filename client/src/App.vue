@@ -6,7 +6,6 @@ import StoryA from './components/StoryA.vue'
 import StoryB from './components/StoryB.vue'
 import Avatars from './components/Avatars.vue'
 import Galaxy from './components/Galaxy.vue'
-import NetworkSelect from './components/NetworkSelect.vue'
 import Play from './components/Play.vue'
 import FourShips from './components/FourShips.vue'
 
@@ -26,7 +25,6 @@ clock.play()
   <StoryA v-if="routing.isScreen('storya')" />
   <StoryB v-if="routing.isScreen('storyb')" />
   <Settings v-if="routing.isScreen('settings')"/>
-  <NetworkSelect v-if="routing.isScreen('network')"/>
   <FourShips v-if="routing.isScreen('four')"/>
   <AssetViewer v-if="routing.isScreen('assets')" />
   <Avatars v-if="routing.isScreen('avatars')" />

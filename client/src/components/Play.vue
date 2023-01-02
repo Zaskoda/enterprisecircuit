@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import svgContainer from './layouts/svgContainer.vue'
 import LogoOrbiter8 from './assets/sprites/LogoOrbiter8.svg.vue'
-import btn from './ui-primitives/button-basic.svg.vue'
+import btn from './ui/button-basic.svg.vue'
 import web3Containment from './containment/web3Containment.vue'
 import SpaceBackground from './assets/sprites/SpaceBackground.svg.vue'
 
@@ -37,11 +37,12 @@ export default {
   <SpaceBackground  />
   <web3Containment :restricted="true">
 
-    <g :transform="'translate(0 ' + (ui.top + 200) + ')'">
-      <g transform="scale(0.25)">
+    <g transform="translate(0 -100)">
+      <g transform="scale(0.15)">
         <LogoOrbiter8 />
       </g>
     </g>
+    <text fill="#888888">Game goes here!</text>
 
     <g  font-size="12px" :transform="'translate(0 ' + (ui.bottom - 40) + ')'">
       <btn

@@ -1,14 +1,11 @@
 <script setup lang="ts">
 import { useUI } from '../../../stores/ui'
-import starfield from '../../assets/starfield.svg.vue'
-import portal from '../../assets/portal.svg.vue'
-import ship from '../../assets/shipO8.svg.vue'
-import shipb from '../../assets/shipBB.svg.vue'
-import shipm from '../../assets/shipMB.svg.vue'
-import shipp from '../../assets/shipPG.svg.vue'
-import moonbeam from '../../assets/moonbeam.svg.vue'
-import boba from '../../assets/boba.svg.vue'
-import ethereum from '../../assets/ethereum.svg.vue'
+import starfield from '../../assets/Starfield.svg.vue'
+import portal from '../../assets/graphics/Portal.svg.vue'
+import ship from '../../assets/graphics/ShipOrbiter8.svg.vue'
+import moonbeam from '../../assets/graphics/LogoMoonbeam.svg.vue'
+import boba from '../../assets/graphics/LogoBoba.svg.vue'
+import ethereum from '../../assets/graphics/LogoEthereum.svg.vue'
 </script>
 
 <script lang="ts">

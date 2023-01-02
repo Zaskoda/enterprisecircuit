@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import portal from '../../assets/portal.svg.vue'
-import starfield from '../../assets/starfield.svg.vue'
+import portal from '../../assets/graphics/Portal.svg.vue'
+import starfield from '../../assets/Starfield.svg.vue'
 </script>
 
 <script lang="ts">

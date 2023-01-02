@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { mapState } from 'pinia'
-import panelNavigation from './panelNavigation.svg.vue'
 import panelDialogue from './panelDialogue.svg.vue'
-import btn from '../ui-primitives/button-basic.svg.vue'
-import ship from '../assets/shipO8.svg.vue'
+import btn from '../ui/button-basic.svg.vue'
+import ship from '../assets/graphics/ShipOrbiter8.svg.vue'
 
 import SpaceBackground from '../assets/sprites/SpaceBackground.svg.vue'
 

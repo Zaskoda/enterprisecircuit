@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import LogoBoba from '../geometry/LogoBoba.svg.vue'
+import LogoBoba from '../graphics/LogoBoba.svg.vue'
 </script>
 
 <template>

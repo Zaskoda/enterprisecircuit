@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import orbit from '../../containment/_orbit.svg.vue'
-import planet from '../../assets/planet.svg.vue'
-import moon from '../../assets/moon.svg.vue'
-import station from '../../assets/station.svg.vue'
-import shipO8 from '../shipO8.svg.vue'
+import orbit from '../../animations/_orbit.svg.vue'
+import planet from '../../graphics/Planet.svg.vue'
+import moon from '../../graphics/Moon.svg.vue'
+import station from '../../graphics/Station.svg.vue'
+import shipO8 from '../../graphics/ShipOrbiter8.svg.vue'
 </script>
 
 
@@ -28,49 +28,28 @@ export default {
 
 
 <template>
-  <g id="earth-glump">
+  <g>
     <g>
       <planet
-        :classification="6"
-        :size="45"
+        :classification="1"
+        :size="7.5"
         :rotationPeriod="rotationPeriod"
-        :rings="10"
       />
     </g>
     <g v-if="showMoons">
-      <orbit :duration="111" :distance="110">
+      <orbit :duration="185" :distance="60">
         <moon
-          :size="3"
+          :size="1"
         />
       </orbit>
-      <orbit :duration="46" :distance="-120">
+      <orbit :duration="42" :distance="-70">
         <moon
-          :size="3"
-        />
-      </orbit>
-      <orbit :duration="21" :distance="130">
-        <moon
-          :size="3"
-        />
-      </orbit>
-      <orbit :duration="71" :distance="-140">
-        <moon
-          :size="5"
-        />
-      </orbit>
-      <orbit :duration="67" :distance="150">
-        <moon
-          :size="14"
-        />
-      </orbit>
-      <orbit :duration="31" :distance="-160">
-        <moon
-          :size="5"
+          :size="1"
         />
       </orbit>
     </g>
     <g v-if="showStation">
-      <orbit :duration="60" :distance="75">
+      <orbit :duration="60" :distance="38">
         <station
           :size="4"
         />

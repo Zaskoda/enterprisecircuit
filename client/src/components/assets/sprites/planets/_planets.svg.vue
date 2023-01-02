@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useUI } from '../../../stores/ui'
+import { useUI } from '../../../../stores/ui'
 import mercury from './mercury.svg.vue'
 import venus from './venus.svg.vue'
 import earth from './earth.svg.vue'
@@ -9,7 +9,7 @@ import saturn from './saturn.svg.vue'
 import uranus from './uranus.svg.vue'
 import neptune from './neptune.svg.vue'
 import pluto from './pluto.svg.vue'
-import star from '../star.svg.vue'
+import star from '../Star.svg.vue'
 </script>
 
 <script lang="ts">

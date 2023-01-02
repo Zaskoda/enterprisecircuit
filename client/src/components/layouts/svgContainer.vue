@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import fps from '../fps.svg.vue'
+import fps from '../ui/fps.svg.vue'
   import { useUI } from '../../stores/ui'
   import DefaultDefinitions from '../definitions/Orbiter8.svg.vue'
   </script>
@@ -13,6 +13,7 @@ import fps from '../fps.svg.vue'
         debug: false,
         showFPS: true,
         rect: false
+        //TODO: move debug toggles to UI store & settings page
       }
     },
     mounted () {

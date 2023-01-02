@@ -1,0 +1,1 @@
+Files in this folder should contain compound imagery made of graphics and including an relavant animations.

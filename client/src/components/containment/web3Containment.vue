@@ -2,7 +2,7 @@
 import { useEVM } from '../../stores/evm'
 import EVMStatus from './_EVMStatus.svg.vue'
 import { useRouting } from '../../stores/routing'
-import btn from '../ui-primitives/button-basic.svg.vue'
+import btn from '../ui/button-basic.svg.vue'
 </script>
 
 <script lang="ts">

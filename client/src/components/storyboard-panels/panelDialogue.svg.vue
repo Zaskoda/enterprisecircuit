@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import minerva from '../assets/minervaBox.svg.vue'
+  import minerva from '../assets/sprites/minervaBox.svg.vue'
 
   import { useUI } from '../../stores/ui'
 </script>
