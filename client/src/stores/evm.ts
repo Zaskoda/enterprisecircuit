@@ -15,7 +15,8 @@ export const useEVM = defineStore('wallet', {
       block: null,
       switchingNetwork: false,
       networks: networks,
-      deployments: deployments
+      deployments: deployments,
+      balance: 0.0 as number
     }
   },
   getters: {
@@ -41,6 +42,12 @@ export const useEVM = defineStore('wallet', {
         this.signerAddress.substring(length - 3)
       }
       return this.signerAddress
+    },
+    currencyData():string {
+      return this.networks[this.chainId].currency
+    },
+    facuets():string {
+      return this.networks[this.chainId].faucets
     }
   },
   actions: {
@@ -64,6 +71,9 @@ export const useEVM = defineStore('wallet', {
       }
 
       await this.getChainData()
+      await this.getBalance()
+
+      this.isConnected = true
     },
 
     async init() {
@@ -73,6 +83,12 @@ export const useEVM = defineStore('wallet', {
         console.log(e.message)
         return
       }
+    },
+
+    async getBalance () {
+      let balance = await this.provider.getBalance(this.signerAddress)
+      balance = ethers.utils.formatEther(balance)
+      this.balance = Math.round(balance * 1e4) / 1e4
     },
 
     async getChainData() {
@@ -95,7 +111,6 @@ export const useEVM = defineStore('wallet', {
         return
       }
       this.applyEvents()
-      this.isConnected = true
       console.log('Signer Address: ', this.signerAddress)
     },
 

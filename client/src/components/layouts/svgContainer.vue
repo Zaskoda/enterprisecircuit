@@ -11,7 +11,7 @@ import fps from '../ui/fps.svg.vue'
         mouseHold: false,
         ui: useUI(),
         debug: false,
-        showFPS: true,
+        showFPS: false,
         rect: false
         //TODO: move debug toggles to UI store & settings page
       }
@@ -96,7 +96,7 @@ import fps from '../ui/fps.svg.vue'
 
       </g>
 
-      <g v-if="debug || showFPS" :transform="'translate(' + (ui.right - 150) + '  ' + (ui.bottom - 60) + ')'">
+      <g v-if="debug || showFPS" :transform="'translate(' + (ui.right - 110) + '  ' + (ui.bottom - 40) + ')'">
           <fps />
         </g>
     </svg>

@@ -33,10 +33,10 @@ export default {
 <template>
   <g v-if="isBlocked">
     <g v-if="this.evm.isConnected && !this.evm.suppportedNetwork">
-      <text font-size="2em" :transform="'translate(0 ' + (-50) + ')'">Please select a supported network.</text>
+      <text font-size="20px" :transform="'translate(0 ' + (-50) + ')'">Please select a supported network.</text>
     </g>
     <g v-else>
-      <text font-size="2em" :transform="'translate(0 ' + (-50) + ')'">Please connect your wallet.</text>
+      <text font-size="20px" :transform="'translate(0 ' + (-50) + ')'">Please connect your wallet.</text>
 
       <btn
           font-size="14px"

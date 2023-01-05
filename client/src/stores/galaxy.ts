@@ -48,6 +48,10 @@ export const useGalaxy = defineStore('galaxy', {
   },
   actions: {
     async connect() {
+      if (this.connected == true) {
+        return
+      }
+
       try {
         this.galaxyContractAddress = networkDeployments[this.evm.chainId]['Galaxy']
         console.log('Galaxy contract address is ', this.galaxyContractAddress)

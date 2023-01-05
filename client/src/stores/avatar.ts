@@ -22,6 +22,9 @@ export const useAvatar = defineStore('avatar', {
   },
   actions: {
     async connect() {
+      if (this.connected == true) {
+        return
+      }
       try {
         this.avatarContractAddress = networkDeployments[this.evm.chainId]['AvatarControls']
         console.log('Avatar contract address is ', this.avatarContractAddress)

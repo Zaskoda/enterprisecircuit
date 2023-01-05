@@ -63,6 +63,14 @@ const deployments =  {
     'PlanetTokens': '0x2fceAd2954C53Cdc35a2E2D3C8d9d11a847D2842',
     'ShipTokens': '0xd748Eb47D5D9521C19EE8D08BC606893616ed764'
   },
+  //Arbitrum
+  "11155111": {
+    'AvatarControls': '0x1bde28Bf4e0224A72EbC309992B0A5b32262b47A',
+    'Credits': '0x3093022a0bfD02cFf56CD5B87809027BF88731cE',
+    'Galaxy': '0xdd86445C07e140f284eE10A4c39dF7C568d88865',
+    'PlanetTokens': '0xc820005F1EEA88EF4541398F3305d620E5F441d0',
+    'ShipTokens': '0x0f93785633fc437fDFcC707cc8c222F753486Ebc'
+  },
   //Harmony
   //"1666700000": {
   //  'AvatarControls': '0xFab77fA380F2694A74C6Aae9dE90DE2426f0F85b',
