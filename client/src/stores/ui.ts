@@ -8,6 +8,9 @@ export const useUI = defineStore('ui', {
     scale: 1,
     maxScale: 4,
     minScale: 0.5,
+    evm: {
+      showNetworkkSelect: false
+    },
     //cached values for window size and mouse position
     window: {
       width: 1200,

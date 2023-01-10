@@ -7,7 +7,7 @@ import SpaceStation from './assets/sprites/SpaceStation.svg.vue'
 import PlayerShip from './assets/sprites/PlayerShip.svg.vue'
 import starfield from './assets/Starfield.svg.vue'
 import LogoPartavate from './assets/sprites/LogoPartavate.svg.vue'
-import web3Containment from './containment/web3Containment.vue'
+import EVMStatus from './ui/EVMStatus.svg.vue'
 
 import { useUI } from '../stores/ui'
 import { useRouting } from '../stores/routing'
@@ -30,7 +30,6 @@ export default {
 
 <template>
   <svgContainer>
-  <web3Containment>
   <g>
     <backdrop  transform="scale(1)" />
   </g>
@@ -272,7 +271,7 @@ export default {
     </g>
 
 
-  </web3Containment>
+    <EVMStatus />
   </svgContainer>
 </template>
 

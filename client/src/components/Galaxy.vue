@@ -36,7 +36,7 @@ export default {
     <SpaceBackground  />
     <web3Containment :restricted="true">
 
-      <g v-if="!galaxy.connected">
+      <g v-if="!galaxy.isConnected">
         <btn :width="210" :height="50" @click="init()" font-size="20" :text="'Load Data'"  />
       </g>
       <g v-else font-size="9px">

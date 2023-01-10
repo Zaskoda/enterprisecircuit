@@ -10,19 +10,20 @@ export const useAvatar = defineStore('avatar', {
       avatarContractAddress: '',
       networkDeployments: networkDeployments,
       evm: useEVM() as any,
-      connected: false,
+      isConnected: false,
+      isLoaded: false,
       knownAvatars: {} as any,
       chainstate: {
         myAvatarId: null,
         myAvatarName: null,
         avatarCount: null as number | null,
         haveAvatar: false
-      }
+      },
     }
   },
   actions: {
     async connect() {
-      if (this.connected == true) {
+      if (this.isConnected == true) {
         return
       }
       try {
@@ -38,7 +39,7 @@ export const useAvatar = defineStore('avatar', {
         console.log(e.message)
         return
       }
-      this.connected = true
+      this.isConnected = true
     },
 
     async call(contractMethod:Function, params:any[], callback:Function = ()=>{}) {
@@ -102,6 +103,7 @@ export const useAvatar = defineStore('avatar', {
         this.getMyAvatarId(),
         this.haveAvatar()
       ])
+      this.isLoaded = true
     },
 
 

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import btn from '../ui/button-basic.svg.vue'
-import spinner from '../ui/spinner.svg.vue'
+import btn from './button-basic.svg.vue'
+import spinner from './spinner.svg.vue'
 import { useEVM} from '../../stores/evm'
 import deployments from "../../../libraries/galactic/networkDeployments"
 import networks from "../../../libraries/galactic/networkDetails"

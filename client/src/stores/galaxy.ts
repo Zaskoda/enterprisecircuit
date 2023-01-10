@@ -32,7 +32,8 @@ export const useGalaxy = defineStore('galaxy', {
       galaxyContractAddress: '',
       networkDeployments: networkDeployments,
       evm: useEVM() as any,
-      connected: false,
+      isConnected: false,
+      isLoaded: false,
       chainstate: {
         creditBalance: 0,
         systemCount: 0,
@@ -48,7 +49,7 @@ export const useGalaxy = defineStore('galaxy', {
   },
   actions: {
     async connect() {
-      if (this.connected == true) {
+      if (this.isConnected == true) {
         return
       }
 
@@ -65,7 +66,7 @@ export const useGalaxy = defineStore('galaxy', {
         console.log(e.message)
         return
       }
-      this.connected = true
+      this.isConnected = true
     },
 
     async call(contractMethod:Function, params:any[], callback:Function = ()=>{}) {
@@ -190,12 +191,15 @@ export const useGalaxy = defineStore('galaxy', {
     },
 
     async getAll() {
-      this.getSystemCount()
-      this.getPlayerSystemData()
-      this.myBalance()
-      this.getMyShipLocation()
-      this.getMyShipId()
-      this.getMyShip()
+      await Promise.all([
+        this.getSystemCount(),
+        this.getPlayerSystemData(),
+        this.myBalance(),
+        this.getMyShipLocation(),
+        this.getMyShipId(),
+        this.getMyShip()
+      ])
+      this.isLoaded = true
     },
 
     async myBalance() {

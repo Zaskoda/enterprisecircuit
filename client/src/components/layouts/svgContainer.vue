@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import fps from '../ui/fps.svg.vue'
+  import FPS from '../ui/FPS.svg.vue'
   import { useUI } from '../../stores/ui'
   import DefaultDefinitions from '../definitions/Orbiter8.svg.vue'
   </script>
@@ -97,7 +97,7 @@ import fps from '../ui/fps.svg.vue'
       </g>
 
       <g v-if="debug || showFPS" :transform="'translate(' + (ui.right - 110) + '  ' + (ui.bottom - 40) + ')'">
-          <fps />
+          <FPS />
         </g>
     </svg>
     </div>

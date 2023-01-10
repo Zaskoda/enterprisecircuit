@@ -178,8 +178,8 @@ const networks =  {
     rpc: ['https://data-seed-prebsc-1-s1.binance.org:8545/'],
     explorer:['https://testnet.bscscan.com'],
     faucets: [{
-      name: '',
-      url: ''
+      name: 'Binance Faucet',
+      url: 'https://testnet.binance.org/faucet-smart/'
     }]
   },
   '1284': {
@@ -196,8 +196,8 @@ const networks =  {
     rpc: ['https://rpc.api.moonbeam.network'],
     explorer:['https://moonscan.io'],
     faucets: [{
-      name: '',
-      url: ''
+      name: 'Moonbeam App',
+      url: 'https://moonbeam.network/networks/moonbeam/'
     }]
   },
   '1285': {
@@ -214,8 +214,8 @@ const networks =  {
     rpc: ['https://rpc.api.moonriver.moonbeam.network'],
     explorer:['https://moonriver.moonscan.io'],
     faucets: [{
-      name: '',
-      url: ''
+      name: 'Moonriver App',
+      url: 'https://moonbeam.network/networks/moonriver/'
     }]
   },
   '1287': {
@@ -232,8 +232,8 @@ const networks =  {
     rpc: ['https://rpc.api.moonbase.moonbeam.network'],
     explorer:['https://moonbase.moonscan.io'],
     faucets: [{
-      name: '',
-      url: ''
+      name: 'Moonbase Faucet',
+      url: 'https://apps.moonbeam.network/moonbase-alpha/faucet/'
     }]
   },
   '1297': {
@@ -304,8 +304,8 @@ const networks =  {
     rpc: ['https://rpc-mumbai.maticvigil.com/'],
     explorer: ['https://mumbai.polygonscan.com'],
     faucets: [{
-      name: '',
-      url: ''
+      name: 'Polygon\'s Faucet',
+      url: 'https://faucet.polygon.technology/'
     }]
   },
   '421611': {
@@ -340,8 +340,8 @@ const networks =  {
     rpc: ['https://rpc.sepolia.org/'],
     explorer: ['https://sepolia.etherscan.io/'],
     faucets: [{
-      name: '',
-      url: ''
+      name: 'Sepolia Faucet',
+      url: 'https://sepolia-faucet.com/'
     }]
   },
   '1666700000': {

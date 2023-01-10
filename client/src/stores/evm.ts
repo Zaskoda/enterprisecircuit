@@ -28,7 +28,7 @@ export const useEVM = defineStore('wallet', {
       }
       return 'unknown network'
     },
-    suppportedNetwork():boolean {
+    isSuppportedNetwork():boolean {
       if (this.deployments[this.chainId]) {
         return true
       }
@@ -43,11 +43,27 @@ export const useEVM = defineStore('wallet', {
       }
       return this.signerAddress
     },
-    currencyData():string {
-      return this.networks[this.chainId].currency
+    currencyData():object {
+      if (this.chainId) {
+        return this.networks[this.chainId].currency
+      }
+      return {
+        name: '',
+        symbol: '',
+        decimals: 18
+      }
     },
     facuets():string {
-      return this.networks[this.chainId].faucets
+      if (this.chainId) {
+        return this.networks[this.chainId].faucets
+      }
+      return []
+    },
+    explorer():string {
+      if (this.chainId) {
+        return this.networks[this.chainId].explorer
+      }
+      return ''
     }
   },
   actions: {

@@ -40,7 +40,7 @@ export default {
 
 
 
-      <g v-if="!avatar.connected">
+      <g v-if="!avatar.isConnected">
         <btn :width="210" :height="50" @click="init()" font-size="20" :text="'Load Data'"  />
       </g>
       <g v-else>

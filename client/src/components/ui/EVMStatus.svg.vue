@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import LogoEthereum from '../assets/graphics/LogoEthereum.svg.vue'
-import networkSelect from './_networkSelect.svg.vue'
-import btn from '../ui/button-basic.svg.vue'
+import networkSelect from './EVMNetworkSelect.svg.vue'
+import btn from './button-basic.svg.vue'
 import { useEVM } from '../../stores/evm'
 import { useUI } from '../../stores/ui'
 </script>
@@ -12,8 +12,6 @@ export default {
     return {
       evm: useEVM(),
       ui: useUI(),
-      isOpen: false,
-      showNetworkSelect: false
     }
   },
   mounted() {
@@ -32,7 +30,7 @@ export default {
 <template>
   <g>
      <rect
-       v-if="showNetworkSelect"
+       v-if="ui.evm.showNetworkSelect"
       :x="-2000"
       :y="-2000"
       :width="4000"
@@ -40,7 +38,7 @@ export default {
       fill-opacity="0.6"
       fill="#000000"
       stroke-width="0"
-      @click="showNetworkSelect=false"
+      @click="ui.evm.showNetworkSelect=false"
       />
 
     <g :transform="'translate(0 ' + (ui.top + 10) + ')'">
@@ -72,17 +70,17 @@ export default {
             :height="12" :width="50"
             font-size="8"
             transform="translate(100 20)"
-            @click="this.showNetworkSelect = true"
+            @click="ui.evm.showNetworkSelect = true"
             text="Change" />
 
 
           <g font-size="8" >
             <g text-anchor="end" transform="translate(120 4)">
-              <g v-if="evm.suppportedNetwork" >
+              <g v-if="evm.isSuppportedNetwork" >
                 <text fill="#88ff88"
                   >Supported</text>
               </g>
-              <g v-else="evm.suppportedNetwork">
+              <g v-else="evm.isSuppportedNetwork">
                 <text fill="#ff8888"
                   >Unsupported</text>
               </g>
@@ -110,8 +108,8 @@ export default {
 
       </g>
     </g>
-    <g v-if="showNetworkSelect">
-      <networkSelect v-on:close="showNetworkSelect = false" />
+    <g v-if="ui.evm.showNetworkSelect">
+      <networkSelect v-on:close="ui.evm.showNetworkSelect = false" />
     </g>
   </g>
 </template>
