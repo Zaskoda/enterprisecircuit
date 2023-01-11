@@ -12,10 +12,7 @@ const networks =  {
     },
     rpc: ['http://127.0.0.1:8545/'],
     explorer: [],
-    faucets: [{
-      name: '',
-      url: ''
-    }]
+    faucets: []
   },
   '1': {
     name: 'Ethereum Main Net',
@@ -30,10 +27,7 @@ const networks =  {
     },
     rpc: ['https://mainnet.infura.io/v3/'],
     explorer: ['https://ropsten.etherscan.io'],
-    faucets: [{
-      name: '',
-      url: ''
-    }]
+    faucets: []
   },
   '2': {
     name: 'Deprecated Morden Testnet',
@@ -48,10 +42,7 @@ const networks =  {
     },
     rpc: [''],
     explorer: [''],
-    faucets: [{
-      name: '',
-      url: ''
-    }]
+    faucets: []
   },
   '3': {
     name: 'Deprecated Ropsten Testnet',
@@ -105,10 +96,7 @@ const networks =  {
     },
     rpc: ['https://rinkeby.boba.network'],
     explorer: ['https://blockexplorer.rinkeby.boba.network'],
-    faucets: [{
-      name: '',
-      url: ''
-    }]
+    faucets: []
   },
   '42': {
     name: 'Ethereum Kovan Testnet',
@@ -123,10 +111,7 @@ const networks =  {
     },
     rpc: ['https://kovan.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161'],
     explorer: ['https://kovan.etherscan.io'],
-    faucets: [{
-      name: '',
-      url: ''
-    }]
+    faucets: []
   },
   '61': {
     name: 'Ethereum Classic',
@@ -141,10 +126,7 @@ const networks =  {
     },
     rpc: ['https://www.ethercluster.com/etc'],
     explorer: ['https://blockscout.com/etc/mainnet/'],
-    faucets: [{
-      name: '',
-      url: ''
-    }]
+    faucets: []
   },
   '69': {
     name: 'Optimism Kovan Testnet',
@@ -159,10 +141,7 @@ const networks =  {
     },
     rpc: ['https://kovan.optimism.io'],
     explorer:['https://kovan-optimistic.etherscan.io'],
-    faucets: [{
-      name: '',
-      url: ''
-    }]
+    faucets: []
   },
   '97': {
     name: 'Binance Smartchain Testnet',
@@ -249,10 +228,7 @@ const networks =  {
     },
     rpc: ['https://bobabase.boba.network'],
     explorer: ['https://blockexplorer.bobabase.boba.network'],
-    faucets: [{
-      name: '',
-      url: ''
-    }]
+    faucets: []
   },
   '4447': {
     name: 'Truffle Development Network',
@@ -267,10 +243,7 @@ const networks =  {
     },
     rpc: [''],
     explorer: [''],
-    faucets: [{
-      name: '',
-      url: ''
-    }]
+    faucets: []
   },
   '5777': {
     name: 'Ganache Development Network',
@@ -285,10 +258,7 @@ const networks =  {
     },
     rpc: [''],
     explorer: [''],
-    faucets: [{
-      name: '',
-      url: ''
-    }]
+    faucets: []
   },
   '80001': {
     name: 'Polygon Mumbai Testnet',
@@ -321,10 +291,7 @@ const networks =  {
     },
     rpc: ['https://rinkeby.arbitrum.io/rpc'],
     explorer: ['https://testnet.arbiscan.io'],
-    faucets: [{
-      name: '',
-      url: ''
-    }]
+    faucets: []
   },
   '11155111': {
     name: 'Sepolia Testnet',
@@ -357,10 +324,7 @@ const networks =  {
     },
     rpc: ['https://api.s0.b.hmny.io/'],
     explorer: ['https://explorer.pops.one'],
-    faucets: [{
-      name: '',
-      url: ''
-    }]
+    faucets: []
   },
 }
 

@@ -21,46 +21,15 @@ export default {
       routing: useRouting(),
       galaxy: useGalaxy(),
       evm: useEVM(),
-      step: 0,
-      steps: [
-        'Connecting Wallet',
-        'Connecting To Supported Network',
-        'Connecting To Avatar Contract',
-        'Connecting To Galaxy Contract',
-        'Loading Avatar State',
-        'Loading Galaxy State',
-        'Ready To Play'
-      ]
     }
   },
   async mounted() {
-    if (this.isConnected) {
-      await this.init()
-    }
   },
   watch: {
     async block(newVal, oldVal) {
-      if (this.avatar.connected) {
-        await this.avatar.getAll()
-      }
-      if (this.galaxy.connected) {
-        await this.galaxy.getAll()
-      }
-      this.evm.getBalance()
-    },
-    async isConnected(newVal, oldVal) {
-      if (!oldVal && newVal) {
-        this.init()
-      }
     }
   },
   methods: {
-    async init() {
-      await this.avatar.connect()
-      await this.galaxy.connect()
-      await this.avatar.getAll()
-      await this.galaxy.getAll()
-    },
     openNewWindow(url:string) {
       window.open(url)
     }
@@ -142,14 +111,14 @@ export default {
       <text v-else transform="translate(-40 0)" text-anchor="start" fill="#88ff88">Connecting</text>
       <text transform="translate(0 17)"
         class="canclick" @click="openNewWindow(evm.explorer + '/address/' + avatar.avatarContractAddress)"
-        fill="#ffffaa" font-size="12px">{{  avatar.avatarContractAddress }}</text>
+        fill="#ffffaa" font-size="12px" font-family="monospace">{{  avatar.avatarContractAddress }}</text>
 
       <text transform="translate(-50 40)" text-anchor="end" fill="#aaaaaa">Galaxy Contract:</text>
       <text v-if="galaxy.isConnected" transform="translate(-40 40)" text-anchor="start" fill="#88ff88">Connected</text>
       <text v-else transform="translate(-40 40)" text-anchor="start" fill="#88ff88">Connecting</text>
       <text transform="translate(0 57)"
        class="canclick" @click="openNewWindow(evm.explorer + '/address/' + galaxy.galaxyContractAddress)"
-       fill="#ffffaa" font-size="12px">{{  galaxy.galaxyContractAddress }}</text>
+       fill="#ffffaa" font-size="12px" font-family="monospace">{{  galaxy.galaxyContractAddress }}</text>
     </g>
 
     <g v-if="avatar.isLoaded && galaxy.isLoaded" transform="translate(0 40)">
@@ -216,6 +185,10 @@ export default {
         @click="ui.evm.showNetworkSelect = true"
       />
     </g>
+    <g v-else-if="!galaxy.isLoaded || !avatar.isLoaded">
+      <text font-size="20px" :transform="'translate(0 ' + (-50) + ')'">Loading game data.</text>
+      />
+    </g>
     <g v-else>
       <btn
         fill="#ffffff"
@@ -226,7 +199,17 @@ export default {
         @click="$emit('readyToPlay')"
       />
     </g>
+  <g transform="translate(0 50)">
+    <btn
+      font-size="12px"
+      fill="#ffffff"
+      :width="50"
+      :height="20"
+      text="Title"
+      @click="routing.switchScreen('title')"/>
   </g>
+  </g>
+
 
 
 </template>

@@ -2,9 +2,8 @@
 import EVMStatus from './ui/EVMStatus.svg.vue'
 import { mapState } from 'pinia'
 import svgContainer from './layouts/svgContainer.vue'
-import btn from './ui/button-basic.svg.vue'
-import LoadingBar from './ui/LoadingBar.svg.vue'
 import SpaceBackground from './assets/sprites/SpaceBackground.svg.vue'
+import World from './World.svg.vue'
 
 import { useUI } from '../stores/ui'
 import { useRouting } from '../stores/routing'
@@ -30,38 +29,39 @@ export default {
   },
   async mounted() {
     if (this.isConnected) {
-      await this.init()
+      this.loadChainData()
     }
   },
   watch: {
     async block(newVal, oldVal) {
-      if (this.avatar.connected) {
-        await this.avatar.getAll()
-      }
-      if (this.galaxy.connected) {
-        await this.galaxy.getAll()
-      }
-      this.evm.getBalance()
+      console.log('new block: ' + newVal + ' ' + oldVal)
+      this.loadChainData()
     },
     async isConnected(newVal, oldVal) {
       if (!oldVal && newVal) {
-        this.init()
+        //this.loadChainData()
       }
+    },
+    chainId() {
+      this.readyToPlay = false
     }
   },
   methods: {
-    async init() {
-      await this.avatar.connect()
-      await this.galaxy.connect()
-      await this.avatar.getAll()
-      await this.galaxy.getAll()
+    async loadChainData() {
+      this.evm.getBalance()
+      if (this.avatar.isConnected) {
+        await this.avatar.getAll()
+      }
+      if (this.galaxy.isConnected) {
+        await this.galaxy.getAll()
+      }
     },
     openNewWindow(url:string) {
       window.open(url)
     }
   },
   computed: {
-    ...mapState(useEVM, ['block', 'isConnected']),
+    ...mapState(useEVM, ['block', 'isConnected', 'chainId']),
     loadingPercentage() {
       if (!this.evm.isConnected) {
         return 0
@@ -86,12 +86,13 @@ export default {
 <template>
 <svgContainer>
   <SpaceBackground  />
-  <GameConnect v-if="!readyToPlay" @readyToPlay="this.readyToPlay = true" />
+  <g v-if="!readyToPlay">
+    <GameConnect @readyToPlay="this.readyToPlay = true" />
+  </g>
   <g v-else>
+    <World />
   </g>
-  <g>
-    <EVMStatus />
-  </g>
+  <EVMStatus />
 </svgContainer>
 </template>
 

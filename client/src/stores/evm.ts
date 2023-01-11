@@ -11,28 +11,22 @@ export const useEVM = defineStore('wallet', {
       signerAddress: null,
       provider: null as ethers.providers.Web3Provider | null,
       chain: null as any,
-      chainId: null as number | null,
+      chainId: '' as string,
       block: null,
       switchingNetwork: false,
-      networks: networks,
       deployments: deployments,
       balance: 0.0 as number
     }
   },
   getters: {
     chainName():string {
-      if (this.chainId == null) {
-        return 'no network'
-      } else if (this.networks[this.chainId]) {
-        return this.networks[this.chainId].name
+      if (networks.hasOwnProperty(this.chainId)) {
+        return networks[this.chainId].name
       }
       return 'unknown network'
     },
     isSuppportedNetwork():boolean {
-      if (this.deployments[this.chainId]) {
-        return true
-      }
-      return false
+      return deployments.hasOwnProperty(this.chainId)
     },
     shortSigner():string {
       const length = this.signerAddress.length
@@ -44,8 +38,8 @@ export const useEVM = defineStore('wallet', {
       return this.signerAddress
     },
     currencyData():object {
-      if (this.chainId) {
-        return this.networks[this.chainId].currency
+      if (networks.hasOwnProperty(this.chainId)) {
+        return networks[this.chainId].currency
       }
       return {
         name: '',
@@ -54,14 +48,14 @@ export const useEVM = defineStore('wallet', {
       }
     },
     facuets():string {
-      if (this.chainId) {
-        return this.networks[this.chainId].faucets
+      if (networks.hasOwnProperty(this.chainId)) {
+        return networks[this.chainId].faucets
       }
       return []
     },
     explorer():string {
-      if (this.chainId) {
-        return this.networks[this.chainId].explorer
+      if (networks.hasOwnProperty(this.chainId)) {
+        return networks[this.chainId].explorer
       }
       return ''
     }

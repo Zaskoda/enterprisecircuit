@@ -2,7 +2,6 @@
 import svgContainer from './layouts/svgContainer.vue'
 import btn from './ui/button-basic.svg.vue'
 import SpaceBackground from './assets/sprites/SpaceBackground.svg.vue'
-import web3Containment from './containment/web3Containment.vue'
 
 import { useUI } from '../stores/ui'
 import { useRouting } from '../stores/routing'
@@ -34,7 +33,6 @@ export default {
 <template>
   <svgContainer>
     <SpaceBackground  />
-    <web3Containment :restricted="true">
 
       <g v-if="!galaxy.isConnected">
         <btn :width="210" :height="50" @click="init()" font-size="20" :text="'Load Data'"  />
@@ -93,7 +91,6 @@ export default {
           @click="routing.switchScreen('title')"
           />
       </g>
-    </web3Containment>
   </svgContainer>
 </template>
 
