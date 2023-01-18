@@ -20,8 +20,7 @@ export const useGalaxy = defineStore('galaxy', {
         systemData: {} as System,
         ships: [] as any[],
         planets: [] as any[],
-        localPlanets: [] as Planet[],
-        systemPlanets: [] as any[]
+        localPlanets: [] as Planet[]
       }
     }
   },
@@ -75,16 +74,16 @@ export const useGalaxy = defineStore('galaxy', {
       let planetData:any[] = await Promise.all(
         this.chainstate.systemData.planets.map(
           async (planetId:any, pindex) => {
-            planetId = BigInt(planetId)
             let planet = null
-            if (planetId > BigInt(0)) {
+            if (BigInt(planetId) > BigInt(0)) {
 
               planet = this.mapPlanetObject(
                 await this.contract.read(
                   'getPlanet',
                   [planetId]
                 ),
-                pindex
+                pindex,
+                planetId
               )
 
               let moons:any[] = await Promise.all(
@@ -124,8 +123,9 @@ export const useGalaxy = defineStore('galaxy', {
       )
       this.chainstate.localPlanets = planetData.filter(planet => planet != null)
     },
-    mapPlanetObject(data:any[], orbit:number):Planet {
+    mapPlanetObject(data:any[], orbit:number, id:string):Planet {
       let planet:Planet = {
+        id: id,
         orbit: orbit,
         name: data[0],
         systemId: data[1],
@@ -133,12 +133,13 @@ export const useGalaxy = defineStore('galaxy', {
           size: data[2][0],
           class: data[2][1],
           rings: data[2][2],
-          speed: data[2][3]
+          velocity: data[2][3]
         },
         owner: data[3],
         hasMoons: data[4],
         hasPort: data[5],
-        moons: []
+        moons: [],
+        station: {} as Station
       }
       return planet
     },
@@ -332,16 +333,17 @@ interface Station {
 }
 
 interface Planet {
+  id: string,
   orbit: number,
   name: string,
-  systemId: BigInt,
+  systemId: string,
   attributes: {
     size: number,
     class: number,
     rings: number,
-    speed: number
+    velocity: number
   },
-  owner: BigInt,
+  owner: string,
   hasMoons: [
     number,
     number,

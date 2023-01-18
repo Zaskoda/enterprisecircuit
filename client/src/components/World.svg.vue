@@ -4,6 +4,9 @@ import { mapState } from 'pinia'
 import { useUI } from '../stores/ui'
 import { useRouting } from '../stores/routing'
 import { useEVM } from "../stores/evm"
+import { useClock } from "../stores/clock"
+
+import { useWorld } from '../stores/world'
 
 import { useAvatar } from '../stores/avatar'
 import { useGalaxy } from '../stores/galaxy'
@@ -23,12 +26,18 @@ export default {
       routing: useRouting(),
       avatar: useAvatar(),
       galaxy: useGalaxy(),
+      world: useWorld(),
       evm: useEVM(),
+      clock: useClock()
     }
   },
   async mounted() {
+    this.world.loadSprites()
   },
   watch: {
+    gameTime() {
+      this.world.updateSpriteOrbits()
+    }
   },
   methods: {
     async moveTo(systemId:number) {
@@ -37,36 +46,43 @@ export default {
   },
   computed: {
     ...mapState(useEVM, ['block', 'isConnected']),
+    ...mapState(useClock, ['gameTimeInSeconds', 'gameTime'])
   }
 }
 </script>
 
 <template>
   <g transform="translate(0 -100)">
-    <Star :size="galaxy.chainstate.systemData.starSize" transform="translate(-350 0)" />
+    <text transform="translate(0 -200)">{{  gameTime  }}</text>
 
-    <g v-for="(planet) in galaxy.chainstate.localPlanets">
-      <Planet
-        :transform="'translate(' + (planet.orbit * 80 - 180) + ' 0)'"
-        :classification="planet.attributes.class"
-        :size="planet.attributes.size"
-        :rings="planet.attributes.rings" />
-      <g v-for="(moon) in planet.moons">
-        <Moon v-if="moon != null"
-          :transform="'translate(' + (planet.orbit * 80 - 180) + ' ' + (moon.orbit * 20 + 40)  + ')'"
-          :size="moon.size" />
-      </g>
-      <g v-if="planet.hasPort">
+    <g transform="translate(-300 00)">
+
+      <g v-for="sprite in world.sprites" :transform="'translate(' + sprite.position.x + ' ' + sprite.position.y + ')'">
+        <Star
+          v-if="sprite.type == 'Star'"
+          :size="sprite.metaData.size"
+        />
+        <Planet
+          v-if="sprite.type == 'Planet'"
+          :size="sprite.metaData.size"
+          :rings="sprite.metaData.rings"
+          :classification="sprite.metaData.classification"
+        />
+        <Moon
+          v-if="sprite.type == 'Moon'"
+          :size="sprite.metaData.size"
+        />
         <SpaceStation
-          :transform="'translate(' + (planet.orbit * 80 - 180) + ' -60)'"
-          :size="planet.station.size"
+          v-if="sprite.type == 'SpaceStation'"
+          :size="sprite.metaData.size"
         />
       </g>
     </g>
 
   </g>
 
-  <g font-size="10px" transform="translate(0 200)" v-if="true">
+
+  <g font-size="10px" transform="translate(0 200)" v-if="false">
     <g transform="translate(0 -100)">
       <text fill="#888">System Count: <tspan fill="#ffffff" font-weight="bold">{{ galaxy.chainstate.systemCount }}</tspan></text>
     </g>

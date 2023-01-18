@@ -38,13 +38,17 @@ export default {
       this.loadChainData()
     },
     async isConnected(newVal, oldVal) {
-      if (!oldVal && newVal) {
-        //this.loadChainData()
+      console.log('connected')
+      if ((newVal) && (!oldVal)) {
+        this.loadChainData()
       }
     },
     chainId() {
       this.readyToPlay = false
     }
+  },
+  computed: {
+    ...mapState(useEVM, ['block', 'isConnected']),
   },
   methods: {
     async loadChainData() {
@@ -58,26 +62,6 @@ export default {
     },
     openNewWindow(url:string) {
       window.open(url)
-    }
-  },
-  computed: {
-    ...mapState(useEVM, ['block', 'isConnected', 'chainId']),
-    loadingPercentage() {
-      if (!this.evm.isConnected) {
-        return 0
-      } else if (!this.evm.isSuppportedNetwork) {
-        return 45
-      } else if (!this.avatar.isConnected) {
-        return 55
-      } else if (!this.galaxy.isConnected) {
-        return 65
-      } else if (!this.avatar.isLoaded) {
-        return 75
-      } else if (!this.galaxy.isLoaded) {
-        return 85
-      } else {
-        return 100
-      }
     }
   }
 }

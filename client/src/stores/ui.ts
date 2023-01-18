@@ -12,6 +12,7 @@ export const useUI = defineStore('ui', {
       showNetworkkSelect: false
     },
     //cached values for window size and mouse position
+    //default values get overwritten and don't matter much
     window: {
       width: 1200,
       height: 1200,
@@ -20,14 +21,16 @@ export const useUI = defineStore('ui', {
       mouseDirection: 0
     },
     //current resolution of the window into the SVG
+    //also get overwritten
     viewport: {
-      width: 20,
-      height: 20
+      width: 200,
+      height: 200
     },
     //used to preserve 16:9 or 9:16 window when scaling
+    //also determines default resolution
     protectedBox: {
-      long: 1200,
-      short: 675
+      long: 2560,
+      short: 1440
     }
   }),
   actions: {

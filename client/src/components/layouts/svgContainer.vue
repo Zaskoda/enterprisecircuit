@@ -11,7 +11,7 @@
         mouseHold: false,
         ui: useUI(),
         debug: false,
-        showFPS: false,
+        showFPS: true,
         rect: false
         //TODO: move debug toggles to UI store & settings page
       }
@@ -59,9 +59,9 @@
       v-on:mouseup="mouseHold = false"
       text-anchor="middle"
       dominant-baseline="central"
-      rendering="auto"
-      text-rendering="auto"
-      shape-rendering="auto"
+      rendering="geometricPrecision"
+      text-rendering="geometricPrecision"
+      shape-rendering="geometricPrecision"
       fill="#ffffff">
 
       <default-definitions />
