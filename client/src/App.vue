@@ -8,6 +8,7 @@ import Avatars from './components/Avatars.vue'
 import Galaxy from './components/Galaxy.vue'
 import Play from './components/Play.vue'
 import FourShips from './components/FourShips.vue'
+import WindowView from './components/WindowView.vue'
 
 import { useRouting } from './stores/routing'
 import { useClock } from './stores/clock'
@@ -30,6 +31,7 @@ clock.play()
   <Avatars v-if="routing.isScreen('avatars')" />
   <Galaxy v-if="routing.isScreen('galaxy')" />
   <Play v-if="routing.isScreen('play')" />
+  <WindowView v-if="routing.isScreen('window')" />
 
 
 </template>

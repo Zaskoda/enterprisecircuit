@@ -11,7 +11,7 @@
         mouseHold: false,
         ui: useUI(),
         debug: false,
-        showFPS: true,
+        showFPS: false,
         rect: false
         //TODO: move debug toggles to UI store & settings page
       }

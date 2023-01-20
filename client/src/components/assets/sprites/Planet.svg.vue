@@ -13,9 +13,36 @@ export default {
       type: Number,
       default: 0
     },
-    rotationPeriod: {
+    lightDirection: {
       type: Number,
       default: 0
+    },
+    lightIntensity: {
+      type: Number,
+      default: 0.75
+    }
+  },
+  computed: {
+    lightLimited() {
+      return Math.min(1, Math.max(0, this.lightIntensity))
+    },
+    planetFill() {
+      if (this.lightLimited < 0.5) {
+        return '#170034'
+      }
+      return '#ffffff'
+    },
+    planetStroke() {
+      if (this.lightLimited < 0.5) {
+        return '#5c1aae'
+      }
+      return '#ffffff'
+    },
+    shadowOpacity() {
+      if (this.lightLimited < 0.5) {
+        return (this.lightLimited * 2)
+      }
+      return (1 - this.lightLimited) * 2
     }
   }
 }
@@ -33,18 +60,19 @@ export default {
 
     <circle cx="0" cy="0" r="12" stroke="none" fill="#ffffff00" />
 
-    <g transform="rotate(30)">
-      <circle cx="0" cy="0" r="10" stroke="#c3b3da" stroke-width="0.25" fill="url(#planetGradient)" />
-      <animateTransform
-        v-if="rotationPeriod > 0"
-        attributeName="transform"
-        attributeType="XML"
-        type="rotate"
-        from="360"
-        to="0"
-        :dur="rotationPeriod+'s'"
-        animate="freeze"
-        repeatCount="indefinite"/>
+    <g >
+      <circle
+        cx="0" cy="0" r="10"
+        :stroke="planetStroke"
+        stroke-width="0.25"
+        :fill="planetFill" />
+    </g>
+    <g :transform="'rotate(' + lightDirection + ')'" :opacity="shadowOpacity">
+      <circle
+        cx="0" cy="0" r="10"
+        stroke="#c3b3da"
+        stroke-width="0.25"
+        fill="url(#planetGradient)" />
     </g>
 
     <g clip-path="url(#just-the-planet)">

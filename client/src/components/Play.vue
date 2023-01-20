@@ -38,7 +38,6 @@ export default {
       this.loadChainData()
     },
     async isConnected(newVal, oldVal) {
-      console.log('connected')
       if ((newVal) && (!oldVal)) {
         this.loadChainData()
       }

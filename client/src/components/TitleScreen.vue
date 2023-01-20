@@ -31,7 +31,7 @@ export default {
 <template>
   <svgContainer>
   <g>
-    <backdrop  transform="scale(1)" />
+    <backdrop />
   </g>
 
 
@@ -198,66 +198,71 @@ export default {
       <g>
         <rect
           :x="ui.left"
-          y="-70"
+          y="-120"
           :width="ui.right - ui.left"
-          height="220"
+          height="420"
           fill="#000000"
           fill-opacity="0.2"
           />
       </g>
-      <g  font-size="22px">
+      <g  font-size="40px">
         <btn
-          :width="300" :height="45"
+          :width="300" :height="65"
           text="START"
            @click="routing.switchScreen('play')"
-          transform="translate(0 -25)" />
+          transform="translate(0 -65)" />
       </g>
-      <g  font-size="18px" transform="translate(0 55)">
+      <g  font-size="18px" transform="translate(0 35)">
+        <btn
+          :width="100" :height="36"
+          text="Window"
+           @click="routing.switchScreen('window')"
+          transform="translate(-200 -25)" />
         <btn
           :width="100" :height="36"
           text="Portal"
            @click="routing.switchScreen('storya')"
-          transform="translate(-150 -25)" />
+          transform="translate(-100 -25)" />
         <btn
           :width="100" :height="36"
           text="Tween"
            @click="routing.switchScreen('storyb')"
-          transform="translate(-50 -25)" />
+          transform="translate(-0 -25)" />
         <btn
           :width="100" :height="36"
           text="Avatars"
            @click="routing.switchScreen('avatars')"
-          transform="translate(50 -25)" />
+          transform="translate(100 -25)" />
         <btn
           :width="100" :height="36"
           text="Galaxy"
            @click="routing.switchScreen('galaxy')"
-          transform="translate(150 -25)" />
+          transform="translate(200 -25)" />
       </g>
-      <g  font-size="14px" transform="translate(0 100)">
+      <g  font-size="30px" transform="translate(0 100)">
         <btn
-          :width="180" :height="24"
+          :width="200" :height="40"
           text="Settings"
            @click="routing.switchScreen('settings')"
           transform="translate(0 -25)" />
       </g>
-      <g  font-size="10px" transform="translate(0 135)">
+      <g  font-size="30px" transform="translate(0 160)">
         <btn
-          :width="120" :height="20"
-          text="Asset Viewer"
+          :width="200" :height="40"
+          text="Assets"
            @click="routing.switchScreen('assets')"
           transform="translate(0 -25)" />
       </g>
-      <g  font-size="10px" transform="translate(0 160)">
+      <g  font-size="30px" transform="translate(0 220)">
         <btn
-          :width="80" :height="15"
+          :width="200" :height="40"
           text="Ships"
            @click="routing.switchScreen('four')"
           transform="translate(0 -25)" />
       </g>
     </g>
 
-    <LogoOrbiter8  :transform="'translate(0 -80) scale(0.5)'" />
+    <LogoOrbiter8  :transform="'translate(0 -220) scale(1)'" />
     <LogoPartavate  :transform="'translate(0 ' + (ui.bottom - 25) + ') scale(0.1)'" />
 
 
