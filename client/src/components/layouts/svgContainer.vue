@@ -62,7 +62,8 @@
       rendering="geometricPrecision"
       text-rendering="geometricPrecision"
       shape-rendering="geometricPrecision"
-      fill="#ffffff">
+      fill="#ffffff"
+      font-size="48px">
 
       <default-definitions />
       <slot />

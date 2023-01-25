@@ -5,6 +5,7 @@ export const useUI = defineStore('ui', {
     //overall scaling
     isAutoPresent: false,
     showText: true,
+    UIScale: 1,
     scale: 1,
     maxScale: 4,
     minScale: 0.5,
@@ -34,6 +35,10 @@ export const useUI = defineStore('ui', {
     }
   }),
   actions: {
+    setUIScale(scale:number) {
+      this.UIScale = Math.max(Math.min(scale, 2), 0.25)
+
+    },
     resizeHandler() {
       //the window size changed, so record the new size
       this.window.width = window.innerWidth

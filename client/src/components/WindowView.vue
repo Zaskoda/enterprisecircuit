@@ -2,12 +2,13 @@
 import svgContainer from './layouts/svgContainer.vue'
 import SpaceBackground from './assets/sprites/SpaceBackground.svg.vue'
 import btn from './ui/button-basic.svg.vue'
-import PlayerShip from './assets/sprites/PlayerShip.svg.vue'
 
 import Planet from './assets/sprites/Planet.svg.vue'
 import Moon from './assets/sprites/Moon.svg.vue'
 import Star from './assets/sprites/Star.svg.vue'
 import SpaceStation from './assets/sprites/SpaceStation.svg.vue'
+
+import OrbitingStation from './assets/scenes/OrbitingStation.svg.vue'
 
 import { useUI } from '../stores/ui'
 import { useRouting } from '../stores/routing'
@@ -87,8 +88,9 @@ export default {
       <Star :size="3" />
     </g>
 
-    <g :transform="'translate(0 ' + (1000 - (sampleTween * 2000))  + ')'">
-      <PlayerShip :type="1" :show-engines="true" />
+
+    <g :transform="'translate(' + (400 - (sampleTween * 400))  + ' 0)'">
+      <OrbitingStation />
     </g>
 
     <g :transform="'translate(0 ' + (400 + (400 * sampleTween))  + ')'">

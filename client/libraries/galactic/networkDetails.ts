@@ -282,14 +282,14 @@ const networks =  {
     name: 'Arbitrum Testnet',
     shortName: 'Arbitrum',
     description: '',
-    id: '421611',
+    id: '421616',
     hexId: '0x66EEB',
     currency: {
       name: 'Arbitrum Ether',
       symbol: 'ETH',
       decimals: 18
     },
-    rpc: ['https://rinkeby.arbitrum.io/rpc'],
+    rpc: ['https://goerli-rollup.arbitrum.io/rpc'],
     explorer: ['https://testnet.arbiscan.io'],
     faucets: []
   },

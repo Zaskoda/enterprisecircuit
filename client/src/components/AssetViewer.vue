@@ -85,11 +85,6 @@ export default {
       </g>
     </g>
     <g v-for="i in 3" transform="translate(-160 0)" >
-      <g :transform="'translate(' + ((i * 35) - 15 + i * i * i) + ' 0) scale(0.25)'">
-        <Star :size="i * 1.25" />
-      </g>
-    </g>
-    <g v-for="i in 3" transform="translate(-160 0)" >
       <g :transform="'translate(' + ((i * 25) + 150 + i * i * i) + ' 0) scale(0.25)'">
         <SpaceStation :size="i*30 + 20" />
       </g>
