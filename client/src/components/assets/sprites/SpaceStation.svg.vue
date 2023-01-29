@@ -19,7 +19,7 @@ export default {
 
 <template>
 <g>
-  <g :transform="'scale(' + (size / 500 + 0.005) + ') rotate(' + rotation + ')'">
+  <g :transform="'scale(' + (size / 1000 + 0.01) + ') rotate(' + rotation + ')'">
     <circle cx="0" cy="0" r="400" stroke-width="0" fill="#c3b3da00" />
     <space-station />
   </g>

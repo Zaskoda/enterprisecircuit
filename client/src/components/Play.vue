@@ -2,7 +2,6 @@
 import EVMStatus from './ui/EVMStatus.svg.vue'
 import { mapState } from 'pinia'
 import svgContainer from './layouts/svgContainer.vue'
-import SpaceBackground from './assets/sprites/SpaceBackground.svg.vue'
 import World from './World.svg.vue'
 
 import { useUI } from '../stores/ui'
@@ -11,6 +10,7 @@ import { useEVM } from "../stores/evm"
 
 import { useAvatar } from '../stores/avatar'
 import { useGalaxy } from '../stores/galaxy'
+import btn from './ui/button-basic.svg.vue'
 
 import GameConnect from './ui/GameConnet.svg.vue'
 </script>
@@ -68,12 +68,20 @@ export default {
 
 <template>
 <svgContainer>
-  <SpaceBackground  />
   <g v-if="!readyToPlay">
     <GameConnect @readyToPlay="this.readyToPlay = true" />
   </g>
   <g v-else>
     <World />
+    <g  font-size="42px" :transform="'translate(0 ' + (ui.bottom - 20) + ')'">
+      <g :transform="'scale(' + ui.UIScale + ')'">
+        <btn
+          :width="200" :height="60"
+          text="Title"
+            @click="routing.switchScreen('title')"
+          transform="translate(0 -80)" />
+      </g>
+    </g>
   </g>
   <EVMStatus />
 </svgContainer>

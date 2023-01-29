@@ -6,7 +6,8 @@ export const useUI = defineStore('ui', {
     isAutoPresent: false,
     showText: true,
     UIScale: 1,
-    scale: 1,
+    showFPS: false,
+    debug: false,
     maxScale: 4,
     minScale: 0.5,
     evm: {
@@ -30,19 +31,19 @@ export const useUI = defineStore('ui', {
     //used to preserve 16:9 or 9:16 window when scaling
     //also determines default resolution
     protectedBox: {
-      long: 2560,
-      short: 1440
+      long: 1920,
+      short: 1200
     }
   }),
   actions: {
     setUIScale(scale:number) {
-      this.UIScale = Math.max(Math.min(scale, 2), 0.25)
-
+      this.UIScale = Math.max(Math.min(scale, this.maxScale), this.minScale)
+      //this.resizeHandler()
     },
     resizeHandler() {
       //the window size changed, so record the new size
-      this.window.width = window.innerWidth
-      this.window.height = window.innerHeight
+      this.window.width = Math.max(window.innerWidth, 400)
+      this.window.height = Math.max(window.innerHeight, 400)
 
       //determine portrait vs landscape
       const shortSide = Math.min(this.window.width, this.window.height)
@@ -53,12 +54,14 @@ export const useUI = defineStore('ui', {
       const longSideRatio = (longSide / this.protectedBox.long)
 
       //get the scaler for the most constrained direction
-      let scaler = 1
+      let avgScaler = (1 / longSideRatio + 1 / shortSideRatio) / 2
+      let constrainedScaler
       if (shortSideRatio > longSideRatio) {
-        scaler = 1 / longSideRatio
+        constrainedScaler =  1 / longSideRatio
       } else {
-        scaler = 1 / shortSideRatio
+        constrainedScaler = 1 / shortSideRatio
       }
+      let scaler = (avgScaler + constrainedScaler) / 2
 
       //apply new resolution to SVG's viewport based on scaler
       this.viewport.width = Math.round(this.window.width * scaler)
@@ -71,17 +74,7 @@ export const useUI = defineStore('ui', {
       this.window.mouseDirection = Math.atan2(ydif, xdif) / Math.PI * 180
       this.window.mouseX = event.pageX
       this.window.mouseY = event.pageY
-    },
-    setScale(newScale:number) {
-      this.scale = Math.max(
-        this.minScale,
-        Math.min(
-          this.maxScale,
-          newScale
-        )
-      )
-      this.resizeHandler()
-    },
+    }
   },
   getters: {
     viewBoxSize():string {
@@ -106,10 +99,10 @@ export const useUI = defineStore('ui', {
 
     //viewbox height and width
     width():number {
-      return Math.round(this.scale * this.viewport.width)
+      return Math.round(this.viewport.width)
     },
     height():number {
-      return Math.round(this.scale * this.viewport.height)
+      return Math.round(this.viewport.height)
     },
 
     //viewable edges of SVG at current resolution

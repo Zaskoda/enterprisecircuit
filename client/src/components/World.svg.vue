@@ -16,48 +16,135 @@ import Planet from './assets/sprites/Planet.svg.vue'
 import Moon from './assets/sprites/Moon.svg.vue'
 import SpaceStation from './assets/sprites/SpaceStation.svg.vue'
 
+import SpaceBackground from './assets/sprites/SpaceBackground.svg.vue'
+import Gridlines from './assets/Gridlines.svg.vue'
+import StarfieldRandom from './assets/StarfieldRandom.svg.vue'
+
+import Worldly from './transformers/worldly.svg.vue'
+
 </script>
 
 <script lang="ts">
 export default {
   data() {
     return {
+      mouseHold: false,
       ui: useUI(),
       routing: useRouting(),
       avatar: useAvatar(),
       galaxy: useGalaxy(),
       world: useWorld(),
       evm: useEVM(),
-      clock: useClock()
+      clock: useClock(),
+      dragOriginX: 0,
+      dragOriginY: 0,
     }
-  },
-  async mounted() {
-    this.world.loadSprites()
   },
   watch: {
     gameTime() {
       this.world.updateSpriteOrbits()
     }
   },
+  async mounted () {
+    this.world.loadSprites()
+    window.addEventListener('keyup', this.keyHandler)
+    window.addEventListener('wheel', this.wheelHandler)
+    window.addEventListener('mousemove', this.mouseMoveHandler)
+  },
+  beforeDestroy() {
+    window.removeEventListener('wheel', this.wheelHandler)
+    window.removeEventListener('keyup', this.keyHandler)
+    window.removeEventListener('mousemove', this.mouseMoveHandler)
+  },
   methods: {
     async moveTo(systemId:number) {
       await this.galaxy.moveToSystem(systemId)
+    },
+    wheelHandler(event:any) {
+      //todo - wheel should modify map, not UI
+      console.log('wheel', event.deltaY)
+      if (event.deltaY > 0) {
+        this.world.zoomOut()
+      } else if (event.deltaY < 0) {
+        this.world.zoomIn()
+      }
+    },
+    keyHandler() {
+    },
+    logSprite(sprite:Object) {
+      console.log(JSON.stringify(sprite))
+    },
+    mouseDragOn() {
+      console.log('dragging')
+      this.world.deselect()
+      this.mouseHold = true
+      this.dragOriginX = this.ui.mouseX
+      this.dragOriginY = this.ui.mouseY
+    },
+    mouseDragOff() {
+      if (this.mouseHold) {
+        this.mouseHold = false
+        console.log('not draggin')
+      }
+    },
+    mouseMoveHandler(event:any) {
+      if (this.mouseHold) {
+        let newX = this.ui.mouseX
+        let newY = this.ui.mouseY
+        let xDiff = (newX - this.dragOriginX) / this.world.zoomLevel
+        let yDiff = (newY - this.dragOriginY) / this.world.zoomLevel
+        this.world.moveViewTo(this.world.viewPoint.x + xDiff, this.world.viewPoint.y + yDiff)
+        this.dragOriginX = newX
+        this.dragOriginY = newY
+      }
     }
   },
   computed: {
     ...mapState(useEVM, ['block', 'isConnected']),
-    ...mapState(useClock, ['gameTimeInSeconds', 'gameTime'])
+    ...mapState(useClock, ['gameTimeInSeconds', 'gameTime']),
   }
 }
 </script>
 
 <template>
-  <g transform="translate(0 -100)">
-    <text transform="translate(0 -200)">{{  gameTime  }}</text>
+  <g transform="translate(0 0)">
 
-    <g transform="translate(-300 00)">
+    <Worldly :depth="9">
+      <SpaceBackground />
+    </Worldly>
 
-      <g v-for="sprite in world.sprites" :transform="'translate(' + sprite.position.x + ' ' + sprite.position.y + ')'">
+
+    <Worldly v-for="n in 4" :depth="6 - n">
+      <StarfieldRandom :count="250" :scale="10 + (n / 2)" :range="4000 / n" />
+    </Worldly>
+
+
+    <Worldly>
+      <Gridlines />
+    </Worldly>
+
+    <g :class="{ 'is-dragging': mouseHold }"
+        v-on:mousedown="mouseDragOn()"
+        v-on:mouseup="mouseDragOff()"
+        >
+      <rect
+        :x="ui.left" :y="ui.top"
+        :width="ui.width" :height="ui.height"
+        opacity="0"
+        fill="#000000" />
+    </g>
+
+    <Worldly>
+      <g v-for="(sprite, index) in world.sprites" :transform="'translate(' + sprite.position.x + ' ' + sprite.position.y + ')'" @click="world.select(index)" class="canclick">
+        <circle
+          fill-opacity="0" fill="#000000"
+          stroke="#ffffff"
+          stroke-opacity="0.5"
+          :stroke-width="0.01 * sprite.metaData.size"
+          stroke-dasharray="2 2"
+          :r="sprite.metaData.size * 2 + 5"
+          v-if="world.selectedSprite == index"
+          />
         <Star
           v-if="sprite.type == 'Star'"
           :size="sprite.metaData.size"
@@ -77,9 +164,9 @@ export default {
           :size="sprite.metaData.size"
         />
       </g>
-    </g>
-
+    </Worldly>
   </g>
+
 
 
   <g font-size="10px" transform="translate(0 200)" v-if="false">
@@ -123,4 +210,8 @@ export default {
 </template>
 
 <style scoped>
+.is-dragging {
+  cursor: grabbing;
+}
+
 </style>

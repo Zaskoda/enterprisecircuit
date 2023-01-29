@@ -28,10 +28,12 @@
           <stop offset="100%" stop-color="#280b4b" stop-opacity="1"/>
         </linearGradient>
       </defs>
-      <rect x="-202" y="-12" width="404" height="24" fill="#ff88ff" fill-opacity="0.75" stroke="#5c1aae88" stroke-width="3" rx="10" ry="10" />
-      <rect x="-200" y="-10" :width="400 * (percent/100)" height="20" stroke="#5c1aae" stroke-width="2" rx="10" ry="10" class="loadingbar" fill="url(#barGradient)"/>
-      <text text-anchor="start" fill="#ffffff88" font-size="1em" transform="translate(-200 30)">{{ statusMessage }}</text>
-      <text text-anchor="end" fill="#ffffff88" font-size="1em" transform="translate(200 30)">{{ percent }}%</text>
+      <rect x="-302" y="-18" width="604" height="32" fill="#ff88ff" fill-opacity="0.75" stroke="#5c1aae88" stroke-width="3" rx="20" ry="20" />
+      <rect x="-300" y="-15" :width="600 * (percent/100)" height="28" stroke="#5c1aae" stroke-width="2" rx="20" ry="20" class="loadingbar" fill="url(#barGradient)"/>
+      <g fill="#ffffff88" font-size="28px" transform="translate(0 40)">
+      <text text-anchor="start" transform="translate(-300 0)">{{ statusMessage }}</text>
+      <text text-anchor="end" transform="translate(300 0)">{{ percent }}%</text>
+      </g>
   </g>
 </template>
 

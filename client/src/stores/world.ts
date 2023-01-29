@@ -7,17 +7,29 @@ interface Sprite {
   type: string,
   parent: number,
   orbit: number,
-  position: {
-    x: number,
-    y: number
-  },
-  orbitalPosition: {
-    x: number,
-    y: number
-  },
-  metaData: {
-  }
+  velocity: number,
+  distance: number,
+  speed: number,
+  position: { x: number, y: number },
+  metaData: {}
 }
+
+const maxPlanets = 14
+const planetDistance = 600
+const planetGap = 500
+
+const maxMoons = 8
+const moonDistance = 60
+const moonGap = 20
+
+const stationDistance = 25
+
+
+interface Coords {
+  x: number,
+  y: number,
+}
+
 
 export const useWorld = defineStore('world', {
   state: () => {
@@ -26,12 +38,75 @@ export const useWorld = defineStore('world', {
       galaxy: useGalaxy(),
       clock: useClock(),
       sprites: [] as Sprite[],
-      updating: false
+      updating: false,
+      zoomLevel: 1,
+      viewPoint: {
+        x: 0,
+        y:0
+      } as Coords,
+      maxMap: 6500,
+      maxZoom: 10,
+      minZoom: 0.005,
+      selectedSprite: null as null | number
     }
   },
   getters: {
+    getViewPoint():Coords {
+      if (this.selectedSprite!= null) {
+        return {
+          x: this.sprites[this.selectedSprite].position.x * -1,
+          y: this.sprites[this.selectedSprite].position.y * -1
+        }
+      }
+      return this.viewPoint
+    },
   },
   actions: {
+    deselect() {
+      if (this.selectedSprite != null) {
+        this.viewPoint.x = this.sprites[this.selectedSprite].position.x * -1
+        this.viewPoint.y = this.sprites[this.selectedSprite].position.y * -1
+        this.selectedSprite = null
+      }
+    },
+    select(id:number) {
+      this.selectedSprite= id
+      this.zoomLevel = 10
+    },
+    zoomOut() {
+      this.zoomLevel = Math.max(
+        (this.zoomLevel * 0.9),
+        this.minZoom
+      )
+    },
+    zoomIn() {
+      this.zoomLevel = Math.min(
+        (this.zoomLevel * 1.1),
+        this.maxZoom
+      )
+    },
+    moveViewTo(x:number, y:number) {
+      this.deselect()
+      this.viewPoint.x = Math.max(Math.min(x, this.maxMap), this.maxMap * -1)
+      this.viewPoint.y = Math.max(Math.min(y, this.maxMap), this.maxMap * -1)
+    },
+    setSpritesDistanceAndVelocity () {
+
+      this.sprites.forEach((sprite) => {
+        if (sprite.type == "Planet") {
+          sprite.distance = (sprite.orbit) * planetGap + planetDistance
+          sprite.speed = sprite.velocity / (sprite.orbit + 1) + 5
+        } else if (sprite.type == "Moon") {
+          sprite.distance = (sprite.orbit) * moonGap + moonDistance
+          sprite.distance += (this.sprites[sprite.parent].metaData.size * 1.5)
+          sprite.speed = sprite.velocity / (sprite.orbit + 1) + 5
+        }else if (sprite.type == "SpaceStation") {
+          sprite.distance = stationDistance + (this.sprites[sprite.parent].metaData.size * 1.5)
+          sprite.speed = this.sprites[sprite.parent].metaData.size * 10 + 150 + (sprite.parent * 10)
+        }
+      })
+
+    },
     async updateSpriteOrbits() {
       if (this.updating) {
         console.log('skipping')
@@ -41,23 +116,13 @@ export const useWorld = defineStore('world', {
       let gameTime = this.clock.gameTime
 
       this.sprites.forEach((sprite, index) => {
-        let distance = 0
-        let speed = 10
-        if (sprite.type == "Planet") {
-          distance = (sprite.orbit) * 100
-          speed = (this.sprites.length - index + 2) * 2 + 1
-        } else if (sprite.type == "Moon") {
-          distance = (sprite.orbit) * 10
-          speed = (this.sprites.length - index + 2) * 50 + 1
-        }else if (sprite.type == "SpaceStation") {
-          distance = 50
-          speed = 30
-        }
+//      for (let i = 0; i < this.sprites.length; i++) {
+//        let sprite = this.sprites[i]
 
         let throttle = 0.0000001
-        let theta = (gameTime * speed * throttle) % (Math.PI * 2)
-        let translatex = (distance * Math.cos(theta))
-        let translatey = (distance * Math.sin(theta))
+        let theta = (gameTime * sprite.speed * throttle) % (Math.PI * 2)
+        let translatex = (sprite.distance * Math.cos(theta))
+        let translatey = (sprite.distance * Math.sin(theta))
 
         let rad = Math.atan2(translatey, translatex)
         let rotation  = rad * (180 / Math.PI)
@@ -81,63 +146,76 @@ export const useWorld = defineStore('world', {
       let newSprites = []
 
       newSprites.push({
-        id: this.galaxy.chainstate.systemData.id,
+
         type: 'Star',
         parent: null,
         orbit: 0,
         position: { x: 0, y: 0 },
-        orbitalPosition: { x: 0, y: 0 },
+        velocity: 0,
+        distance: 0,
+        speed: 0,
+
         metaData: {
+          id: this.galaxy.chainstate.systemData.id,
           name: this.galaxy.chainstate.systemData.name,
           size:  this.galaxy.chainstate.systemData.starSize,
         }
       })
+
       this.galaxy.chainstate.localPlanets.forEach((planet) => {
         newSprites.push({
-          id: planet.id,
-          orbit: planet.orbit + 2,
+
           type: 'Planet',
-          parent: null,
-          position: { x: planet.orbit * 80 + 150, y: 0 },
+          parent: 0,
+          orbit: planet.orbit,
+          position: { x: 0, y: 0 },
+          velocity: planet.velocity,
+          distance: 0,
+          speed: 0,
+
           metaData: {
+            id: planet.id,
             name: planet.name,
-            size: planet.attributes.size,
-            class: planet.attributes.class,
-            rings: planet.attributes.rings,
-            speed: planet.attributes.speed
+            size: planet.size,
+            class: planet.class,
+            rings: planet.rings,
           }
         })
+
         let parent = newSprites.length - 1
+
         planet.moons.forEach((moon) => {
           newSprites.push({
-            id: planet.id,
-            orbit: moon.orbit + 3,
+
             type: 'Moon',
             parent: parent,
-            position: {
-              x: planet.orbit * 80 + 150,
-              y: moon.orbit * 20 +50
-            },
+            orbit: moon.orbit,
+            position: { x: 0, y: 0 },
+            velocity: moon.velocity,
+            distance: 0,
+            speed: 0,
+
             metaData: {
+              id: planet.id,
               name: moon.name,
               orbit: moon.orbit,
               size: moon.size,
               class: moon.class,
-              velocity: moon.velocity,
             }
           })
         })
         if (planet.hasPort) {
           newSprites.push({
-            id: planet.id,
             orbit: 1,
             type: 'SpaceStation',
             parent: parent,
-            position: {
-              x: planet.orbit * 80 + 150,
-              y: -50
-            },
+            position: { x: 0, y: 0 },
+            velocity: 0,
+            distance: 0,
+            speed: 0,
+
             metaData: {
+              id: planet.id,
               name: planet.station.name,
               size: planet.station.size,
               inventory: planet.station.inventory,
@@ -147,6 +225,8 @@ export const useWorld = defineStore('world', {
         }
       })
       this.sprites = newSprites
+      this.setSpritesDistanceAndVelocity()
+      this.updateSpriteOrbits()
       //add ships
     },
     generateSpriteList() {

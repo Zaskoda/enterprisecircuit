@@ -123,54 +123,6 @@ export const useGalaxy = defineStore('galaxy', {
       )
       this.chainstate.localPlanets = planetData.filter(planet => planet != null)
     },
-    mapPlanetObject(data:any[], orbit:number, id:string):Planet {
-      let planet:Planet = {
-        id: id,
-        orbit: orbit,
-        name: data[0],
-        systemId: data[1],
-        attributes: {
-          size: data[2][0],
-          class: data[2][1],
-          rings: data[2][2],
-          velocity: data[2][3]
-        },
-        owner: data[3],
-        hasMoons: data[4],
-        hasPort: data[5],
-        moons: [],
-        station: {} as Station
-      }
-      return planet
-    },
-    mapMoonObject(data:any[], orbit:number):Moon {
-      let moon:Moon = {
-        orbit: orbit,
-        name: data[0],
-        size: data[1],
-        class: data[2],
-        velocity: data[3]
-      }
-      return moon
-    },
-    mapStationObject(data:any[]):Station {
-      let station:Station = {
-        name: data[0],
-        size: data[1],
-        inventory: {
-          equipment: data[2][0],
-          fuel: data[2][1],
-          organics: data[2][2]
-        },
-        price: {
-          equipment: data[3][0],
-          fuel: data[3][1],
-          organics: data[3][2],
-          holds:data[3][3]
-        }
-      }
-      return station
-    },
     async myBalance() {
       this.chainstate.creditBalance = await this.contract.read(
         'myBalance'
@@ -283,6 +235,54 @@ export const useGalaxy = defineStore('galaxy', {
       this.contract.call('launchShip', [name])
     },
 
+
+    mapPlanetObject(data:any[], orbit:number, id:string):Planet {
+      let planet:Planet = {
+        id: id,
+        orbit: orbit,
+        name: data[0],
+        systemId: data[1],
+        size: data[2][0],
+        class: data[2][1],
+        rings: data[2][2],
+        velocity: data[2][3],
+        owner: data[3],
+        hasMoons: data[4],
+        hasPort: data[5],
+        moons: [],
+        station: {} as Station
+      }
+      return planet
+    },
+    mapMoonObject(data:any[], orbit:number):Moon {
+      let moon:Moon = {
+        orbit: orbit,
+        name: data[0],
+        size: data[1],
+        class: data[2],
+        velocity: data[3]
+      }
+      return moon
+    },
+    mapStationObject(data:any[]):Station {
+      let station:Station = {
+        name: data[0],
+        size: data[1],
+        inventory: {
+          equipment: data[2][0],
+          fuel: data[2][1],
+          organics: data[2][2]
+        },
+        price: {
+          equipment: data[3][0],
+          fuel: data[3][1],
+          organics: data[3][2],
+          holds:data[3][3]
+        }
+      }
+      return station
+    },
+
   }
 })
 
@@ -308,6 +308,32 @@ interface Ship {
   organics: number
 }
 
+
+interface Planet {
+  id: string,
+  orbit: number,
+  name: string,
+  systemId: string,
+  size: number,
+  class: number,
+  rings: number,
+  velocity: number
+  owner: string,
+  hasMoons: [
+    boolean,
+    boolean,
+    boolean,
+    boolean,
+    boolean,
+    boolean,
+    boolean,
+    boolean
+  ]
+  moons: Moon[],
+  hasPort: boolean,
+  station: Station
+}
+
 interface Moon {
   orbit: number,
   name: string,
@@ -330,31 +356,4 @@ interface Station {
     organics: number,
     holds:number
   }
-}
-
-interface Planet {
-  id: string,
-  orbit: number,
-  name: string,
-  systemId: string,
-  attributes: {
-    size: number,
-    class: number,
-    rings: number,
-    velocity: number
-  },
-  owner: string,
-  hasMoons: [
-    number,
-    number,
-    number,
-    number,
-    number,
-    number,
-    number,
-    number
-  ]
-  moons: Moon[],
-  hasPort: boolean,
-  station: Station
 }

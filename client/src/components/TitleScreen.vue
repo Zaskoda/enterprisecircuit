@@ -52,76 +52,76 @@ export default {
     <OrbitingStation transform="scale(3)" />
 
 
-    <g :transform="'translate(0 90)'">
+    <g transform="translate(0 240)">
       <g>
         <rect
           :x="ui.left"
-          y="-120"
-          :width="ui.right - ui.left"
-          height="420"
+          :y="-240 * ui.UIScale"
+          :width="ui.width"
+          :height="420 * ui.UIScale"
           fill="#000000"
           fill-opacity="0.2"
           />
       </g>
-      <g  font-size="40px">
-        <btn
-          :width="300" :height="65"
-          text="START"
-           @click="routing.switchScreen('play')"
-          transform="translate(0 -65)" />
-      </g>
-      <g  font-size="18px" transform="translate(0 35)">
-        <btn
-          :width="100" :height="36"
-          text="Window"
-           @click="routing.switchScreen('window')"
-          transform="translate(-200 -25)" />
-        <btn
-          :width="100" :height="36"
-          text="Portal"
-           @click="routing.switchScreen('storya')"
-          transform="translate(-100 -25)" />
-        <btn
-          :width="100" :height="36"
-          text="Tween"
-           @click="routing.switchScreen('storyb')"
-          transform="translate(-0 -25)" />
-        <btn
-          :width="100" :height="36"
-          text="Avatars"
-           @click="routing.switchScreen('avatars')"
-          transform="translate(100 -25)" />
-        <btn
-          :width="100" :height="36"
-          text="Galaxy"
-           @click="routing.switchScreen('galaxy')"
-          transform="translate(200 -25)" />
-      </g>
-      <g  font-size="30px" transform="translate(0 100)">
-        <btn
-          :width="200" :height="40"
-          text="Settings"
-           @click="routing.switchScreen('settings')"
-          transform="translate(0 -25)" />
-      </g>
-      <g  font-size="30px" transform="translate(0 160)">
-        <btn
-          :width="200" :height="40"
-          text="Assets"
-           @click="routing.switchScreen('assets')"
-          transform="translate(0 -25)" />
-      </g>
-      <g  font-size="30px" transform="translate(0 220)">
-        <btn
-          :width="200" :height="40"
-          text="Ships"
-           @click="routing.switchScreen('four')"
-          transform="translate(0 -25)" />
+      <g :transform="'scale(' + ui.UIScale + ')'">
+        <g  font-size="48px" transform="translate(0 -160)">
+          <btn
+            :width="300" :height="80"
+            text="Play"
+            @click="routing.switchScreen('play')"
+             />
+        </g>
+        <g  font-size="42px" transform="translate(0 -40)">
+          <btn
+            :width="300" :height="65"
+            text="Settings"
+            @click="routing.switchScreen('settings')"
+            transform="translate(0 -25)" />
+        </g>
+        <g  font-size="36px" transform="translate(0 50)">
+          <btn
+            :width="180" :height="50"
+            text="Window"
+            @click="routing.switchScreen('window')"
+            transform="translate(-300 0)" />
+          <btn
+            :width="180" :height="50"
+            text="Portal"
+            @click="routing.switchScreen('storya')"
+            transform="translate(-100 0)" />
+          <btn
+            :width="180" :height="50"
+            text="Tween"
+            @click="routing.switchScreen('storyb')"
+            transform="translate(100 0)" />
+          <btn
+            :width="180" :height="50"
+            text="Galaxy"
+            @click="routing.switchScreen('galaxy')"
+            transform="translate(300 0)" />
+        </g>
+        <g  font-size="36px" transform="translate(0 120)">
+          <btn
+            :width="180" :height="50"
+            text="Assets"
+            @click="routing.switchScreen('assets')"
+            transform="translate(-200 0)" />
+          <btn
+            :width="180" :height="50"
+            text="Ships"
+            @click="routing.switchScreen('four')"
+            transform="translate(0 0)" />
+          <btn
+            :width="180" :height="50"
+            text="Avatars"
+            @click="routing.switchScreen('avatars')"
+            transform="translate(200 0)" />
+        </g>
       </g>
     </g>
 
-    <LogoOrbiter8  :transform="'translate(0 -300) scale(1.5)'" />
-    <LogoPartavate  :transform="'translate(0 ' + (ui.bottom - 25) + ') scale(0.1)'" />
+    <LogoOrbiter8  :transform="'translate(0 ' + (ui.top + 200) + ') scale(1)'" />
+    <LogoPartavate  :transform="'translate(0 ' + (ui.bottom - 50) + ') scale(0.5)'" />
 
 
 
@@ -134,7 +134,6 @@ export default {
     </g>
 
 
-    <EVMStatus />
   </svgContainer>
 </template>
 

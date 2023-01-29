@@ -61,35 +61,22 @@ export default {
 </script>
 
 <template>
-  <g :transform="'translate(0 ' + (ui.top + 100) + ')'">
+  <g :transform="'translate(0 ' + (ui.top + 200) + ')'">
     <LoadingBar :percent="loadingPercentage" :statusMessage="getStep.message" />
   </g>
 
 
   <g v-if="evm.isConnected">
-    <g font-size="16px" transform="translate(0 -180)">
-      <text transform="translate(-50 0)" text-anchor="end" fill="#aaaaaa">Playing on:</text>
-      <text transform="translate(-40 0)" text-anchor="start">{{ evm.chainName }}</text>
-      <btn
-        transform="translate(10 30)"
-        font-size="14px"
-        fill="#ffffff"
-        :width="100"
-        :height="20"
-        text="change"
-        @click="ui.evm.showNetworkSelect = true"
-      />
-    </g>
 
-    <g font-size="14px" transform="translate(0 -110)">
+    <g font-size="28px" transform="translate(0 -140)">
       <text transform="translate(-50 0)" text-anchor="end" fill="#aaaaaa">Current Balance:</text>
       <text transform="translate(-40 0)" text-anchor="start">{{ evm.balance }} {{ evm.currencyData.symbol }}</text>
     </g>
 
-    <g font-size="14px" transform="translate(0 -85)">
+    <g font-size="28px" transform="translate(0 -100)">
       <text transform="translate(-50 0)" text-anchor="end" fill="#aaaaaa">Get more {{ evm.currencyData.symbol }}:</text>
       <g v-if="evm.facuets.length > 0">
-        <g v-for="(faucet, index) in evm.facuets" font-size="12px">
+        <g v-for="(faucet, index) in evm.facuets" font-size="24px">
         <btn
           :transform="'translate(' + 30 +' ' + index * 22 + ')'"
           :width="140"
@@ -105,111 +92,95 @@ export default {
     </g>
 
 
-    <g font-size="14px" transform="translate(0 -50)">
+    <g font-size="28px" transform="translate(0 -40)">
       <text transform="translate(-50 0)" text-anchor="end" fill="#aaaaaa">Avatar Contract:</text>
       <text v-if="avatar.isConnected" transform="translate(-40 0)" text-anchor="start" fill="#88ff88">Connected</text>
       <text v-else transform="translate(-40 0)" text-anchor="start" fill="#88ff88">Connecting</text>
-      <text transform="translate(0 17)"
+      <text transform="translate(0 35)"
         class="canclick" @click="openNewWindow(evm.explorer + '/address/' + avatar.avatarContractAddress)"
-        fill="#ffffaa" font-size="12px" font-family="monospace">{{  avatar.avatarContractAddress }}</text>
+        fill="#ffffaa" font-size="24px" font-family="monospace">{{  avatar.avatarContractAddress }}</text>
 
-      <text transform="translate(-50 40)" text-anchor="end" fill="#aaaaaa">Galaxy Contract:</text>
-      <text v-if="galaxy.isConnected" transform="translate(-40 40)" text-anchor="start" fill="#88ff88">Connected</text>
-      <text v-else transform="translate(-40 40)" text-anchor="start" fill="#88ff88">Connecting</text>
-      <text transform="translate(0 57)"
+      <text transform="translate(-50 70)" text-anchor="end" fill="#aaaaaa">Galaxy Contract:</text>
+      <text v-if="galaxy.isConnected" transform="translate(-40 70)" text-anchor="start" fill="#88ff88">Connected</text>
+      <text v-else transform="translate(-40 70)" text-anchor="start" fill="#88ff88">Connecting</text>
+      <text transform="translate(0 105)"
        class="canclick" @click="openNewWindow(evm.explorer + '/address/' + galaxy.galaxyContractAddress)"
-       fill="#ffffaa" font-size="12px" font-family="monospace">{{  galaxy.galaxyContractAddress }}</text>
+       fill="#ffffaa" font-size="24px" font-family="monospace">{{  galaxy.galaxyContractAddress }}</text>
     </g>
 
-    <g v-if="avatar.isLoaded && galaxy.isLoaded" transform="translate(0 40)">
-      <g font-size="14px" transform="translate(0 0)">
-        <text transform="translate(-5 0)" text-anchor="end" fill="#aaaaaa">Players:</text>
-        <text transform="translate(5 0)" text-anchor="start">{{  avatar.chainstate.avatarCount  }}</text>
-      </g>
-
-
-      <g font-size="14px" transform="translate(0 20)">
-        <text transform="translate(-5 0)" text-anchor="end" fill="#aaaaaa">Stars:</text>
-        <text transform="translate(5 0)" text-anchor="start">{{  galaxy.chainstate.systemCount }}</text>
-      </g>
+    <g v-if="avatar.isLoaded && galaxy.isLoaded" transform="translate(0 120)">
 
       <g v-if="avatar.hasAvatar">
-        <g font-size="14px" transform="translate(0 40)">
-          <text transform="translate(-5 0)" text-anchor="end" fill="#aaaaaa">Your Avatar:</text>
-          <text transform="translate(5 0)" text-anchor="start">{{  avatar.chainstate.myAvatarName  }}</text>
+        <g font-size="28px" transform="translate(0 0)">
+          <text transform="translate(-5 0)" fill="#aaaaaa">Welcome back {{  avatar.chainstate.myAvatarName  }}.</text>
+          <text transform="translate(5 0)" text-anchor="start"></text>
         </g>
       </g>
       <g v-else>
-        <g font-size="14px" transform="translate(0 40)">
+        <g font-size="28px" transform="translate(40)">
           <text transform="translate(0 0)" fill="#aaaaaa">You have no avatar.</text>
         </g>
       </g>
 
-      <g v-if="galaxy.chainstate.shipId > 0">
-        <g font-size="14px" transform="translate(0 60)">
-          <text transform="translate(-5 0)" text-anchor="end" fill="#aaaaaa">Your Ship:</text>
-          <text transform="translate(5 0)" text-anchor="start">{{  galaxy.chainstate.ship.name }}</text>
-        </g>
-        <g font-size="14px" transform="translate(0 80)">
-          <text transform="translate(-5 0)" text-anchor="end" fill="#aaaaaa">Your Location:</text>
-          <text transform="translate(5 0)" text-anchor="start">{{  galaxy.chainstate.systemData.name }}</text>
-        </g>
+      <g font-size="28px" fill="#aaaaaa" transform="translate(0 40)">
+        <text>There are {{  avatar.chainstate.avatarCount  }} players exploring {{  galaxy.chainstate.systemCount }} stars.</text>
       </g>
-      <g v-else>
-        <g font-size="14px" transform="translate(0 60)">
-          <text transform="translate(0 0)" fill="#aaaaaa">You have no ship.</text>
+
+      <g v-if="galaxy.chainstate.shipId > 0">
+        <g font-size="28px" transform="translate(0 80)">
+          <text transform="translate(-5 0)" fill="#aaaaaa">Your ship {{  galaxy.chainstate.ship.name }} is currently in {{  galaxy.chainstate.systemData.name }}</text>
         </g>
       </g>
     </g>
 
   </g>
-  <g :transform="'translate(0 ' + (ui.bottom - 100) + ')'">
+  <g :transform="'translate(0 ' + (ui.bottom - 200) + ')'">
     <g v-if="!evm.isConnected">
-      <text font-size="20px" :transform="'translate(0 ' + (-50) + ')'">Please connect your wallet.</text>
+      <text font-size="40px" :transform="'translate(0 ' + (-100) + ')'">Connect your wallet to continue.</text>
 
       <btn
         fill="#ffffff"
-        :width="150"
-        :height="30"
-        text="connect"
+        :width="500"
+        :height="90"
+        text="Connect"
         @click="evm.connect()"
       />
     </g>
     <g v-else-if="!evm.isSuppportedNetwork">
-      <text font-size="20px" :transform="'translate(0 ' + (-50) + ')'">Please select a supported network.</text>
+      <text font-size="40px" :transform="'translate(0 ' + (-100) + ')'">Please select a supported network.</text>
       <btn
         fill="#ffffff"
-        :width="150"
-        :height="30"
-        text="change"
+        :width="500"
+        :height="90"
+        text="Change"
         @click="ui.evm.showNetworkSelect = true"
       />
     </g>
     <g v-else-if="!galaxy.isLoaded || !avatar.isLoaded">
-      <text font-size="20px" :transform="'translate(0 ' + (-50) + ')'">Loading game data.</text>
+      <text font-size="40px" :transform="'translate(0 ' + (-100) + ')'">Loading game data.</text>
       />
     </g>
     <g v-else>
       <btn
         fill="#ffffff"
-        :width="300"
-        :height="45"
-        font-size="25px"
-        text="Start"
+        :width="500"
+        :height="90"
+        font-size="50px"
+        text="Play"
         @click="$emit('readyToPlay')"
       />
     </g>
-  <g transform="translate(0 50)">
-    <btn
-      font-size="12px"
-      fill="#ffffff"
-      :width="50"
-      :height="20"
-      text="Title"
-      @click="routing.switchScreen('title')"/>
-  </g>
   </g>
 
+  <g  font-size="42px" :transform="'translate(0 ' + (ui.bottom - 20) + ')'">
+    <g :transform="'scale(' + ui.UIScale + ')'">
+      <btn
+        :width="200" :height="60"
+        text="Title"
+          @click="routing.switchScreen('title')"
+        transform="translate(0 -80)" />
+    </g>
+  </g>
 
 
 </template>

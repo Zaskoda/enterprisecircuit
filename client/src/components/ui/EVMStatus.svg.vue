@@ -24,12 +24,12 @@ export default {
       await this.evm.init()
     },
   },
-  computed: {
+  computed:{
     scale() {
-      if (this.ui.landscape) {
-        return 0.75 * this.ui.uiScale
+      if (this.ui.portrait) {
+        return this.ui.UIScale
       }
-      return 1.25 * this.ui.uiScale
+      return this.ui.UIScale * 0.75
     }
   }
 }
@@ -48,42 +48,43 @@ export default {
     stroke-width="0"
     @click="ui.evm.showNetworkSelect=false"
     />
-  <g :transform="'translate(0 ' + (ui.top + 40) + ')'">
+  <g :transform="'translate(0 ' + (ui.top + 30) + ')'">
     <g :transform="'scale( ' + scale + ' )'">
       <g>
         <rect
-          x="-560" y="-24" width="1120" height="152"
+          x="-420" y="-18" width="840" height="114"
           fill="#000000" fill-opacity="0.2"
           stroke="#ffffff" stroke-opacity="0.15" stroke-width="2"
-          rx="40" ry="40"
+          rx="20" ry="20"
         />
 
-        <g transform="translate(-440 80) scale(0.70)">
+        <g transform="translate(-330 60) scale(0.60)">
           <LogoEthereum />
         </g>
 
         <g v-if="!evm.isConnected">
           <btn
-            :height="96" :width="400"
-            transform="translate(0 56)"
+            font-size="42px"
+            :height="72" :width="300"
+            transform="translate(0 42)"
             @click="connectWallet"
             text="Connect" />
         </g>
         <g v-else >
-          <text transform="translate(-80 12)" font-size="60px" fill="#ffffff">
+          <text transform="translate(-60 9)" font-size="40px" fill="#ffffff">
             {{  evm.chainName }}
           </text>
 
           <btn
-            :height="48" :width="200"
-            font-size="40px"
-            transform="translate(400 80)"
+            :height="36" :width="150"
+            font-size="30px"
+            transform="translate(300 60)"
             @click="ui.evm.showNetworkSelect = true"
             text="Change" />
 
 
-          <g font-size="40px" >
-            <g text-anchor="end" transform="translate(480 16)">
+          <g font-size="30px" >
+            <g text-anchor="end" transform="translate(360 12)">
               <g v-if="evm.isSuppportedNetwork" >
                 <text fill="#88ff88"
                   >Supported</text>
@@ -94,16 +95,16 @@ export default {
               </g>
             </g>
             <g fill="#999999">
-              <text transform="translate(-160 64)" text-anchor="end">
+              <text transform="translate(-120 48)" text-anchor="end">
                 Block:
               </text>
-              <text transform="translate(0 64)" >
+              <text transform="translate(0 48)" >
                 {{ evm.block }}
               </text>
-              <text transform="translate(-160 100)"  text-anchor="end">
+              <text transform="translate(-120 75)"  text-anchor="end">
                 Address:
               </text>
-              <text transform="translate(0 100)" >
+              <text transform="translate(0 75)" >
                 {{ evm.shortSigner }}
               </text>
             </g>
@@ -116,10 +117,10 @@ export default {
 
       </g>
     </g>
-    <g v-if="ui.evm.showNetworkSelect">
+  </g>
+    <g v-if="ui.evm.showNetworkSelect" transform="translate(0 0)">
       <networkSelect v-on:close="ui.evm.showNetworkSelect = false" />
     </g>
-  </g>
 </g>
 </template>
 
