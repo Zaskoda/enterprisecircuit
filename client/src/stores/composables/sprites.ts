@@ -9,7 +9,8 @@ const maxMoons = 8
 const moonDistance = 60
 const moonGap = 15
 
-const stationDistance = 25
+const stationDistance = 28
+const shipDistance = 16
 
 export function useSprites(chainData:any) {
 
@@ -21,6 +22,17 @@ export function useSprites(chainData:any) {
     name: chainData.systemData.name,
     size:  chainData.systemData.starSize,
   })
+
+  function indexFromId(id:string) {
+    let index = 0
+    for (let i = 0; i < sprites.length; i++) {
+      if ((BigInt(sprites[i].meta.id) == BigInt(id)) &&
+         ((sprites[i].type == 'Planet') || (sprites[i].type == 'Star'))) {
+        index = i
+      }
+    }
+    return index
+  }
 
   chainData.localPlanets.forEach((planet:any) => {
 
@@ -64,13 +76,23 @@ export function useSprites(chainData:any) {
 
   })
 
+  chainData.ships.forEach((ship:any) => {
+    sprites.push(new Sprite({
+      type: 'Ship',
+      id: ship.id,
+      name: ship.name,
+      owner: ship.owner,
+      parent: indexFromId(ship.orbit),
+    }))
+  })
+
   function setOrbitalData (id:number) {
     let sprite = sprites[id]
     switch (sprite.type) {
       case 'Planet': {
         sprite.orbit.distance = sprite.orbit.position * planetGap + planetDistance
         sprite.orbit.period = sprite.orbit.velocity / (sprite.orbit.position + 1) + 5
-        sprite.luminance.intensity = 0.85 - sprite.orbit.position / maxPlanets * 3 / 4
+        sprite.luminance.intensity = 0.70 - sprite.orbit.position / maxPlanets * 2 / 3
         break
       }
       case 'Moon': {
@@ -84,13 +106,21 @@ export function useSprites(chainData:any) {
         sprite.orbit.period = (50 - sprites[sprite.orbit.parent].meta.size) * 10 + 150 + id * 10
         break
       }
+      case 'Ship' : {
+        if (sprite.orbit.parent == 0) {
+          sprite.orbit.distance = planetGap / 2
+        } else {
+          sprite.orbit.distance = shipDistance + sprites[sprite.orbit.parent].meta.size * 1.5
+        }
+        sprite.orbit.period = 1000
+        break
+      }
     }
   }
 
   for (let i=0; i<sprites.length; i++) {
     setOrbitalData(i)
   }
-  console.log('orbital data set')
 
   return sprites
 }

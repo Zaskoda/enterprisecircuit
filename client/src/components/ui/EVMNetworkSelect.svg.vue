@@ -20,7 +20,6 @@ export default {
   methods: {
     switchNetwork(chainId:String) {
       const hexId = this.networks[chainId].hexId
-      console.log('clicked', hexId)
       this.evm.switchNetwork(hexId)
     },
 

@@ -28,7 +28,7 @@ export default {
 
 <template>
   <g>
-    <g transform="translate(0 -30)" font-size="10px" fill="#ffffff">
+    <g transform="translate(0 -40)" font-weight="bold" font-size="15px" fill="#ffffff">
       <text>Time: {{ gameTimeInSeconds }} @ {{ clock.fps }} fps</text>
     </g>
     <rect x="-100" y="-25" width="200" height="50" fill="#000000" fill-opacity="0.5" />

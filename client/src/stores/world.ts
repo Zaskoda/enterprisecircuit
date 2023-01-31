@@ -36,7 +36,7 @@ export const useWorld = defineStore('world', {
         y:0
       } as Coords,
       maxMap: 6500,
-      maxZoom: 10,
+      maxZoom: 100,
       minZoom: 0.005,
       selectedSprite: null as null | number
     }
@@ -95,13 +95,18 @@ export const useWorld = defineStore('world', {
 //        let sprite = this.sprites[i]
 
         let throttle = 0.0000001
-        let theta = (gameTime * sprite.orbit.period * throttle) % (Math.PI * 2)
+        let theta = (gameTime * sprite.orbit.period * throttle + sprite.orbit.offset) % (Math.PI * 2)
         let translatex = (sprite.orbit.distance * Math.cos(theta))
         let translatey = (sprite.orbit.distance * Math.sin(theta))
 
         let rad = Math.atan2(translatey, translatex)
         let rotation  = rad * (180 / Math.PI)
+        if (sprite.type == 'Planet') {
         sprite.luminance.rotation = rotation
+        }
+        if (sprite.type == 'Ship') {
+          sprite.rotation = (rotation + 0) % 360
+        }
 
         if ((sprite.orbit.parent > 0)) {
           let parent = this.sprites[sprite.orbit.parent]

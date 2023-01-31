@@ -29,6 +29,10 @@ export default {
     showEngines: {
       type: Boolean,
       default: false
+    },
+    rotation: {
+      type: Number,
+      default: 0
     }
   }
 }
@@ -37,25 +41,27 @@ export default {
 <template>
 <g>
   <g :transform="'scale(' + size +  ')'">
-    <g transform="scale(0.01)">
-      <circle cx="0" cy="0" r="4000" stroke-width="0" stroke="#ffffff" fill="#c3b3da00" />
+    <g :transform="'rotate(' + ((rotation + 180) % 360) + ')'">
+      <g transform="scale(0.001)">
+        <circle cx="0" cy="0" r="4000" stroke-width="0" stroke="#ffffff" fill="#c3b3da00" />
 
-      <g>
-        <g v-if="type == 137">
-          <ship-polygon />
-          <ship-polygon-engine v-if="showEngines" />
-        </g>
-        <g v-if="type == 288">
-          <ship-boba />
-          <ship-boba-engine v-if="showEngines" />
-        </g>
-        <g v-if="type == 1284">
-          <ship-moonbeam />
-          <ship-moonbeam-engine v-if="showEngines" />
-        </g>
-        <g v-if="type == 1">
-          <ship-orbiter8 />
-          <ship-orbiter8-engine v-if="showEngines" />
+        <g>
+          <g v-if="type == 137">
+            <ship-polygon />
+            <ship-polygon-engine v-if="showEngines" />
+          </g>
+          <g v-if="type == 288">
+            <ship-boba />
+            <ship-boba-engine v-if="showEngines" />
+          </g>
+          <g v-if="type == 1284">
+            <ship-moonbeam />
+            <ship-moonbeam-engine v-if="showEngines" />
+          </g>
+          <g v-if="type == 1">
+            <ship-orbiter8 />
+            <ship-orbiter8-engine v-if="showEngines" />
+          </g>
         </g>
       </g>
     </g>
