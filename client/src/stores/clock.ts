@@ -9,32 +9,37 @@ import { defineStore } from 'pinia'
 export const useClock = defineStore('clock', {
   state: () => ({
     gameClock: Date.now(),
-    updateFrequency: 16,
+    updateFrequency: 18,
     //40.2 ~= 24fpx
     //33.6 = 30fps
     //16.6 = 60fps
     isRunning: false,
     lastUpdate: Date.now(),
-    fps: 0 as number,
-    frameTimes: [] as number[]
+    fps: '0.0' as string,
+    frameTimes: [] as number[],
+    updatingClock: false
   }),
   actions: {
     async update() {
       if (this.isRunning) {
-        const now = Date.now()
-        const elapsedTime = now - this.lastUpdate
-        this.gameClock = now
-        this.lastUpdate = now
-
-        //calcualte FPS
-        if (this.frameTimes.length >= 100) this.frameTimes.shift()
-        this.frameTimes.push(elapsedTime)
-        const totaltime = this.frameTimes.reduce((x, y) => {return x+y}, 0)
-        const totalframes = this.frameTimes.length
-        this.fps = ((totalframes / totaltime) * 1000).toFixed(1)
-
         //requestAnimationFrame restricts FPS to browser refresh rate
         setTimeout(() => requestAnimationFrame(this.update), this.updateFrequency)
+        if (!this.updatingClock) {
+          this.updatingClock = true
+          const now = Date.now()
+          const elapsedTime = now - this.lastUpdate
+          this.gameClock = now
+          this.lastUpdate = now
+
+          //calcualte FPS
+          if (this.frameTimes.length >= 100) this.frameTimes.shift()
+          this.frameTimes.push(elapsedTime)
+          const totaltime = this.frameTimes.reduce((x, y) => {return x+y}, 0)
+          const totalframes = this.frameTimes.length
+          this.fps = ((totalframes / totaltime) * 1000).toFixed(1)
+          this.updatingClock = false
+        }
+
 
       }
     },

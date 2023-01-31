@@ -15,7 +15,6 @@ export const useGalaxy = defineStore('galaxy', {
         creditBalance: 0,
         systemCount: 0,
         shipLocation: 0,
-        shipId: 0,
         ship: {} as Ship,
         systemData: {} as System,
         ships: [] as any[],
@@ -50,7 +49,11 @@ export const useGalaxy = defineStore('galaxy', {
         this.myBalance(),
         this.getMyShipLocation(),
         this.getMyShipId(),
-        this.getMyShip()
+        this.getMyShip(),
+      ])
+      await Promise.all([
+        this.getPlayerSystemPlanets(),
+        this.loadShipLogs()
       ])
       this.isLoaded = true
       this.isLoading = false
@@ -64,11 +67,42 @@ export const useGalaxy = defineStore('galaxy', {
         this.chainstate.systemData.discoveredBy,
         this.chainstate.systemData.neighbors,
         this.chainstate.systemData.planets,
-        this.chainstate.systemData.logs
+        this.chainstate.systemData.shipLogs
        ] = await this.contract.read(
         'getPlayerSystemData'
       )
-      await this.getPlayerSystemPlanets()
+    },
+    async loadShipLogs() {
+      this.chainstate.systemData.ships = []
+      let shipData:any[] = await Promise.all(
+        this.chainstate.systemData.shipLogs.map(
+          async (shipId:any, sindex) => {
+            let ship = null
+            if (BigInt(shipId) > BigInt(0)) {
+              let rawData = await this.contract.read(
+                  'getShip',
+                  [shipId]
+                )
+              if (BigInt(rawData[1]) == BigInt(this.chainstate.systemData.id)) {
+                ship = {
+                  name: rawData[0],
+                  id: shipId,
+                  systemId: rawData[1],
+                  orbit: rawData[2],
+                  owner: rawData[3]                ,
+                  cargoLimit: 0,
+                  equipment: 0,
+                  fuel: 0,
+                  organics: 0
+                }
+              }
+
+            }
+            return ship
+          }
+        )
+      )
+      this.chainstate.ships = shipData.filter(ship => ship != null)
     },
     async getPlayerSystemPlanets() {
       let planetData:any[] = await Promise.all(
@@ -169,7 +203,7 @@ export const useGalaxy = defineStore('galaxy', {
       )
     },
     async getMyShipId() {
-      this.chainstate.shipId = await this.contract.read(
+      this.chainstate.ship.id = await this.contract.read(
         'getMyShipId'
       )
     },
@@ -185,6 +219,7 @@ export const useGalaxy = defineStore('galaxy', {
       ] = await this.contract.read(
         'getMyShip'
       )
+      this.chainstate.ship.owner = ''
     },
     async getSystemName(systemId:number) {
       let name = await this.contract.read(
@@ -295,11 +330,14 @@ interface System {
   discoveredBy: string,
   neighbors: string[],
   planets: string[],
-  logs: string[]
+  shipLogs: string[],
+  ships: Ship[],
 }
 
 interface Ship {
+  id: string,
   name: string,
+  owner: string,
   systemId: number,
   orbit: number,
   cargoLimit: number,

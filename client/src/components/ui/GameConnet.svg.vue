@@ -24,6 +24,7 @@ export default {
     }
   },
   async mounted() {
+    this.evm.connect()
   },
   watch: {
     async block(newVal, oldVal) {

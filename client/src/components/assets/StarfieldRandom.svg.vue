@@ -28,7 +28,6 @@ export default {
   },
   mounted() {
     this.generateStars();
-    console.log('stars: ' + this.stars.length)
   },
   computed: {
     scaledRange() {

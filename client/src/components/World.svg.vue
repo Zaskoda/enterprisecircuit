@@ -11,17 +11,13 @@ import { useWorld } from '../stores/world'
 import { useAvatar } from '../stores/avatar'
 import { useGalaxy } from '../stores/galaxy'
 
-import Star from './assets/sprites/Star.svg.vue'
-import Planet from './assets/sprites/Planet.svg.vue'
-import Moon from './assets/sprites/Moon.svg.vue'
-import SpaceStation from './assets/sprites/SpaceStation.svg.vue'
+import Sprite from './Sprite.svg.vue'
 
 import SpaceBackground from './assets/sprites/SpaceBackground.svg.vue'
 import Gridlines from './assets/Gridlines.svg.vue'
 import StarfieldRandom from './assets/StarfieldRandom.svg.vue'
 
 import Worldly from './transformers/worldly.svg.vue'
-
 </script>
 
 <script lang="ts">
@@ -61,7 +57,6 @@ export default {
       await this.galaxy.moveToSystem(systemId)
     },
     wheelHandler(event:any) {
-      //todo - wheel should modify map, not UI
       console.log('wheel', event.deltaY)
       if (event.deltaY > 0) {
         this.world.zoomOut()
@@ -113,11 +108,9 @@ export default {
       <SpaceBackground />
     </Worldly>
 
-
     <Worldly v-for="n in 4" :depth="6 - n">
       <StarfieldRandom :count="250" :scale="10 + (n / 2)" :range="4000 / n" />
     </Worldly>
-
 
     <Worldly>
       <Gridlines />
@@ -135,47 +128,19 @@ export default {
     </g>
 
     <Worldly>
-      <g v-for="(sprite, index) in world.sprites" :transform="'translate(' + sprite.position.x + ' ' + sprite.position.y + ')'" @click="world.select(index)" class="canclick">
-        <circle
-          fill-opacity="0" fill="#000000"
-          stroke="#ffffff"
-          stroke-opacity="0.75"
-          :stroke-width="0.05 * sprite.meta.size"
-          stroke-dasharray="2 2"
-          :r="sprite.meta.size * 2 + 5"
-          v-if="world.selectedSprite == index"
-          />
-        <Star
-          v-if="sprite.type == 'Star'"
-          :size="sprite.meta.size"
-        />
-        <Planet
-          v-if="sprite.type == 'Planet'"
-          :size="sprite.meta.size"
-          :rings="sprite.meta.rings"
-          :classification="sprite.meta.class"
-          :luminance-rotation="sprite.luminance.rotation"
-          :luminance-intensity="sprite.luminance.intensity"
-        />
-        <Moon
-          v-if="sprite.type == 'Moon'"
-          :size="sprite.meta.size"
-        />
-        <SpaceStation
-          v-if="sprite.type == 'Station'"
-          :size="sprite.meta.size"
+      <g v-for="(sprite, index) in world.sprites" @click="world.select(index)" class="canclick">
+        <Sprite
+          :selected="world.selectedSprite == index"
+          :sprite="sprite"
         />
       </g>
     </Worldly>
   </g>
 
-
-
   <g font-size="10px" transform="translate(0 200)" v-if="false">
     <g transform="translate(0 -100)">
       <text fill="#888">System Count: <tspan fill="#ffffff" font-weight="bold">{{ galaxy.chainstate.systemCount }}</tspan></text>
     </g>
-
 
     <g transform="translate(0 -80)">
       <text fill="#888">Credit Balance: <tspan fill="#ffffff" font-weight="bold">{{ galaxy.chainstate.creditBalance }}</tspan></text>
