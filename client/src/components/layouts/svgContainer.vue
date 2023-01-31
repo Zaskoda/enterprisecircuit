@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import fps from '../ui/fps.svg.vue'
+  import FPS from '../ui/FPS.svg.vue'
   import { useUI } from '../../stores/ui'
+  import { useWorld } from '../../stores/world'
   import DefaultDefinitions from '../definitions/Orbiter8.svg.vue'
   </script>
 
@@ -8,10 +9,8 @@ import fps from '../ui/fps.svg.vue'
   export default {
     data() {
       return {
-        mouseHold: false,
         ui: useUI(),
-        debug: false,
-        showFPS: true,
+        world: useWorld(),
         rect: false
         //TODO: move debug toggles to UI store & settings page
       }
@@ -20,28 +19,13 @@ import fps from '../ui/fps.svg.vue'
       this.ui.resizeHandler() //set initial ratio
       //TODO: consider throttling these methods
       window.addEventListener('resize', this.ui.resizeHandler)
-      window.addEventListener('keyup', this.keyHandler)
-      window.addEventListener('wheel', this.wheelHandler)
       window.addEventListener('mousemove', this.ui.mouseMoveHandler)
     },
     beforeDestroy() {
       window.removeEventListener('resize', this.ui.resizeHandler);
-      window.removeEventListener('keyup', this.keyHandler)
-      window.removeEventListener('wheel', this.wheelHandler)
       window.removeEventListener('mousemove', this.ui.mouseMoveHandler)
     },
     methods: {
-      wheelHandler(event:any) {
-        //todo - wheel should modify map, not UI
-        console.log('wheel', event.deltaY)
-        if (event.deltaY > 0) {
-          this.ui.setScale(this.ui.scale * 1.01)
-        } else if (event.deltaY < 0) {
-          this.ui.setScale(this.ui.scale / 1.01)
-        }
-      },
-      keyHandler() {
-      }
     },
     computed: {
     }
@@ -52,17 +36,15 @@ import fps from '../ui/fps.svg.vue'
     <div id="svgWrapper">
     <svg
       :viewBox="ui.viewBoxSize"
-      :class="{ 'is-dragging': mouseHold }"
       xmlns="http://www.w3.org/2000/svg"
       xmlns:xlink="http://www.w3.org/1999/xlink"
-      v-on:mousedown="mouseHold = true"
-      v-on:mouseup="mouseHold = false"
       text-anchor="middle"
       dominant-baseline="central"
-      rendering="auto"
-      text-rendering="auto"
-      shape-rendering="auto"
-      fill="#ffffff">
+      rendering="geometricPrecision"
+      text-rendering="geometricPrecision"
+      shape-rendering="geometricPrecision"
+      fill="#ffffff"
+      font-size="48px">
 
       <default-definitions />
       <slot />
@@ -78,26 +60,28 @@ import fps from '../ui/fps.svg.vue'
         stroke-width="1.5"
         stroke-dasharray="2 1"
         stroke-opacity="0.75" />
-      <g v-if="debug">
+      <g v-if="ui.debug" font-size="20px">
         <rect
           :x="ui.left" :y="ui.top"
           :height="ui.height" :width="ui.width"
           fill="none" stroke="#ff00ff" stroke-width="20" />
-        <circle :cx="ui.mouseX" :cy="ui.mouseY" :r="5 * ui.scale" fill="none" stroke="#ff0000" stroke-size="#ff0000" />
+        <circle :cx="ui.mouseX" :cy="ui.mouseY" :r="5" fill="none" stroke="#ff0000" stroke-size="#ff0000" />
 
-        <g  :transform="'translate(' + (ui.left + 150) + '  ' + (ui.bottom - 100) + ')'">
+        <g  :transform="'translate(' + (ui.left + 160) + '  ' + (ui.bottom - 160) + ')'">
           <text transform="translate(0 00)" fill="#ffffff">Top {{ ui.top }} Bottom {{ ui.bottom }}</text>
           <text transform="translate(0 20)" fill="#ffffff">Left {{ ui.left }} Right {{ ui.right }}</text>
-          <text transform="translate(0 40)" fill="#ffffff">Scale {{ ui.scale }} Resolution {{ ui.resolution }}</text>
-          <text transform="translate(0 60)" fill="#ffffff">Screen orientation: <tspan v-if="ui.portrait">Portrait</tspan><tspan v-else-if="ui.landscape">Landscape</tspan><tspan v-else>Error</tspan></text>
-          <text transform="translate(0 80)" fill="#ffffff">MouseX: {{ ui.mouseX.toFixed(3) }} MouseY: {{ ui.mouseY.toFixed(3) }}</text>
-          <text transform="translate(0 100)" fill="#ffffff"></text>
+          <text transform="translate(0 40)" fill="#ffffff">UI Scale {{ ui.UIScale }} Rez {{ ui.width }} x  {{ ui.height }}</text>
+          <text transform="translate(0 60)" fill="#ffffff">Orientation: <tspan v-if="ui.portrait">Portrait</tspan><tspan v-else-if="ui.landscape">Landscape</tspan><tspan v-else>Error</tspan></text>
+          <text transform="translate(0 80)" fill="#ffffff">MX: {{ ui.mouseX.toFixed(3) }} MY: {{ ui.mouseY.toFixed(3) }}</text>
+          <text transform="translate(0 100)" fill="#ffffff">Zoom: {{ world.zoomLevel.toFixed(3) }}</text>
+          <text transform="translate(0 120)" fill="#ffffff">WX: {{ world.viewPoint.x.toFixed(3) }} WY: {{ world.viewPoint.y.toFixed(3) }}</text>
+
         </g>
 
       </g>
 
-      <g v-if="debug || showFPS" :transform="'translate(' + (ui.right - 150) + '  ' + (ui.bottom - 60) + ')'">
-          <fps />
+      <g v-if="ui.debug || ui.showFPS" :transform="'translate(' + (ui.right - 110) + '  ' + (ui.bottom - 40) + ')'">
+          <FPS />
         </g>
     </svg>
     </div>
@@ -122,11 +106,8 @@ import fps from '../ui/fps.svg.vue'
       align-items: center;
       text-align: center;
       overflow: hidden;
-      min-width: 200px;
-      min-height: 200px;
+      min-width: 400px;
+      min-height: 400px;
     }
 
-    .is-dragging {
-      cursor: grabbing;
-    }
   </style>

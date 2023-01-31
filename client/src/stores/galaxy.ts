@@ -1,8 +1,291 @@
+import { constants } from 'ethers'
 import { defineStore } from 'pinia'
-import { ethers } from "ethers"
-import { useEVM } from "./evm"
-import networkDeployments from "../../libraries/galactic/networkDeployments"
 import GalaxyArtifact from '../../../evm/contract-artifacts/Orbiter8.json'
+import { useContract } from './composables/contract'
+
+//todo store data in chain specific storage
+
+export const useGalaxy = defineStore('galaxy', {
+  state: () => {
+    return {
+      contract: useContract('Galaxy', GalaxyArtifact.abi),
+      isLoaded: false,
+      isLoading: false,
+      chainstate: {
+        creditBalance: 0,
+        systemCount: 0,
+        shipLocation: 0,
+        shipId: 0,
+        ship: {} as Ship,
+        systemData: {} as System,
+        ships: [] as any[],
+        planets: [] as any[],
+        localPlanets: [] as Planet[]
+      }
+    }
+  },
+  getters: {
+    galaxyContractAddress():string {
+      return this.contract.address
+    },
+    isConnected():boolean {
+      return this.contract.isConnected
+    }
+  },
+  actions: {
+    async connect() {
+      await this.contract.connect()
+    },
+
+    //views
+
+    async getAll() {
+      if (this.isLoading) {
+        return
+      }
+      this.isLoading = true
+      await Promise.all([
+        this.getSystemCount(),
+        this.getPlayerSystemData(),
+        this.myBalance(),
+        this.getMyShipLocation(),
+        this.getMyShipId(),
+        this.getMyShip()
+      ])
+      this.isLoaded = true
+      this.isLoading = false
+    },
+    async getPlayerSystemData() {
+      [
+        this.chainstate.systemData.id,
+        this.chainstate.systemData.name,
+        this.chainstate.systemData.starSize,
+        this.chainstate.systemData.birthtime,
+        this.chainstate.systemData.discoveredBy,
+        this.chainstate.systemData.neighbors,
+        this.chainstate.systemData.planets,
+        this.chainstate.systemData.logs
+       ] = await this.contract.read(
+        'getPlayerSystemData'
+      )
+      await this.getPlayerSystemPlanets()
+    },
+    async getPlayerSystemPlanets() {
+      let planetData:any[] = await Promise.all(
+        this.chainstate.systemData.planets.map(
+          async (planetId:any, pindex) => {
+            let planet = null
+            if (BigInt(planetId) > BigInt(0)) {
+
+              planet = this.mapPlanetObject(
+                await this.contract.read(
+                  'getPlanet',
+                  [planetId]
+                ),
+                pindex,
+                planetId
+              )
+
+              let moons:any[] = await Promise.all(
+                planet.hasMoons.map(
+                  async (hasMoon:any, mindex) => {
+                    if (hasMoon) {
+                      let moon = null
+                      moon = this.mapMoonObject(
+                        await this.contract.read(
+                          'getMoon',
+                          [planetId, mindex]
+                        ),
+                        mindex
+                      )
+                      return moon
+                    } else {
+                      return null
+                    }
+                  }
+                )
+              )
+
+              planet.moons = moons.filter(moon => moon != null)
+
+              if (planet.hasPort) {
+                planet.station = this.mapStationObject(
+                  await this.contract.read(
+                    'getStation',
+                    [planetId]
+                  )
+                )
+              }
+            }
+            return planet
+          }
+        )
+      )
+      this.chainstate.localPlanets = planetData.filter(planet => planet != null)
+    },
+    async myBalance() {
+      this.chainstate.creditBalance = await this.contract.read(
+        'myBalance'
+      )
+    },
+    async getShip(shipId:number) {
+      this.chainstate.ships[shipId] = await this.contract.read(
+        'getShip',
+        [shipId]
+      )
+    },
+    async getPlanet(planetId:number) {
+      this.chainstate.planets[planetId] = await this.contract.read(
+        'getPlanet',
+        [planetId]
+      )
+    },
+    async getLocalPlanet(orbitalId:number) {
+      this.chainstate.localPlanets[orbitalId] = await this.contract.read(
+        'getLocalPlanet',
+        [orbitalId]
+      )
+    },
+    async getMoon(planetId:Number, moonId:Number) {
+      let tempMoon = await this.contract.read(
+        'getMoon',
+        [planetId, moonId]
+      )
+    },
+    async getStation(planetId:number) {
+      let tempStation = await this.contract.read(
+        'getStation',
+        [planetId]
+      )
+    },
+    async getSystemCount() {
+      this.chainstate.systemCount = await this.contract.read(
+        'getSystemCount'
+      )
+    },
+    async getMyShipLocation() {
+      this.chainstate.shipLocation = await this.contract.read(
+        'getMyShipLocation'
+      )
+    },
+    async getMyShipId() {
+      this.chainstate.shipId = await this.contract.read(
+        'getMyShipId'
+      )
+    },
+    async getMyShip() {
+      [
+        this.chainstate.ship.name,
+        this.chainstate.ship.systemId,
+        this.chainstate.ship.orbit,
+        this.chainstate.ship.cargoLimit,
+        this.chainstate.ship.equipment,
+        this.chainstate.ship.fuel,
+        this.chainstate.ship.organics,
+      ] = await this.contract.read(
+        'getMyShip'
+      )
+    },
+    async getSystemName(systemId:number) {
+      let name = await this.contract.read(
+        'getSystemName',
+        [systemId]
+      )
+      return name
+    },
+
+    //controls
+    async sendChat(message:string) {
+      this.contract.call('sendChat', [message])
+    },
+    async renameStar(name:string) {
+      this.contract.call('renameStar', [name])
+    },
+    async renameMyShip(name:string) {
+      this.contract.call('renameMyShip', [name])
+    },
+    async renamePlanet(id:number, name:string) {
+      this.contract.call('renamePlanet', [id, name])
+    },
+    async claimPlanet(planetId:number, planetName:string) {
+      this.contract.call('claimPlanet', [planetId, planetName])
+    },
+    async buildStation(planetId:number, stationName:string) {
+      this.contract.call('buildStation', [planetId, stationName])
+    },
+    async renameMoon(planetId:number, moonId:number, name:string) {
+      this.contract.call('renameMoon', [planetId, moonId, name])
+    },
+    async renameStation(id:number, name:string) {
+      this.contract.call('renameStation', [id, name])
+    },
+    async addPortToStation(id:number) {
+      this.contract.call('addPortToStation', [id])
+    },
+    async tradeAtPort(planetId:number,equipment:number,fuel:number,organics:number) {
+      this.contract.call('tradeAtPort', [planetId, equipment, fuel, organics])
+    },
+    async addHoldsToShip(planetId:number,holds:number) {
+      this.contract.call('addHoldsToShip', [planetId, holds])
+    },
+    async moveToSystem(destinationSystemId:number) {
+      this.contract.call('moveToSystem', [destinationSystemId])
+    },
+    async launchShip(name:string) {
+      this.contract.call('launchShip', [name])
+    },
+
+
+    mapPlanetObject(data:any[], orbit:number, id:string):Planet {
+      let planet:Planet = {
+        id: id,
+        orbit: orbit,
+        name: data[0],
+        systemId: data[1],
+        size: data[2][0],
+        class: data[2][1],
+        rings: data[2][2],
+        velocity: data[2][3],
+        owner: data[3],
+        hasMoons: data[4],
+        hasPort: data[5],
+        moons: [],
+        station: {} as Station
+      }
+      return planet
+    },
+    mapMoonObject(data:any[], orbit:number):Moon {
+      let moon:Moon = {
+        orbit: orbit,
+        name: data[0],
+        size: data[1],
+        class: data[2],
+        velocity: data[3]
+      }
+      return moon
+    },
+    mapStationObject(data:any[]):Station {
+      let station:Station = {
+        name: data[0],
+        size: data[1],
+        inventory: {
+          equipment: data[2][0],
+          fuel: data[2][1],
+          organics: data[2][2]
+        },
+        price: {
+          equipment: data[3][0],
+          fuel: data[3][1],
+          organics: data[3][2],
+          holds:data[3][3]
+        }
+      }
+      return station
+    },
+
+  }
+})
+
 
 interface System {
   id: string,
@@ -25,269 +308,52 @@ interface Ship {
   organics: number
 }
 
-export const useGalaxy = defineStore('galaxy', {
-  state: () => {
-    return {
-      galaxyContract: undefined as any,
-      galaxyContractAddress: '',
-      networkDeployments: networkDeployments,
-      evm: useEVM() as any,
-      connected: false,
-      chainstate: {
-        creditBalance: 0,
-        systemCount: 0,
-        shipLocation: 0,
-        shipId: 0,
-        ship: {} as Ship,
-        systemData: {} as System,
-        ships: [] as any[],
-        planets: [] as any[],
-        localPlanets: [] as any[]
-      }
-    }
+
+interface Planet {
+  id: string,
+  orbit: number,
+  name: string,
+  systemId: string,
+  size: number,
+  class: number,
+  rings: number,
+  velocity: number
+  owner: string,
+  hasMoons: [
+    boolean,
+    boolean,
+    boolean,
+    boolean,
+    boolean,
+    boolean,
+    boolean,
+    boolean
+  ]
+  moons: Moon[],
+  hasPort: boolean,
+  station: Station
+}
+
+interface Moon {
+  orbit: number,
+  name: string,
+  size: number,
+  class: number,
+  velocity: number
+}
+
+interface Station {
+  name: string,
+  size: number,
+  inventory: {
+    equipment: number,
+    fuel: number,
+    organics: number
   },
-  actions: {
-    async connect() {
-      try {
-        this.galaxyContractAddress = networkDeployments[this.evm.chainId]['Galaxy']
-        console.log('Galaxy contract address is ', this.galaxyContractAddress)
-      } catch (e:any) {
-        console.log(e.message)
-        return
-      }
-      try {
-        this.galaxyContract = await this.evm.getContract(this.galaxyContractAddress, GalaxyArtifact.abi)
-      } catch (e:any) {
-        console.log(e.message)
-        return
-      }
-      this.connected = true
-    },
-
-    async call(contractMethod:Function, params:any[], callback:Function = ()=>{}) {
-      try {
-        const transaction = await contractMethod(...params)
-        const transactionReceipt = await transaction.wait()
-        if (transactionReceipt.status !== 1) {
-           alert('error problem thing happened')
-        } else {
-          callback()
-          console.log('called back')
-        }
-      } catch (e:any) {
-        if (e.code == 'ACTION_REJECTED') {
-          console.log('user cancelled')
-        } else {
-          console.log('Error: ', e)
-        }
-      }
-    },
-
-    async sendChat(message:string) {
-      this.call(
-        this.galaxyContract.sendChat,
-        [message]
-      )
-    },
-
-    async renameStar(name:string) {
-      this.call(
-        this.galaxyContract.renameStar,
-        [name]
-      )
-    },
-
-    async renameMyShip(name:string) {
-      this.call(
-        this.galaxyContract.renameMyShip,
-        [name]
-      )
-    },
-
-    async renamePlanet(id:number, name:string) {
-      this.call(
-        this.galaxyContract.renamePlanet,
-        [id, name]
-      )
-    },
-
-    async claimPlanet(planetId:number, planetName:string) {
-
-      this.call(
-        this.galaxyContract.claimPlanet,
-        [planetId, planetName]
-      )
-    },
-
-    async buildStation(planetId:number, stationName:string) {
-      this.call(
-        this.galaxyContract.buildStation,
-        [planetId, stationName]
-      )
-    },
-
-    async renameMoon(planetId:number, moonId:number, name:string) {
-      this.call(
-        this.galaxyContract.renameMoon,
-        [planetId, moonId, name]
-      )
-    },
-
-    async renameStation(id:number, name:string) {
-      this.call(
-        this.galaxyContract.renameStation,
-        [id, name]
-      )
-    },
-
-    async addPortToStation(id:number) {
-      this.call(
-        this.galaxyContract.addPortToStation,
-        [id]
-      )
-    },
-
-    async tradeAtPort(planetId:number,equipment:number,fuel:number,organics:number) {
-      this.call(
-        this.galaxyContract.tradeAtPort,
-        [planetId, equipment, fuel, organics]
-      )
-    },
-
-    async addHoldsToShip(planetId:number,holds:number) {
-      this.call(
-        this.galaxyContract.addHoldsToShip,
-        [planetId, holds]
-      )
-    },
-
-    async moveToSystem(destinationSystemId:number) {
-      this.call(
-        this.galaxyContract.moveToSystem,
-        [destinationSystemId]
-      )
-    },
-
-    async launchShip(name:string) {
-      this.call(
-        this.galaxyContract.launchShip,
-        [name]
-      )
-    },
-
-    async read(contractMethod:Function, params:any[] = []) {
-      try {
-        const result = await contractMethod(...params)
-        return result
-      } catch (e:any) {
-          console.log('Error: ', e.message)
-      }
-      return null
-    },
-
-    async getAll() {
-      this.getSystemCount()
-      this.getPlayerSystemData()
-      this.myBalance()
-      this.getMyShipLocation()
-      this.getMyShipId()
-      this.getMyShip()
-    },
-
-    async myBalance() {
-      this.chainstate.creditBalance = await this.read(
-        this.galaxyContract.myBalance
-      )
-    },
-
-    async getShip(shipId:number) {
-      this.chainstate.ships[shipId] = await this.read(
-        this.galaxyContract.getShip,
-        [shipId]
-      )
-    },
-
-    async getPlanet(planetId:number) {
-      this.chainstate.planets[planetId] = await this.read(
-        this.galaxyContract.getPlanet,
-        [planetId]
-      )
-    },
-
-    async getLocalPlanet(orbitalId:number) {
-      this.chainstate.localPlanets[orbitalId] = await this.read(
-        this.galaxyContract.getLocalPlanet,
-        [orbitalId]
-      )
-    },
-
-    async getMoon(planetId:Number, moonId:Number) {
-      let tempMoon = await this.read(
-        this.galaxyContract.getMoon,
-        [planetId, moonId]
-      )
-    },
-
-    async getStation(planetId:number) {
-      let tempStation = await this.read(
-        this.galaxyContract.getStation,
-        [planetId]
-      )
-    },
-
-    async getSystemCount() {
-      this.chainstate.systemCount = await this.read(
-        this.galaxyContract.getSystemCount
-      )
-    },
-
-    async getMyShipLocation() {
-      this.chainstate.shipLocation = await this.read(
-        this.galaxyContract.getMyShipLocation
-      )
-    },
-
-    async getMyShipId() {
-      this.chainstate.shipId = await this.read(
-        this.galaxyContract.getMyShipId
-      )
-    },
-
-    async getMyShip() {
-      [
-        this.chainstate.ship.name,
-        this.chainstate.ship.systemId,
-        this.chainstate.ship.orbit,
-        this.chainstate.ship.cargoLimit,
-        this.chainstate.ship.equipment,
-        this.chainstate.ship.fuel,
-        this.chainstate.ship.organics,
-      ] = await this.read(
-        this.galaxyContract.getMyShip
-      )
-    },
-
-    async getPlayerSystemData() {
-      [
-        this.chainstate.systemData.id,
-        this.chainstate.systemData.name,
-        this.chainstate.systemData.starSize,
-        this.chainstate.systemData.birthtime,
-        this.chainstate.systemData.discoveredBy,
-        this.chainstate.systemData.neighbors,
-        this.chainstate.systemData.planets,
-        this.chainstate.systemData.logs
-       ] = await this.read(
-        this.galaxyContract.getPlayerSystemData
-      )
-    },
-
-    async getSystemName(systemId:number) {
-      this.chainstate.creditBalance = await this.read(
-        this.galaxyContract.getSystemName,
-        [systemId]
-      )
-    },
-
+  price: {
+    equipment: number,
+    fuel: number,
+    organics: number,
+    holds:number
   }
-})
+}

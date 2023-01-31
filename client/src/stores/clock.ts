@@ -8,22 +8,22 @@ import { defineStore } from 'pinia'
 
 export const useClock = defineStore('clock', {
   state: () => ({
-    gameClock: 0,
-    updateFrequency: 8,
+    gameClock: Date.now(),
+    updateFrequency: 16,
     //40.2 ~= 24fpx
     //33.6 = 30fps
     //16.6 = 60fps
     isRunning: false,
-    lastUpdate: 0,
+    lastUpdate: Date.now(),
     fps: 0 as number,
     frameTimes: [] as number[]
   }),
   actions: {
     async update() {
       if (this.isRunning) {
-        const now = performance.now()
+        const now = Date.now()
         const elapsedTime = now - this.lastUpdate
-        this.gameClock = this.gameClock + elapsedTime
+        this.gameClock = now
         this.lastUpdate = now
 
         //calcualte FPS

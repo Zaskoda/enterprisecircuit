@@ -1,7 +1,5 @@
 // auto increments panel number based on waitTime delay
-import { ref, computed, toRefs, watch, watchEffect } from 'vue'
-import { storeToRefs } from 'pinia'
-
+import { ref, computed, watchEffect } from 'vue'
 import { useClock } from '../stores/clock'
 
 // add these
@@ -18,17 +16,13 @@ export function useTween(
 
   const clock = useClock()
   const startTime = clock.gameTime
-  const gameTime:any = computed(() => {
-    return clock.gameTime
-  })
-
 
   const currentValue = ref(0)
 
   function percentage() {
     if (duration <=0) return 1
 
-    const elapsed = (gameTime.value - startTime)
+    const elapsed = (clock.gameTime - startTime)
     let percentage = (elapsed / duration)
     if (loop) {
       percentage = percentage % 1

@@ -9,7 +9,7 @@ export default {
 
 <template>
 <g>
-  <g transform="scale(1.5)">
+  <g transform="scale(4)">
     <space-background />
   </g>
 </g>

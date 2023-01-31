@@ -12,6 +12,7 @@ const networks =  {
     },
     rpc: ['http://127.0.0.1:8545/'],
     explorer: [],
+    faucets: []
   },
   '1': {
     name: 'Ethereum Main Net',
@@ -25,7 +26,8 @@ const networks =  {
       decimals: 18
     },
     rpc: ['https://mainnet.infura.io/v3/'],
-    explorer: ['https://ropsten.etherscan.io']
+    explorer: ['https://ropsten.etherscan.io'],
+    faucets: []
   },
   '2': {
     name: 'Deprecated Morden Testnet',
@@ -39,7 +41,8 @@ const networks =  {
       decimals:18
     },
     rpc: [''],
-    explorer: ['']
+    explorer: [''],
+    faucets: []
   },
   '3': {
     name: 'Deprecated Ropsten Testnet',
@@ -53,7 +56,11 @@ const networks =  {
       decimals:18
     },
     rpc: ['https://ropsten.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161'],
-    explorer: ['https://ropsten.etherscan.io']
+    explorer: ['https://ropsten.etherscan.io'],
+    faucets: [{
+      name: 'https://faucet.egorfine.com/',
+      url: 'Egor Egorov\'s Facuet'
+    }]
   },
   '4': {
     name: 'Ethereum Rinkeby Testnet',
@@ -67,7 +74,14 @@ const networks =  {
       decimals: 18
     },
     rpc: ['https://rinkeby.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161'],
-    explorer:['https://rinkeby.etherscan.io']
+    explorer:['https://rinkeby.etherscan.io'],
+    faucets: [{
+      name: 'Chainlink\'s Faucet',
+      url: 'https://faucets.chain.link/rinkeby'
+    }, {
+      name: 'Komputing\'s Faucet ',
+      url: 'https://fauceth.komputing.org/'
+    }]
   },
   '28': {
     name: 'Boba Rinkeby Testnet',
@@ -81,7 +95,8 @@ const networks =  {
       decimals: 18
     },
     rpc: ['https://rinkeby.boba.network'],
-    explorer: ['https://blockexplorer.rinkeby.boba.network']
+    explorer: ['https://blockexplorer.rinkeby.boba.network'],
+    faucets: []
   },
   '42': {
     name: 'Ethereum Kovan Testnet',
@@ -95,7 +110,8 @@ const networks =  {
       decimals: 18
     },
     rpc: ['https://kovan.infura.io/v3/9aa3d95b3bc440fa88ea12eaa4456161'],
-    explorer: ['https://kovan.etherscan.io']
+    explorer: ['https://kovan.etherscan.io'],
+    faucets: []
   },
   '61': {
     name: 'Ethereum Classic',
@@ -109,7 +125,8 @@ const networks =  {
       decimals: 18
     },
     rpc: ['https://www.ethercluster.com/etc'],
-    explorer: ['https://blockscout.com/etc/mainnet/']
+    explorer: ['https://blockscout.com/etc/mainnet/'],
+    faucets: []
   },
   '69': {
     name: 'Optimism Kovan Testnet',
@@ -123,7 +140,8 @@ const networks =  {
       decimals: 18
     },
     rpc: ['https://kovan.optimism.io'],
-    explorer:['https://kovan-optimistic.etherscan.io']
+    explorer:['https://kovan-optimistic.etherscan.io'],
+    faucets: []
   },
   '97': {
     name: 'Binance Smartchain Testnet',
@@ -137,7 +155,11 @@ const networks =  {
       decimals: 18
     },
     rpc: ['https://data-seed-prebsc-1-s1.binance.org:8545/'],
-    explorer:['https://testnet.bscscan.com']
+    explorer:['https://testnet.bscscan.com'],
+    faucets: [{
+      name: 'Binance Faucet',
+      url: 'https://testnet.binance.org/faucet-smart/'
+    }]
   },
   '1284': {
     name: 'Moonbeam',
@@ -151,7 +173,11 @@ const networks =  {
       decimals: 18
     },
     rpc: ['https://rpc.api.moonbeam.network'],
-    explorer:['https://moonscan.io']
+    explorer:['https://moonscan.io'],
+    faucets: [{
+      name: 'Moonbeam App',
+      url: 'https://moonbeam.network/networks/moonbeam/'
+    }]
   },
   '1285': {
     name: 'Moonriver Alpha',
@@ -165,7 +191,11 @@ const networks =  {
       decimals: 18
     },
     rpc: ['https://rpc.api.moonriver.moonbeam.network'],
-    explorer:['https://moonriver.moonscan.io']
+    explorer:['https://moonriver.moonscan.io'],
+    faucets: [{
+      name: 'Moonriver App',
+      url: 'https://moonbeam.network/networks/moonriver/'
+    }]
   },
   '1287': {
     name: 'Moonbase Alpha',
@@ -179,7 +209,11 @@ const networks =  {
       decimals: 18
     },
     rpc: ['https://rpc.api.moonbase.moonbeam.network'],
-    explorer:['https://moonbase.moonscan.io']
+    explorer:['https://moonbase.moonscan.io'],
+    faucets: [{
+      name: 'Moonbase Faucet',
+      url: 'https://apps.moonbeam.network/moonbase-alpha/faucet/'
+    }]
   },
   '1297': {
     name: 'Bobabase Test Network',
@@ -193,7 +227,8 @@ const networks =  {
       decimals: 18
     },
     rpc: ['https://bobabase.boba.network'],
-    explorer: ['https://blockexplorer.bobabase.boba.network']
+    explorer: ['https://blockexplorer.bobabase.boba.network'],
+    faucets: []
   },
   '4447': {
     name: 'Truffle Development Network',
@@ -207,7 +242,8 @@ const networks =  {
       decimals: 18
     },
     rpc: [''],
-    explorer: ['']
+    explorer: [''],
+    faucets: []
   },
   '5777': {
     name: 'Ganache Development Network',
@@ -221,7 +257,8 @@ const networks =  {
       decimals: 18
     },
     rpc: [''],
-    explorer: ['']
+    explorer: [''],
+    faucets: []
   },
   '80001': {
     name: 'Polygon Mumbai Testnet',
@@ -235,21 +272,44 @@ const networks =  {
       decimals: 18
     },
     rpc: ['https://rpc-mumbai.maticvigil.com/'],
-    explorer: ['https://mumbai.polygonscan.com']
+    explorer: ['https://mumbai.polygonscan.com'],
+    faucets: [{
+      name: 'Polygon\'s Faucet',
+      url: 'https://faucet.polygon.technology/'
+    }]
   },
   '421611': {
     name: 'Arbitrum Testnet',
     shortName: 'Arbitrum',
     description: '',
-    id: '421611',
+    id: '421616',
     hexId: '0x66EEB',
     currency: {
       name: 'Arbitrum Ether',
       symbol: 'ETH',
       decimals: 18
     },
-    rpc: ['https://rinkeby.arbitrum.io/rpc'],
-    explorer: ['https://testnet.arbiscan.io']
+    rpc: ['https://goerli-rollup.arbitrum.io/rpc'],
+    explorer: ['https://testnet.arbiscan.io'],
+    faucets: []
+  },
+  '11155111': {
+    name: 'Sepolia Testnet',
+    shortName: 'Sepolia',
+    description: 'Official Ethereum test network',
+    id: '421611',
+    hexId: '0xAA36A7',
+    currency: {
+      name: 'Arbitrum Ether',
+      symbol: 'ETH',
+      decimals: 18
+    },
+    rpc: ['https://rpc.sepolia.org/'],
+    explorer: ['https://sepolia.etherscan.io/'],
+    faucets: [{
+      name: 'Sepolia Faucet',
+      url: 'https://sepolia-faucet.com/'
+    }]
   },
   '1666700000': {
     name: 'Harmony One Testnet',
@@ -263,7 +323,8 @@ const networks =  {
       decimals: 18
     },
     rpc: ['https://api.s0.b.hmny.io/'],
-    explorer: ['https://explorer.pops.one']
+    explorer: ['https://explorer.pops.one'],
+    faucets: []
   },
 }
 

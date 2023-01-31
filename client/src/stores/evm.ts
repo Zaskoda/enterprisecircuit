@@ -11,27 +11,22 @@ export const useEVM = defineStore('wallet', {
       signerAddress: null,
       provider: null as ethers.providers.Web3Provider | null,
       chain: null as any,
-      chainId: null as number | null,
+      chainId: '' as string,
       block: null,
       switchingNetwork: false,
-      networks: networks,
-      deployments: deployments
+      deployments: deployments,
+      balance: 0.0 as number
     }
   },
   getters: {
     chainName():string {
-      if (this.chainId == null) {
-        return 'no network'
-      } else if (this.networks[this.chainId]) {
-        return this.networks[this.chainId].name
+      if (networks.hasOwnProperty(this.chainId)) {
+        return networks[this.chainId].name
       }
       return 'unknown network'
     },
-    suppportedNetwork():boolean {
-      if (this.deployments[this.chainId]) {
-        return true
-      }
-      return false
+    isSuppportedNetwork():boolean {
+      return deployments.hasOwnProperty(this.chainId)
     },
     shortSigner():string {
       const length = this.signerAddress.length
@@ -41,6 +36,28 @@ export const useEVM = defineStore('wallet', {
         this.signerAddress.substring(length - 3)
       }
       return this.signerAddress
+    },
+    currencyData():object {
+      if (networks.hasOwnProperty(this.chainId)) {
+        return networks[this.chainId].currency
+      }
+      return {
+        name: '',
+        symbol: '',
+        decimals: 18
+      }
+    },
+    facuets():string {
+      if (networks.hasOwnProperty(this.chainId)) {
+        return networks[this.chainId].faucets
+      }
+      return []
+    },
+    explorer():string {
+      if (networks.hasOwnProperty(this.chainId)) {
+        return networks[this.chainId].explorer
+      }
+      return ''
     }
   },
   actions: {
@@ -64,6 +81,9 @@ export const useEVM = defineStore('wallet', {
       }
 
       await this.getChainData()
+      await this.getBalance()
+
+      this.isConnected = true
     },
 
     async init() {
@@ -73,6 +93,12 @@ export const useEVM = defineStore('wallet', {
         console.log(e.message)
         return
       }
+    },
+
+    async getBalance () {
+      let balance = await this.provider.getBalance(this.signerAddress)
+      balance = ethers.utils.formatEther(balance)
+      this.balance = Math.round(balance * 1e4) / 1e4
     },
 
     async getChainData() {
@@ -95,7 +121,6 @@ export const useEVM = defineStore('wallet', {
         return
       }
       this.applyEvents()
-      this.isConnected = true
       console.log('Signer Address: ', this.signerAddress)
     },
 
