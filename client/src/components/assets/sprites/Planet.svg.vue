@@ -13,18 +13,18 @@ export default {
       type: Number,
       default: 0
     },
-    lightDirection: {
+    luminanceRotation: {
       type: Number,
       default: 0
     },
-    lightIntensity: {
+    luminanceIntensity: {
       type: Number,
       default: 0.75
     }
   },
   computed: {
     lightLimited() {
-      return Math.min(1, Math.max(0, this.lightIntensity))
+      return Math.min(1, Math.max(0, this.luminanceIntensity))
     },
     planetFill() {
       if (this.lightLimited < 0.5) {
@@ -51,7 +51,7 @@ export default {
 
 <template>
 <g>
-  <g :transform="'scale(' + (size / 16 + 0.25) + ')'">
+  <g :transform="'scale(' + (size / 16 + 0.5) + ')'">
     <defs>
       <clipPath id="just-the-planet">
         <circle cx="0" cy="0" r="10" />
@@ -67,7 +67,7 @@ export default {
         stroke-width="0.25"
         :fill="planetFill" />
     </g>
-    <g :transform="'rotate(' + lightDirection + ')'" :opacity="shadowOpacity">
+    <g :transform="'rotate(' + luminanceRotation + ')'" :opacity="shadowOpacity">
       <circle
         cx="0" cy="0" r="10"
         stroke="#c3b3da"

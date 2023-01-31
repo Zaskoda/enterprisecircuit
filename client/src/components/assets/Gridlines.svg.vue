@@ -38,7 +38,7 @@ export default {
         stroke-width="4"
         fill="transparent" />
 
-      <g stroke="#c3b3da" :stroke-width="0.05 / world.zoomLevel + 0.1">
+      <g stroke="#c3b3da" stroke-opacity="0.5" :stroke-width="0.05 / world.zoomLevel + 0.1">
         <g >
           <line x1="-4000" y1="0" x2="4000" y2="0"></line>
           <line x1="0" y1="-4000" x2="0" y2="4000"></line>

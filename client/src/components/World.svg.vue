@@ -139,29 +139,31 @@ export default {
         <circle
           fill-opacity="0" fill="#000000"
           stroke="#ffffff"
-          stroke-opacity="0.5"
-          :stroke-width="0.01 * sprite.metaData.size"
+          stroke-opacity="0.75"
+          :stroke-width="0.05 * sprite.meta.size"
           stroke-dasharray="2 2"
-          :r="sprite.metaData.size * 2 + 5"
+          :r="sprite.meta.size * 2 + 5"
           v-if="world.selectedSprite == index"
           />
         <Star
           v-if="sprite.type == 'Star'"
-          :size="sprite.metaData.size"
+          :size="sprite.meta.size"
         />
         <Planet
           v-if="sprite.type == 'Planet'"
-          :size="sprite.metaData.size"
-          :rings="sprite.metaData.rings"
-          :classification="sprite.metaData.classification"
+          :size="sprite.meta.size"
+          :rings="sprite.meta.rings"
+          :classification="sprite.meta.class"
+          :luminance-rotation="sprite.luminance.rotation"
+          :luminance-intensity="sprite.luminance.intensity"
         />
         <Moon
           v-if="sprite.type == 'Moon'"
-          :size="sprite.metaData.size"
+          :size="sprite.meta.size"
         />
         <SpaceStation
-          v-if="sprite.type == 'SpaceStation'"
-          :size="sprite.metaData.size"
+          v-if="sprite.type == 'Station'"
+          :size="sprite.meta.size"
         />
       </g>
     </Worldly>

@@ -80,7 +80,7 @@
 
       </g>
 
-      <g v-if="debug || ui.showFPS" :transform="'translate(' + (ui.right - 110) + '  ' + (ui.bottom - 40) + ')'">
+      <g v-if="ui.debug || ui.showFPS" :transform="'translate(' + (ui.right - 110) + '  ' + (ui.bottom - 40) + ')'">
           <FPS />
         </g>
     </svg>
