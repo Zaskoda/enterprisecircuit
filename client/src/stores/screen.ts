@@ -4,9 +4,6 @@ export const useScreen = defineStore('screen', {
   state: () => ({
     //overall scaling
     isAutoPresent: false,
-    evm: {
-      showNetworkkSelect: false
-    },
     //cached values for window size and mouse position
     //default values get overwritten and don't matter much
     window: {

@@ -1,11 +1,9 @@
 <script setup lang="ts">
-import btn from './ui/button-basic.svg.vue'
-import LogoOrbiter8 from './assets/sprites/LogoOrbiter8.svg.vue'
-import LogoPartavate from './assets/sprites/LogoPartavate.svg.vue'
+import btn from './button-basic.svg.vue'
 
-import { useUI } from '../stores/ui'
-import { useScreen } from '../stores/screen'
-import { useRouting } from '../stores/routing'
+import { useUI } from '../../stores/ui'
+import { useScreen } from '../../stores/screen'
+import { useRouting } from '../../stores/routing'
 </script>
 
 <script lang="ts">
@@ -41,7 +39,7 @@ export default {
           <btn
             :width="300" :height="80"
             text="Play"
-            @click="routing.switch('play')"
+            @click="ui.changeMenu('connect')"
              />
         </g>
         <g  font-size="42px" transform="translate(0 -40)">
@@ -92,9 +90,6 @@ export default {
         </g>
       </g>
     </g>
-
-    <LogoOrbiter8  :transform="'translate(0 ' + (screen.top + 200) + ') scale(1)'" />
-    <LogoPartavate  :transform="'translate(0 ' + (screen.bottom - 50) + ') scale(0.5)'" />
 
 
 </template>

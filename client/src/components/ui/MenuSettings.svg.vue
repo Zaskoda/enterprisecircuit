@@ -1,11 +1,8 @@
 <script setup lang="ts">
-import btn from './ui/button-basic.svg.vue'
-import MinervaScreen from './assets/sprites/MinervaScreen.svg.vue'
-
-
-import { useScreen } from '../stores/screen'
-import { useUI } from '../stores/ui'
-import { useRouting } from '../stores/routing'
+import btn from './button-basic.svg.vue'
+import { useScreen } from '../../stores/screen'
+import { useUI } from '../../stores/ui'
+import { useRouting } from '../../stores/routing'
 </script>
 
 <script lang="ts">
@@ -23,12 +20,6 @@ export default {
 </script>
 
 <template>
-
-  <g  font-size="12px" :transform="'translate(0 ' + (screen.top + 150) + ')'">
-    <g :transform="'scale(' + ui.UIScale + ')'">
-      <MinervaScreen />
-    </g>
-  </g>
 
   <g :transform="'scale(' + ui.UIScale + ')'">
     <g>
@@ -62,6 +53,11 @@ export default {
         transform="translate(150 0)" />
     </g>
 
+    <g  font-size="12px" :transform="'translate(0 ' + (screen.top + 150) + ')'">
+    <g :transform="'scale(' + ui.UIScale + ')'">
+      <MinervaScreen />
+    </g>
+  </g>
 
     <g transform="translate(0 120)">
       <text text-anchor="end" transform="translate(-70 0)">Debug:</text>

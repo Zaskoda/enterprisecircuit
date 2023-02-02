@@ -15,21 +15,29 @@ export const useRouting = defineStore('routing', {
       'avatars',
       'galaxy',
       'window'
-    ],
-    autoOpenUIRoutes: [
-      'title'
     ]
   }),
   actions: {
     async switch(route:string) {
       if (this.routes.includes(route))
       this.currentRoute = route
-      // we always close the open menu unless
-      // we want to auto open it
-      if (this.autoOpenUIRoutes.includes(route)) {
-        this.ui.showMenu = true
-      } else {
-        this.ui.showMenu = false
+
+      switch(route) {
+        case 'title':
+          this.ui.changeMenu('home')
+          break
+        case 'play':
+          this.ui.changeMenu('game')
+          break
+        case 'storya':
+        case 'storyb':
+        case 'four':
+        case 'assets':
+        case 'avatars':
+        case 'galaxy':
+        case 'window':
+          this.ui.showMenu = false
+          break
       }
     },
   },

@@ -38,7 +38,8 @@ export const useWorld = defineStore('world', {
       maxMap: 6500,
       maxZoom: 100,
       minZoom: 0.005,
-      selectedSprite: null as null | number
+      selectedSprite: null as null | number,
+      isLoaded: false
     }
   },
   getters: {
@@ -119,12 +120,18 @@ export const useWorld = defineStore('world', {
       })
       this.updating = false
     },
-    async loadSprites() {
-      await this.galaxy.getAll()
+    async loadEntities() {
+      await Promise.all([
+        this.avatar.getAll(),
+        this.galaxy.getAll()
+      ])
+
       this.sprites = useSprites(this.galaxy.chainstate)
 
+      //todo: this should probably move to useSprites
       this.updateSpriteOrbits()
-      //add ships
+
+      this.isLoaded = true
     },
   }
 })

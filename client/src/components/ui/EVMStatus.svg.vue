@@ -4,12 +4,14 @@ import networkSelect from './EVMNetworkSelect.svg.vue'
 import btn from './button-basic.svg.vue'
 import { useEVM } from '../../stores/evm'
 import { useScreen } from '../../stores/screen'
+import { useUI } from '../../stores/ui'
 </script>
 
 <script lang="ts">
 export default {
   data() {
     return {
+      ui: useUI(),
       evm: useEVM(),
       screen: useScreen(),
     }
@@ -27,9 +29,9 @@ export default {
   computed:{
     scale() {
       if (this.screen.portrait) {
-        return this.screen.UIScale
+        return this.ui.UIScale
       }
-      return this.screen.UIScale * 0.75
+      return this.ui.UIScale * 0.75
     }
   }
 }
@@ -38,7 +40,7 @@ export default {
 <template>
 <g>
     <rect
-      v-if="screen.evm.showNetworkSelect"
+      v-if="ui.showNetworkSelect"
     :x="-2000"
     :y="-2000"
     :width="4000"
@@ -46,7 +48,7 @@ export default {
     fill-opacity="0.6"
     fill="#000000"
     stroke-width="0"
-    @click="screen.evm.showNetworkSelect=false"
+    @click="ui.showNetworkSelect=false"
     />
   <g :transform="'translate(0 ' + (screen.top + 30) + ')'">
     <g :transform="'scale( ' + scale + ' )'">
@@ -79,7 +81,7 @@ export default {
             :height="36" :width="150"
             font-size="30px"
             transform="translate(300 60)"
-            @click="screen.evm.showNetworkSelect = true"
+            @click="ui.showNetworkSelect = true"
             text="Change" />
 
 
@@ -118,8 +120,8 @@ export default {
       </g>
     </g>
   </g>
-    <g v-if="screen.evm.showNetworkSelect" transform="translate(0 0)">
-      <networkSelect v-on:close="screen.evm.showNetworkSelect = false" />
+    <g v-if="ui.showNetworkSelect" transform="translate(0 0)">
+      <networkSelect v-on:close="ui.showNetworkSelect = false" />
     </g>
 </g>
 </template>

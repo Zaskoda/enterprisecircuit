@@ -42,7 +42,6 @@ export default {
     }
   },
   async mounted () {
-    this.world.loadSprites()
     window.addEventListener('keyup', this.keyHandler)
     window.addEventListener('wheel', this.wheelHandler)
     window.addEventListener('mousemove', this.mouseMoveHandler)

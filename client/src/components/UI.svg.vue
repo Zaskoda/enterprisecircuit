@@ -2,12 +2,13 @@
 import FPS from './ui/FPS.svg.vue'
 import Debug from './ui/Debug.svg.vue'
 
-import UIHome from './UIHome.svg.vue'
-import UISettings from './UISettings.svg.vue'
+import MenuHome from './ui/MenuHome.svg.vue'
+import MenuSettings from './ui/MenuSettings.svg.vue'
+import MenuConnect from './ui/MenuConnect.svg.vue'
+import MenuGame from './ui/MenuGame.svg.vue'
 
 import { useUI } from '../stores/ui'
 import { useWorld } from '../stores/world'
-import { useRouting } from '../stores/routing'
 </script>
 
 <script lang="ts">
@@ -27,13 +28,10 @@ export default {
 
 <template>
   <g v-if="ui.showMenu">
-    <g v-if="ui.menu == 'home'">
-      <UIHome />
-    </g>
-
-    <g v-if="ui.menu == 'settings'">
-      <UISettings />
-    </g>
+    <MenuHome  v-if="ui.menu == 'home'" />
+    <MenuSettings  v-if="ui.menu == 'settings'" />
+    <MenuConnect  v-if="ui.menu == 'connect'" />
+    <MenuGame  v-if="ui.menu == 'game'" />
   </g>
 
   <g v-if="ui.showFPS">

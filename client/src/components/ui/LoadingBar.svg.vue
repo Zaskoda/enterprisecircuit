@@ -40,6 +40,6 @@
 
 <style scoped lang="scss">
   .loadingbar {
-    transition: width 2s;
+    transition: width 1s;
   }
 </style>

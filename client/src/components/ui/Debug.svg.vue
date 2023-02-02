@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useScreen } from '../../stores/screen'
 import { useWorld } from '../../stores/world'
+import { useUI } from '../../stores/ui'
 </script>
 
 <script lang="ts">
@@ -8,6 +9,7 @@ export default {
   data() {
     return {
       screen: useScreen(),
+      ui: useUI(),
       world: useWorld(),
     }
   },
@@ -37,7 +39,7 @@ export default {
     <g :transform="'translate(' + (screen.left + 160) + '  ' + (screen.bottom - 160) + ')'">
       <text transform="translate(0 00)" fill="#ffffff">Top {{ screen.top }} Bottom {{ screen.bottom }}</text>
       <text transform="translate(0 20)" fill="#ffffff">Left {{ screen.left }} Right {{ screen.right }}</text>
-      <text transform="translate(0 40)" fill="#ffffff">UI Scale {{ screen.UIScale }} Rez {{ screen.width }} x  {{ screen.height }}</text>
+      <text transform="translate(0 40)" fill="#ffffff">UI Scale {{ ui.UIScale }} Rez {{ screen.width }} x  {{ screen.height }}</text>
       <text transform="translate(0 60)" fill="#ffffff">Orientation: <tspan v-if="screen.portrait">Portrait</tspan><tspan v-else-if="screen.landscape">Landscape</tspan><tspan v-else>Error</tspan></text>
       <text transform="translate(0 80)" fill="#ffffff">MX: {{ screen.mouseX.toFixed(3) }} MY: {{ screen.mouseY.toFixed(3) }}</text>
       <text transform="translate(0 100)" fill="#ffffff">Zoom: {{ world.zoomLevel.toFixed(3) }}</text>

@@ -4,6 +4,7 @@ export const useUI = defineStore('ui', {
   state: () => ({
     //overall scaling
     UIScale: 1,
+    showNetworkSelect: false,
     showFPS: false,
     showDebug: false,
     maxScale: 4,
@@ -12,7 +13,9 @@ export const useUI = defineStore('ui', {
     menu: 'home',
     menuOptions: [
       'home',
-      'settings'
+      'settings',
+      'connect',
+      'game'
     ]
   }),
   actions: {
@@ -21,6 +24,7 @@ export const useUI = defineStore('ui', {
       //this.resizeHandler()
     },
     changeMenu(name:string) {
+      this.showMenu = true
       if (this.menuOptions.includes(name)) {
         this.menu = name
       }

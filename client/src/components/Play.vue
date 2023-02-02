@@ -66,22 +66,7 @@ export default {
 </script>
 
 <template>
-  <g v-if="!readyToPlay">
-    <GameConnect @readyToPlay="this.readyToPlay = true" />
-  </g>
-  <g v-else>
-    <World />
-    <g  font-size="42px" :transform="'translate(0 ' + (screen.bottom - 20) + ')'">
-      <g :transform="'scale(' + screen.UIScale + ')'">
-        <btn
-          :width="200" :height="60"
-          text="Title"
-            @click="routing.switch('title')"
-          transform="translate(0 -80)" />
-      </g>
-    </g>
-  </g>
-  <EVMStatus />
+  <World />
 </template>
 
 <style scoped>

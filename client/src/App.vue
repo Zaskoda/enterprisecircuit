@@ -22,8 +22,6 @@ clock.play()
 
 </script>
 
-
-
 <template>
 
   <svgContainer>
