@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import svgContainer from './layouts/svgContainer.vue'
 import SpaceBackground from './assets/sprites/SpaceBackground.svg.vue'
 import btn from './ui/button-basic.svg.vue'
 import PlayerShip from './assets/sprites/PlayerShip.svg.vue'
@@ -8,7 +7,7 @@ import LogoPolygon from './assets/sprites/LogoPolygon.svg.vue'
 import LogoBoba from './assets/sprites/LogoBoba.svg.vue'
 import LogoEthereum from './assets/sprites/LogoEthereum.svg.vue'
 
-import { useUI } from '../stores/ui'
+import { useScreen } from '../stores/screen'
 import { useRouting } from '../stores/routing'
 </script>
 
@@ -16,13 +15,13 @@ import { useRouting } from '../stores/routing'
 export default {
   data() {
     return {
-      ui: useUI(),
+      screen: useScreen(),
       routing: useRouting()
     }
   },
   mounted() {
-    if (this.ui.isAutoPresent) {
-      setTimeout(() => { this.routing.switchScreen('about') }, 8000)
+    if (this.screen.isAutoPresent) {
+      setTimeout(() => { this.routing.switch('about') }, 8000)
     }
   },
   methods: {
@@ -31,11 +30,10 @@ export default {
 </script>
 
 <template>
-  <svgContainer>
   <g >
     <SpaceBackground  transform="scale(1)" />
   </g>
-  <rect :x='ui.left' :y='ui.top' :height='ui.height' :width='ui.width' fill="#000000" fill-opacity="0.5" />
+  <rect :x='screen.left' :y='screen.top' :height='screen.height' :width='screen.width' fill="#000000" fill-opacity="0.5" />
   <g stroke-linecap="round" transform="translate(0 30) scale(1.25)" >
 
 <g transform="translate(-150 87)">
@@ -200,14 +198,13 @@ export default {
 
 
   </g>
-  <g  font-size="12px" :transform="'translate(0 ' + (ui.bottom - 50) + ')'">
+  <g  font-size="12px" :transform="'translate(0 ' + (screen.bottom - 50) + ')'">
         <btn
           :width="120" :height="20"
           text="close"
-           @click="routing.switchScreen('title')"
+           @click="routing.switch('title')"
           transform="translate(0 -25)" />
       </g>
-  </svgContainer>
 </template>
 
 <style scoped>

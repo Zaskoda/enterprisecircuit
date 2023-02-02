@@ -3,7 +3,7 @@ import LogoEthereum from '../assets/graphics/LogoEthereum.svg.vue'
 import networkSelect from './EVMNetworkSelect.svg.vue'
 import btn from './button-basic.svg.vue'
 import { useEVM } from '../../stores/evm'
-import { useUI } from '../../stores/ui'
+import { useScreen } from '../../stores/screen'
 </script>
 
 <script lang="ts">
@@ -11,7 +11,7 @@ export default {
   data() {
     return {
       evm: useEVM(),
-      ui: useUI(),
+      screen: useScreen(),
     }
   },
   mounted() {
@@ -26,10 +26,10 @@ export default {
   },
   computed:{
     scale() {
-      if (this.ui.portrait) {
-        return this.ui.UIScale
+      if (this.screen.portrait) {
+        return this.screen.UIScale
       }
-      return this.ui.UIScale * 0.75
+      return this.screen.UIScale * 0.75
     }
   }
 }
@@ -38,7 +38,7 @@ export default {
 <template>
 <g>
     <rect
-      v-if="ui.evm.showNetworkSelect"
+      v-if="screen.evm.showNetworkSelect"
     :x="-2000"
     :y="-2000"
     :width="4000"
@@ -46,9 +46,9 @@ export default {
     fill-opacity="0.6"
     fill="#000000"
     stroke-width="0"
-    @click="ui.evm.showNetworkSelect=false"
+    @click="screen.evm.showNetworkSelect=false"
     />
-  <g :transform="'translate(0 ' + (ui.top + 30) + ')'">
+  <g :transform="'translate(0 ' + (screen.top + 30) + ')'">
     <g :transform="'scale( ' + scale + ' )'">
       <g>
         <rect
@@ -79,7 +79,7 @@ export default {
             :height="36" :width="150"
             font-size="30px"
             transform="translate(300 60)"
-            @click="ui.evm.showNetworkSelect = true"
+            @click="screen.evm.showNetworkSelect = true"
             text="Change" />
 
 
@@ -118,8 +118,8 @@ export default {
       </g>
     </g>
   </g>
-    <g v-if="ui.evm.showNetworkSelect" transform="translate(0 0)">
-      <networkSelect v-on:close="ui.evm.showNetworkSelect = false" />
+    <g v-if="screen.evm.showNetworkSelect" transform="translate(0 0)">
+      <networkSelect v-on:close="screen.evm.showNetworkSelect = false" />
     </g>
 </g>
 </template>

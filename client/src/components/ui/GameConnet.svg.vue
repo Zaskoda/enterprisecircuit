@@ -3,7 +3,7 @@ import { mapState } from 'pinia'
 import btn from './button-basic.svg.vue'
 import LoadingBar from './LoadingBar.svg.vue'
 
-import { useUI } from '../../stores/ui'
+import { useScreen } from '../../stores/screen'
 import { useRouting } from '../../stores/routing'
 import { useEVM } from "../../stores/evm"
 
@@ -16,7 +16,7 @@ export default {
   emits: ['readyToPlay'],
   data() {
     return {
-      ui: useUI(),
+      screen: useScreen(),
       avatar: useAvatar(),
       routing: useRouting(),
       galaxy: useGalaxy(),
@@ -62,7 +62,7 @@ export default {
 </script>
 
 <template>
-  <g :transform="'translate(0 ' + (ui.top + 200) + ')'">
+  <g :transform="'translate(0 ' + (screen.top + 200) + ')'">
     <LoadingBar :percent="loadingPercentage" :statusMessage="getStep.message" />
   </g>
 
@@ -135,7 +135,7 @@ export default {
     </g>
 
   </g>
-  <g :transform="'translate(0 ' + (ui.bottom - 200) + ')'">
+  <g :transform="'translate(0 ' + (screen.bottom - 200) + ')'">
     <g v-if="!evm.isConnected">
       <text font-size="40px" :transform="'translate(0 ' + (-100) + ')'">Connect your wallet to continue.</text>
 
@@ -154,7 +154,7 @@ export default {
         :width="500"
         :height="90"
         text="Change"
-        @click="ui.evm.showNetworkSelect = true"
+        @click="screen.evm.showNetworkSelect = true"
       />
     </g>
     <g v-else-if="!galaxy.isLoaded || !avatar.isLoaded">
@@ -173,12 +173,12 @@ export default {
     </g>
   </g>
 
-  <g  font-size="42px" :transform="'translate(0 ' + (ui.bottom - 20) + ')'">
-    <g :transform="'scale(' + ui.UIScale + ')'">
+  <g  font-size="42px" :transform="'translate(0 ' + (screen.bottom - 20) + ')'">
+    <g :transform="'scale(' + screen.UIScale + ')'">
       <btn
         :width="200" :height="60"
         text="Title"
-          @click="routing.switchScreen('title')"
+          @click="routing.switch('title')"
         transform="translate(0 -80)" />
     </g>
   </g>

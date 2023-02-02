@@ -7,7 +7,7 @@ import ship from '../assets/graphics/ShipOrbiter8.svg.vue'
 import SpaceBackground from '../assets/sprites/SpaceBackground.svg.vue'
 
 import { useTween } from '../../composables/tween'
-import { useUI } from '../../stores/ui'
+import { useScreen } from '../../stores/screen'
 import { useRouting } from '../../stores/routing'
 import { useClock } from '../../stores/clock'
 </script>
@@ -16,7 +16,7 @@ import { useClock } from '../../stores/clock'
 export default {
   data() {
     return {
-      ui: useUI(),
+      screen: useScreen(),
       clock: useClock(),
       testtween: useTween(1, 10, 1000, 0, false, true),
       panel: 0,
@@ -52,7 +52,7 @@ export default {
       this.testtween = useTween(1, 5, 5000, 0, false, true)
     },
     close() {
-      this.routing.switchScreen('title')
+      this.routing.switch('title')
     }
   }
 }

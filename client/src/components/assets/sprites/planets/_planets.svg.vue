@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useUI } from '../../../../stores/ui'
+import { useScreen } from '../../../../stores/screen'
 import mercury from './mercury.svg.vue'
 import venus from './venus.svg.vue'
 import earth from './earth.svg.vue'
@@ -16,7 +16,7 @@ import star from '../Star.svg.vue'
 export default {
   data() {
     return {
-      ui: useUI(),
+      screen: useScreen(),
       rotational: 0,
       expandState: 1
     }
@@ -55,14 +55,14 @@ export default {
   },
   computed: {
     hMult() {
-      if (this.ui.landscape) {
+      if (this.screen.landscape) {
         return 4 * this.expandState
       }
       //portrait
       return 2 * this.expandState
     },
     vMult() {
-      if (this.ui.landscape) {
+      if (this.screen.landscape) {
         return 1 * this.expandState
       }
       //portrait

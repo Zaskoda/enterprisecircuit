@@ -1,19 +1,41 @@
 import { defineStore } from 'pinia'
+import { useUI } from './ui'
 
 export const useRouting = defineStore('routing', {
   state: () => ({
-    currentScreen: 'title',
+    currentRoute: 'title',
+    ui: useUI(),
+    routes: [
+      'title',
+      'play',
+      'storya',
+      'storyb',
+      'four',
+      'assets',
+      'avatars',
+      'galaxy',
+      'window'
+    ],
+    autoOpenUIRoutes: [
+      'title'
+    ]
   }),
   actions: {
-    async switchScreen(newScreen:string) {
-      //TODO: check to see if it's in an array
-      this.currentScreen = newScreen
+    async switch(route:string) {
+      if (this.routes.includes(route))
+      this.currentRoute = route
+      // we always close the open menu unless
+      // we want to auto open it
+      if (this.autoOpenUIRoutes.includes(route)) {
+        this.ui.showMenu = true
+      } else {
+        this.ui.showMenu = false
+      }
     },
   },
   getters: {
-    screen: (state) => state.currentScreen,
-    isScreen: (state) => {
-      return (screen:string) => state.currentScreen === screen
+    is: (state) => {
+      return (route:string) => state.currentRoute === route
     }
   }
 })

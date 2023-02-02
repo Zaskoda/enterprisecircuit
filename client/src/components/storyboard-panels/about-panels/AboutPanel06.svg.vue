@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useUI } from '../../../stores/ui'
+import { useScreen } from '../../../stores/screen'
 import starfield from '../../assets/Starfield.svg.vue'
 import portal from '../../assets/graphics/Portal.svg.vue'
 import ship from '../../assets/graphics/ShipOrbiter8.svg.vue'
@@ -12,7 +12,7 @@ import ethereum from '../../assets/graphics/LogoEthereum.svg.vue'
 export default {
   data() {
     return {
-      ui: useUI()
+      screen: useScreen()
     }
   },
   props: {

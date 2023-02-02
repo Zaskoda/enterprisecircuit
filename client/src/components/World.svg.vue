@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { mapState } from 'pinia'
 
-import { useUI } from '../stores/ui'
+import { useScreen } from '../stores/screen'
 import { useRouting } from '../stores/routing'
 import { useEVM } from "../stores/evm"
 import { useClock } from "../stores/clock"
@@ -25,7 +25,7 @@ export default {
   data() {
     return {
       mouseHold: false,
-      ui: useUI(),
+      screen: useScreen(),
       routing: useRouting(),
       avatar: useAvatar(),
       galaxy: useGalaxy(),
@@ -57,7 +57,6 @@ export default {
       await this.galaxy.moveToSystem(systemId)
     },
     wheelHandler(event:any) {
-      console.log('wheel', event.deltaY)
       if (event.deltaY > 0) {
         this.world.zoomOut()
       } else if (event.deltaY < 0) {
@@ -73,8 +72,8 @@ export default {
       console.log('dragging')
       this.world.deselect()
       this.mouseHold = true
-      this.dragOriginX = this.ui.mouseX
-      this.dragOriginY = this.ui.mouseY
+      this.dragOriginX = this.screen.mouseX
+      this.dragOriginY = this.screen.mouseY
     },
     mouseDragOff() {
       if (this.mouseHold) {
@@ -84,8 +83,8 @@ export default {
     },
     mouseMoveHandler(event:any) {
       if (this.mouseHold) {
-        let newX = this.ui.mouseX
-        let newY = this.ui.mouseY
+        let newX = this.screen.mouseX
+        let newY = this.screen.mouseY
         let xDiff = (newX - this.dragOriginX) / this.world.zoomLevel
         let yDiff = (newY - this.dragOriginY) / this.world.zoomLevel
         this.world.moveViewTo(this.world.viewPoint.x + xDiff, this.world.viewPoint.y + yDiff)
@@ -121,8 +120,8 @@ export default {
         v-on:mouseup="mouseDragOff()"
         >
       <rect
-        :x="ui.left" :y="ui.top"
-        :width="ui.width" :height="ui.height"
+        :x="screen.left" :y="screen.top"
+        :width="screen.width" :height="screen.height"
         opacity="0"
         fill="#000000" />
     </g>

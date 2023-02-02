@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import Settings from './components/Settings.vue'
+import svgContainer from './layouts/svgContainer.vue'
+
 import TitleScreen from './components/TitleScreen.vue'
 import AssetViewer from './components/AssetViewer.vue'
 import StoryA from './components/StoryA.vue'
@@ -9,6 +10,8 @@ import Galaxy from './components/Galaxy.vue'
 import Play from './components/Play.vue'
 import FourShips from './components/FourShips.vue'
 import WindowView from './components/WindowView.vue'
+
+import UI from './components/UI.svg.vue'
 
 import { useRouting } from './stores/routing'
 import { useClock } from './stores/clock'
@@ -22,17 +25,25 @@ clock.play()
 
 
 <template>
-  <TitleScreen v-if="routing.isScreen('title')"/>
-  <StoryA v-if="routing.isScreen('storya')" />
-  <StoryB v-if="routing.isScreen('storyb')" />
-  <Settings v-if="routing.isScreen('settings')"/>
-  <FourShips v-if="routing.isScreen('four')"/>
-  <AssetViewer v-if="routing.isScreen('assets')" />
-  <Avatars v-if="routing.isScreen('avatars')" />
-  <Galaxy v-if="routing.isScreen('galaxy')" />
-  <Play v-if="routing.isScreen('play')" />
-  <WindowView v-if="routing.isScreen('window')" />
 
+  <svgContainer>
+
+    <TitleScreen v-if="routing.is('title')"/>
+    <TitleScreen v-if="routing.is('settings')"/>
+
+    <Play v-if="routing.is('play')" />
+
+    <StoryA v-if="routing.is('storya')" />
+    <StoryB v-if="routing.is('storyb')" />
+    <FourShips v-if="routing.is('four')"/>
+    <AssetViewer v-if="routing.is('assets')" />
+    <Avatars v-if="routing.is('avatars')" />
+    <Galaxy v-if="routing.is('galaxy')" />
+    <WindowView v-if="routing.is('window')" />
+
+    <UI />
+
+  </svgContainer>
 
 </template>
 

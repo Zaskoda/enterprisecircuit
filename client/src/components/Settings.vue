@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import svgContainer from './layouts/svgContainer.vue'
 import btn from './ui/button-basic.svg.vue'
 import SpaceBackground from './assets/sprites/SpaceBackground.svg.vue'
 
@@ -10,6 +9,7 @@ import LogoPartavate from './assets/sprites/LogoPartavate.svg.vue'
 import MinervaScreen from './assets/sprites/MinervaScreen.svg.vue'
 
 
+import { useScreen } from '../stores/screen'
 import { useUI } from '../stores/ui'
 import { useRouting } from '../stores/routing'
 </script>
@@ -19,6 +19,7 @@ export default {
   data() {
     return {
       ui: useUI(),
+      screen: useScreen(),
       routing: useRouting(),
     }
   },
@@ -28,12 +29,11 @@ export default {
 </script>
 
 <template>
-<svgContainer>
   <g>
     <SpaceBackground  transform="scale(1)" />
   </g>
 
-  <g  font-size="12px" :transform="'translate(0 ' + (ui.top + 150) + ')'">
+  <g  font-size="12px" :transform="'translate(0 ' + (screen.top + 150) + ')'">
     <g :transform="'scale(' + ui.UIScale + ')'">
       <MinervaScreen />
     </g>
@@ -76,26 +76,25 @@ export default {
 <g transform="translate(0 120)">
 
 <text text-anchor="end" transform="translate(-70 0)">Debug:</text>
-<text v-if="ui.debug" transform="translate(0 0)">On</text>
+<text v-if="ui.showDebug" transform="translate(0 0)">On</text>
 <text v-else transform="translate(0 0)">Off</text>
 <btn
   :width="70" :height="50"
-  :text="ui.debug ? '&#9673;' :  '&#9675;'"
-  @click="ui.debug = !ui.debug"
+  :text="ui.showDebug ? '&#9673;' :  '&#9675;'"
+  @click="ui.showDebug = !ui.showDebug"
   transform="translate(150 0)" />
 </g>
 
 
-  <g  font-size="42px" :transform="'translate(0 ' + (ui.bottom - 20) + ')'">
+  <g  font-size="42px" :transform="'translate(0 ' + (screen.bottom - 20) + ')'">
     <g :transform="'scale(' + ui.UIScale + ')'">
       <btn
         :width="200" :height="60"
         text="Title"
-          @click="routing.switchScreen('title')"
+          @click="routing.switch('title')"
         transform="translate(0 -80)" />
     </g>
   </g>
-</svgContainer>
 </template>
 
 <style scoped>

@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import btn from '../ui/button-basic.svg.vue'
 
-  import { useUI } from '../../stores/ui'
+  import { useScreen } from '../../stores/screen'
 </script>
 
 <script lang="ts">
@@ -15,7 +15,7 @@ export default {
   },
   data() {
     return {
-      ui: useUI(),
+      screen: useScreen(),
       panel: 0
     }
   },
@@ -50,11 +50,11 @@ export default {
 
 <template>
   <g>
-    <g :transform="'translate(0 ' + (ui.bottom - 50) + ')'" v-if="!ui.isAutoPresent">
+    <g :transform="'translate(0 ' + (screen.bottom - 50) + ')'" v-if="!screen.isAutoPresent">
       <rect
-        :x="ui.left"
+        :x="screen.left"
         y="-50"
-        :width="ui.right - ui.left"
+        :width="screen.right - screen.left"
         height="100"
         fill="#000000"
         fill-opacity="0.2"
