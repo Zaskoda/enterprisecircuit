@@ -132,6 +132,8 @@ export const useEVM = defineStore('wallet', {
         this.signerAddress = null
         this.isConnected = false
         this.getSigner()
+        //todo: be more graceful
+        window.location.reload()
       })
       window.ethereum.on('connected', async () => {
         console.log('account re-connected')
@@ -145,7 +147,7 @@ export const useEVM = defineStore('wallet', {
           this.signerAddress = ''
           this.isConnected = false
           //todo: be more graceful
-          location.reload()
+          window.location.reload()
         }
       })
       window.ethereum.on('chainChanged', async () => {
