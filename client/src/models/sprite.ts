@@ -19,6 +19,8 @@ export interface Luminance {
 
 export class Sprite {
 
+  refid:string = ''
+
   type:string = ''
 
   orbit:Orbit = {
@@ -52,6 +54,8 @@ export class Sprite {
       this.meta.id = payload['id']
       this.meta.name = payload['name']
       this.orbit.offset = payload['id'] % 1000
+      //note that an id for a planet will be the same as its moons and station
+      this.refid = payload['id'] + this.type + payload['type']
       switch (this.type) {
         case 'Star': {
           this.meta.size = payload['size']
@@ -71,6 +75,7 @@ export class Sprite {
           this.orbit.parent = payload['parent']
           this.orbit.position = payload['orbit']
           this.orbit.velocity = payload['velocity']
+          this.refid += this.orbit.position = payload['orbit']
           break
         }
         case 'Station': {

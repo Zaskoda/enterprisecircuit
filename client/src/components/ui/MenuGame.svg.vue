@@ -16,6 +16,7 @@ import SpeakerIcon from './icons/speaker.svg.vue'
 import JumpIcon from './icons/jump.svg.vue'
 import InfoIcon from './icons/info.svg.vue'
 
+import SubMenuPlanets from './SubMenuPlanets.svg.vue'
 
 import { useRouting } from '../../stores/routing'
 import { useUI } from '../../stores/ui'
@@ -30,6 +31,7 @@ export default {
       ui: useUI(),
       routing: useRouting(),
       screen: useScreen(),
+      showPlanetMenu: false
     }
   },
   mounted() {
@@ -46,7 +48,7 @@ export default {
   </g>
 
   <g :transform="'translate(' + (screen.right - 120) + ' ' + (screen.top + 45) + ')'" >
-  <System />
+    <System />
   </g>
 
   <g :transform="'translate(' + (screen.left + 60) + ' ' + (screen.top + 60)  + ')'">
@@ -73,7 +75,7 @@ export default {
   </g>
 
   <g :transform="'translate(' + (screen.right - 60) + ' ' + (screen.bottom - 300)  + ')'">
-    <PlanetsIcon :counter="1" @click="showPlanets()" />
+    <PlanetsIcon :counter="1" @click="showPlanetMenu = true" />
   </g>
 
   <g :transform="'translate(' + (screen.right - 60) + ' ' + (screen.bottom - 60)  + ')'">
@@ -87,6 +89,12 @@ export default {
   <g :transform="'translate(0 ' + (screen.bottom - 80)  + ')'">
   <ZoomSlider transform="scale(1)" />
   </g>
+
+
+  <g>
+    <SubMenuPlanets :show="showPlanetMenu" @close="showPlanetMenu = false" />
+  </g>
+
 
 
 </template>
