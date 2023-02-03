@@ -5,10 +5,16 @@ import Moon from './assets/sprites/Moon.svg.vue'
 import SpaceStation from './assets/sprites/SpaceStation.svg.vue'
 import Ship from './assets/sprites/PlayerShip.svg.vue'
 import { Sprite } from '../models/sprite'
+import { useWorld } from '../stores/world'
 </script>
 
 <script lang="ts">
 export default {
+  data() {
+    return {
+      world: useWorld(),
+    }
+  },
   props: {
     sprite: {
       type: Sprite,
@@ -27,10 +33,10 @@ export default {
     <circle
           fill-opacity="0" fill="#000000"
           stroke="#ffffff"
-          stroke-opacity="0.75"
-          :stroke-width="0.05 * sprite.meta.size"
-          stroke-dasharray="2 2"
-          :r="sprite.meta.size * 2 + 5"
+          stroke-opacity="0.5"
+          :stroke-width="4 / world.zoomLevel"
+          stroke-dasharray="4 4"
+          :r="sprite.meta.size * 1.1 + 3"
           v-if="selected"
           />
       <Star

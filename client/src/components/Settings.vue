@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import btn from './ui/button-basic.svg.vue'
+import btn from './ui/widgets/button-basic.svg.vue'
 import SpaceBackground from './assets/sprites/SpaceBackground.svg.vue'
 
 

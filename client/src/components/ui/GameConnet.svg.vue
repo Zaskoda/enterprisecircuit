@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { mapState } from 'pinia'
-import btn from './button-basic.svg.vue'
+import btn from './widgets/button-basic.svg.vue'
 import LoadingBar from './LoadingBar.svg.vue'
 
 import { useScreen } from '../../stores/screen'

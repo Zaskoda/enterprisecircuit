@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import btn from './button-basic.svg.vue'
+import btn from './widgets/button-basic.svg.vue'
 
 import { useUI } from '../../stores/ui'
 import { useScreen } from '../../stores/screen'
