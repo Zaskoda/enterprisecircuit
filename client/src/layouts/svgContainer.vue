@@ -68,7 +68,7 @@ export default {
     align-items: center;
     text-align: center;
     overflow: hidden;
-    min-width: 400px;
-    min-height: 400px;
+    min-width: 320px;
+    min-height: 320px;
   }
 </style>

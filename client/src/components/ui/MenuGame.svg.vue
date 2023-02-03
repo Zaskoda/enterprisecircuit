@@ -5,6 +5,7 @@ import btn from './widgets/button-basic.svg.vue'
 
 import Profile from './widgets/profile.svg.vue'
 import System from './widgets/system.svg.vue'
+import ZoomSlider from './widgets/zoomSlider.svg.vue'
 
 import AvatarIcon from './icons/avatar.svg.vue'
 import GearIcon from './icons/gear.svg.vue'
@@ -39,7 +40,6 @@ export default {
 </script>
 
 <template>
-  <EVMStatus />
 
   <g :transform="'translate(' + (screen.left + 120) + ' ' + (screen.top + 20)  + ')'">
     <Profile />
@@ -84,18 +84,10 @@ export default {
     <BroadcastIcon :counter="1" @click="showChat()"/>
   </g>
 
-
-
-
-  <g  font-size="42px" :transform="'translate(0 ' + (screen.bottom - 20) + ')'">
-    <g :transform="'scale(' + ui.UIScale + ')'">
-      <btn
-        :width="200" :height="60"
-        text="Close"
-        @click="routing.switch('title')"
-        transform="translate(0 -80)" />
-    </g>
+  <g :transform="'translate(0 ' + (screen.bottom - 80)  + ')'">
+  <ZoomSlider transform="scale(1)" />
   </g>
+
 
 </template>
 

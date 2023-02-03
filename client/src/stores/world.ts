@@ -65,15 +65,15 @@ export const useWorld = defineStore('world', {
       this.selectedSprite= id
       this.zoomLevel = 10
     },
-    zoomOut() {
+    zoomOut(multiplier:number = 1) {
       this.zoomLevel = Math.max(
-        (this.zoomLevel * 0.9),
+        (this.zoomLevel * Math.pow(0.9, multiplier)),
         this.minZoom
       )
     },
-    zoomIn() {
+    zoomIn(multiplier:number = 1) {
       this.zoomLevel = Math.min(
-        (this.zoomLevel * 1.1),
+        (this.zoomLevel * Math.pow(1.1, multiplier)),
         this.maxZoom
       )
     },
