@@ -9,7 +9,7 @@ import { useEVM } from "../stores/evm"
 
 import { useAvatar } from '../stores/avatar'
 import { useGalaxy } from '../stores/galaxy'
-import btn from './ui/button-basic.svg.vue'
+import btn from './ui/widgets/button-basic.svg.vue'
 
 import GameConnect from './ui/GameConnet.svg.vue'
 </script>

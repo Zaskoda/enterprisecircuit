@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import backdrop from './assets/sprites/SpaceBackground.svg.vue'
-import btn from './ui/button-basic.svg.vue'
+import btn from './ui/widgets/button-basic.svg.vue'
 
 import PlayerShip from './assets/sprites/PlayerShip.svg.vue'
 

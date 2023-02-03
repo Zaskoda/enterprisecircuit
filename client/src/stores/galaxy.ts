@@ -12,6 +12,7 @@ export const useGalaxy = defineStore('galaxy', {
       isLoaded: false,
       isLoading: false,
       chainstate: {
+        systemId: 0,
         creditBalance: 0,
         systemCount: 0,
         shipLocation: 0,
