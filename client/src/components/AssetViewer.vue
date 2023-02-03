@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import svgContainer from './layouts/svgContainer.vue'
 import backdrop from './assets/sprites/SpaceBackground.svg.vue'
 import btn from './ui/button-basic.svg.vue'
 
@@ -21,7 +20,7 @@ import MinervaScreen from './assets/sprites/MinervaScreen.svg.vue'
 
 import Portal from './assets/sprites/Portal.svg.vue'
 
-import { useUI } from '../stores/ui'
+import { useScreen } from '../stores/screen'
 import { useRouting } from '../stores/routing'
 </script>
 
@@ -29,7 +28,7 @@ import { useRouting } from '../stores/routing'
 export default {
   data() {
     return {
-      ui: useUI(),
+      screen: useScreen(),
       routing: useRouting(),
       backFillColor: '#000000',
       backFillOpacity: 0
@@ -47,12 +46,11 @@ export default {
 </script>
 
 <template>
-  <svgContainer>
   <g>
     <backdrop  transform="scale(1)" />
   </g>
 
-  <rect :x="ui.left + 10" :y="ui.top+10" :width="ui.width - 40" :height="ui.height - 120" :fill="backFillColor" :opacity="backFillOpacity" rx="20" ry="20" />
+  <rect :x="screen.left + 10" :y="screen.top+10" :width="screen.width - 40" :height="screen.height - 120" :fill="backFillColor" :opacity="backFillOpacity" rx="20" ry="20" />
 
   <g transform="translate(0 -180)">
     <g transform="translate(-160 0)" >
@@ -108,7 +106,7 @@ export default {
     <LogoBoba  :transform="'translate(200 0) scale(1)'" />
   </g>
 
-  <g  font-size="12px" :transform="'translate(0 ' + (ui.bottom - 80) + ')'" stroke="#888888" stroke-width="1" >
+  <g  font-size="12px" :transform="'translate(0 ' + (screen.bottom - 80) + ')'" stroke="#888888" stroke-width="1" >
     <g transform="translate(-50 0)">
       <rect x="-10" y="-10" width="20" height="20" fill="#000000" fill-opacity="1" @click="setFill('#000000',1)" rx="5" ry="5"/>
     </g>
@@ -126,14 +124,13 @@ export default {
     </g>
   </g>
 
-  <g  font-size="12px" :transform="'translate(0 ' + (ui.bottom - 20) + ')'">
+  <g  font-size="12px" :transform="'translate(0 ' + (screen.bottom - 20) + ')'">
         <btn
           :width="120" :height="20"
           text="close"
-           @click="routing.switchScreen('title')"
+           @click="routing.switch('title')"
           transform="translate(0 -25)" />
       </g>
-  </svgContainer>
 </template>
 
 <style scoped>

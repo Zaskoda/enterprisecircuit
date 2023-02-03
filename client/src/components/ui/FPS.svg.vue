@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { mapState } from 'pinia'
 import { useClock } from '../../stores/clock'
+import { useScreen } from '../../stores/screen';
 </script>
 
 <script lang="ts">
@@ -8,6 +9,7 @@ export default {
   data() {
     return {
       clock: useClock(),
+      screen: useScreen()
     }
   },
   computed: {
@@ -27,7 +29,7 @@ export default {
 </script>
 
 <template>
-  <g>
+  <g  :transform="'translate(' + (screen.right - 110) + '  ' + (screen.bottom - 40) + ')'">
     <g transform="translate(0 -40)" font-weight="bold" font-size="15px" fill="#ffffff">
       <text>Time: {{ gameTimeInSeconds }} @ {{ clock.fps }} fps</text>
     </g>

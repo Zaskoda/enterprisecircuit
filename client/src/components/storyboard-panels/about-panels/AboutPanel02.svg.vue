@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useUI } from '../../../stores/ui'
+import { useScreen } from '../../../stores/screen'
 import planets from '../../assets/sprites/planets/_planets.svg.vue'
 </script>
 
@@ -7,7 +7,7 @@ import planets from '../../assets/sprites/planets/_planets.svg.vue'
 export default {
   data() {
     return {
-      ui: useUI(),
+      screen: useScreen(),
       expansion: 0.25
     }
   },

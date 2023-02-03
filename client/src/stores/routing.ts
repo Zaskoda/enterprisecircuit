@@ -1,19 +1,49 @@
 import { defineStore } from 'pinia'
+import { useUI } from './ui'
 
 export const useRouting = defineStore('routing', {
   state: () => ({
-    currentScreen: 'title',
+    currentRoute: 'title',
+    ui: useUI(),
+    routes: [
+      'title',
+      'play',
+      'storya',
+      'storyb',
+      'four',
+      'assets',
+      'avatars',
+      'galaxy',
+      'window'
+    ]
   }),
   actions: {
-    async switchScreen(newScreen:string) {
-      //TODO: check to see if it's in an array
-      this.currentScreen = newScreen
+    async switch(route:string) {
+      if (this.routes.includes(route))
+      this.currentRoute = route
+
+      switch(route) {
+        case 'title':
+          this.ui.changeMenu('home')
+          break
+        case 'play':
+          this.ui.changeMenu('game')
+          break
+        case 'storya':
+        case 'storyb':
+        case 'four':
+        case 'assets':
+        case 'avatars':
+        case 'galaxy':
+        case 'window':
+          this.ui.showMenu = false
+          break
+      }
     },
   },
   getters: {
-    screen: (state) => state.currentScreen,
-    isScreen: (state) => {
-      return (screen:string) => state.currentScreen === screen
+    is: (state) => {
+      return (route:string) => state.currentRoute === route
     }
   }
 })

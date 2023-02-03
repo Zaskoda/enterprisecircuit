@@ -8,7 +8,7 @@ export const useEVM = defineStore('wallet', {
     return {
       isConnected: false,
       signer: null as ethers.Signer | null,
-      signerAddress: null,
+      signerAddress: '' as string,
       provider: null as ethers.providers.Web3Provider | null,
       chain: null as any,
       chainId: '' as string,
@@ -105,7 +105,7 @@ export const useEVM = defineStore('wallet', {
       try {
         this.chain = await this.provider.getNetwork()
       } catch (e:any) {
-        this.log(e.message)
+        cosnole.log(e.message)
         return
       }
       this.chainId = this.chain.chainId
@@ -117,7 +117,7 @@ export const useEVM = defineStore('wallet', {
         this.signerAddress = await this.signer.getAddress()
         console.log('signer is ', this.signerAddress)
       } catch (e:any) {
-        this.log(e.message)
+        console.log(e.message)
         return
       }
       this.applyEvents()
@@ -132,6 +132,8 @@ export const useEVM = defineStore('wallet', {
         this.signerAddress = null
         this.isConnected = false
         this.getSigner()
+        //todo: be more graceful
+        window.location.reload()
       })
       window.ethereum.on('connected', async () => {
         console.log('account re-connected')
@@ -142,8 +144,10 @@ export const useEVM = defineStore('wallet', {
         console.log('account disconnected')
         if (!this.switchingNetwork) {
           this.signer = null
-          this.signerAddress = null
+          this.signerAddress = ''
           this.isConnected = false
+          //todo: be more graceful
+          window.location.reload()
         }
       })
       window.ethereum.on('chainChanged', async () => {
@@ -199,8 +203,8 @@ export const useEVM = defineStore('wallet', {
     },
 
     async getContract(address:string, abi:any) {
-      const avatarContract =  await new ethers.Contract(address, abi, this.signer)
-      return avatarContract
+      const contract =  await new ethers.Contract(address, abi, this.signer)
+      return contract
     }
   }
 })

@@ -1,11 +1,16 @@
 <script setup lang="ts">
-import { mapState } from 'pinia'
+import EVMStatus from './EVMStatus.svg.vue'
+
 import btn from './button-basic.svg.vue'
 import LoadingBar from './LoadingBar.svg.vue'
 
+import { mapState } from 'pinia'
+
+import { useUI } from '../../stores/ui'
 import { useScreen } from '../../stores/screen'
 import { useRouting } from '../../stores/routing'
 import { useEVM } from "../../stores/evm"
+import { useWorld } from '../../stores/world'
 
 import { useAvatar } from '../../stores/avatar'
 import { useGalaxy } from '../../stores/galaxy'
@@ -16,27 +21,43 @@ export default {
   emits: ['readyToPlay'],
   data() {
     return {
+      ui: useUI(),
       screen: useScreen(),
-      avatar: useAvatar(),
       routing: useRouting(),
-      galaxy: useGalaxy(),
       evm: useEVM(),
+      world: useWorld(),
+      //replace these with world
+      avatar: useAvatar(),
+      galaxy: useGalaxy(),
     }
   },
   async mounted() {
-    this.evm.connect()
+    if (this.isConnected) {
+      var currentTime = new Date().getTime();
+      this.loadChainData()
+    } else {
+      var currentTime = new Date().getTime();
+      this.evm.connect()
+    }
   },
   watch: {
-    async block(newVal, oldVal) {
-    }
+    async isConnected(newVal, oldVal) {
+      if ((newVal) && (!oldVal)) {
+        this.loadChainData()
+      }
+    },
   },
   methods: {
     openNewWindow(url:string) {
       window.open(url)
+    },
+    async loadChainData() {
+      this.evm.getBalance()
+      this.world.loadEntities()
     }
   },
   computed: {
-    ...mapState(useEVM, ['block', 'isConnected']),
+    ...mapState(useEVM, ['isConnected']),
     getStep() {
       if (!this.evm.isConnected) {
         return {number: 0 , message: 'Connecting Wallet'}
@@ -50,12 +71,14 @@ export default {
         return {number: 4 , message: 'Loading Avatar State',}
       } else if (!this.galaxy.isLoaded) {
         return {number: 5 , message: 'Loading Galaxy State',}
+      } else if (!this.world.isLoaded) {
+        return {number: 6 , message: 'Generating Sprites',}
       } else {
-        return {number: 6 , message: 'Ready To Play'}
+        return {number: 7 , message: 'Ready To Play'}
       }
     },
     loadingPercentage() {
-      return Math.min(Math.round(this.getStep.number / 6 * 98 + 2), 100)
+      return Math.min(Math.round(this.getStep.number / 7 * 98 + 2), 100)
     }
   }
 }
@@ -79,9 +102,9 @@ export default {
       <g v-if="evm.facuets.length > 0">
         <g v-for="(faucet, index) in evm.facuets" font-size="24px">
         <btn
-          :transform="'translate(' + 30 +' ' + index * 22 + ')'"
-          :width="140"
-          :height="20"
+          :transform="'translate(' + 100 + ' ' + index * 22 + ')'"
+          :width="250"
+          :height="30"
           @click="openNewWindow(faucet.url)"
           :text="faucet.name"
         />
@@ -154,11 +177,15 @@ export default {
         :width="500"
         :height="90"
         text="Change"
-        @click="screen.evm.showNetworkSelect = true"
+        @click="ui.showNetworkSelect = true"
       />
     </g>
     <g v-else-if="!galaxy.isLoaded || !avatar.isLoaded">
       <text font-size="40px" :transform="'translate(0 ' + (-100) + ')'">Loading game data.</text>
+      />
+    </g>
+    <g v-else-if="!world.isLoaded">
+      <text font-size="40px" :transform="'translate(0 ' + (-100) + ')'">Creating sprites.</text>
       />
     </g>
     <g v-else>
@@ -168,7 +195,7 @@ export default {
         :height="90"
         font-size="50px"
         text="Play"
-        @click="$emit('readyToPlay')"
+        @click="routing.switch('play')"
       />
     </g>
   </g>
@@ -177,11 +204,13 @@ export default {
     <g :transform="'scale(' + ui.UIScale + ')'">
       <btn
         :width="200" :height="60"
-        text="Title"
-          @click="routing.switchScreen('title')"
+        text="Close"
+          @click="ui.changeMenu('home')"
         transform="translate(0 -80)" />
     </g>
   </g>
+
+  <EVMStatus />
 
 
 </template>

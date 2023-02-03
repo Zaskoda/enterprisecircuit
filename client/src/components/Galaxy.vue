@@ -1,9 +1,8 @@
 <script setup lang="ts">
-import svgContainer from './layouts/svgContainer.vue'
 import btn from './ui/button-basic.svg.vue'
 import SpaceBackground from './assets/sprites/SpaceBackground.svg.vue'
 
-import { useUI } from '../stores/ui'
+import { useScreen } from '../stores/screen'
 import { useRouting } from '../stores/routing'
 import { useGalaxy } from '../stores/galaxy'
 </script>
@@ -12,7 +11,7 @@ import { useGalaxy } from '../stores/galaxy'
 export default {
   data() {
     return {
-      ui: useUI(),
+      screen: useScreen(),
       galaxy: useGalaxy(),
       routing: useRouting(),
     }
@@ -31,7 +30,6 @@ export default {
 </script>
 
 <template>
-  <svgContainer>
     <SpaceBackground  />
 
       <g v-if="!galaxy.isConnected">
@@ -84,14 +82,13 @@ export default {
       </g>
 
 
-      <g font-size="12px" :transform="'translate(0 ' + (ui.bottom - 40) + ')'">
+      <g font-size="12px" :transform="'translate(0 ' + (screen.bottom - 40) + ')'">
         <btn
           :width="120" :height="20"
           text="close"
-          @click="routing.switchScreen('title')"
+          @click="routing.switch('title')"
           />
       </g>
-  </svgContainer>
 </template>
 
 <style scoped>

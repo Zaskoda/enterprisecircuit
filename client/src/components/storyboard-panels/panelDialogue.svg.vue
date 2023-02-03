@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import minerva from '../assets/sprites/minervaBox.svg.vue'
 
-  import { useUI } from '../../stores/ui'
+  import { useScreen } from '../../stores/screen'
 </script>
 
 <script lang="ts">
@@ -9,12 +9,13 @@ export default {
   props: {
     words: {
       type: Array,
-      default: []
+      default: [],
+      showText: true
     }
   },
   data() {
     return {
-      ui: useUI()
+      screen: useScreen()
     }
   },
 }
@@ -22,7 +23,7 @@ export default {
 
 <template>
   <g>
-    <g :transform="'translate(0 ' + (ui.top + 15) + ')'" v-if="ui.showText"  >
+    <g :transform="'translate(0 ' + (screen.top + 15) + ')'" v-if="showText"  >
       <g transform="scale(1)">
         <g fill="#000000"
           fill-opacity="0.25"
@@ -30,7 +31,7 @@ export default {
           stroke-width="0.5"
           stroke-opacity="0.25">
           <rect
-            v-if="ui.portrait"
+            v-if="screen.portrait"
             x="-290"
             y="0"
             width="590"
@@ -49,14 +50,14 @@ export default {
           />
         </g>
 
-        <g v-if="ui.portrait" transform="translate(-250 45)">
+        <g v-if="screen.portrait" transform="translate(-250 45)">
           <minerva transform="translate(0 0) scale(0.5)" />
         </g>
         <g v-else transform="translate(-350 45)">
           <minerva transform="translate(0 0) scale(0.5)" />
         </g>
 
-        <g v-if="ui.portrait" transform="translate(-170 0)" text-anchor="start">
+        <g v-if="screen.portrait" transform="translate(-170 0)" text-anchor="start">
           <text
             font-size="40px"
             transform="translate(0 35)"

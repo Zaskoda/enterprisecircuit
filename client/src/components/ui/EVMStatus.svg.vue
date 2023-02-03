@@ -3,6 +3,7 @@ import LogoEthereum from '../assets/graphics/LogoEthereum.svg.vue'
 import networkSelect from './EVMNetworkSelect.svg.vue'
 import btn from './button-basic.svg.vue'
 import { useEVM } from '../../stores/evm'
+import { useScreen } from '../../stores/screen'
 import { useUI } from '../../stores/ui'
 </script>
 
@@ -10,8 +11,9 @@ import { useUI } from '../../stores/ui'
 export default {
   data() {
     return {
-      evm: useEVM(),
       ui: useUI(),
+      evm: useEVM(),
+      screen: useScreen(),
     }
   },
   mounted() {
@@ -26,7 +28,7 @@ export default {
   },
   computed:{
     scale() {
-      if (this.ui.portrait) {
+      if (this.screen.portrait) {
         return this.ui.UIScale
       }
       return this.ui.UIScale * 0.75
@@ -38,7 +40,7 @@ export default {
 <template>
 <g>
     <rect
-      v-if="ui.evm.showNetworkSelect"
+      v-if="ui.showNetworkSelect"
     :x="-2000"
     :y="-2000"
     :width="4000"
@@ -46,9 +48,9 @@ export default {
     fill-opacity="0.6"
     fill="#000000"
     stroke-width="0"
-    @click="ui.evm.showNetworkSelect=false"
+    @click="ui.showNetworkSelect=false"
     />
-  <g :transform="'translate(0 ' + (ui.top + 30) + ')'">
+  <g :transform="'translate(0 ' + (screen.top + 30) + ')'">
     <g :transform="'scale( ' + scale + ' )'">
       <g>
         <rect
@@ -79,7 +81,7 @@ export default {
             :height="36" :width="150"
             font-size="30px"
             transform="translate(300 60)"
-            @click="ui.evm.showNetworkSelect = true"
+            @click="ui.showNetworkSelect = true"
             text="Change" />
 
 
@@ -118,8 +120,8 @@ export default {
       </g>
     </g>
   </g>
-    <g v-if="ui.evm.showNetworkSelect" transform="translate(0 0)">
-      <networkSelect v-on:close="ui.evm.showNetworkSelect = false" />
+    <g v-if="ui.showNetworkSelect" transform="translate(0 0)">
+      <networkSelect v-on:close="ui.showNetworkSelect = false" />
     </g>
 </g>
 </template>

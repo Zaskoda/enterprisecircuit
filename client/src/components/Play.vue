@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import EVMStatus from './ui/EVMStatus.svg.vue'
 import { mapState } from 'pinia'
-import svgContainer from './layouts/svgContainer.vue'
 import World from './World.svg.vue'
 
-import { useUI } from '../stores/ui'
+import { useScreen } from '../stores/screen'
 import { useRouting } from '../stores/routing'
 import { useEVM } from "../stores/evm"
 
@@ -19,7 +18,7 @@ import GameConnect from './ui/GameConnet.svg.vue'
 export default {
   data() {
     return {
-      ui: useUI(),
+      screen: useScreen(),
       avatar: useAvatar(),
       routing: useRouting(),
       galaxy: useGalaxy(),
@@ -67,24 +66,7 @@ export default {
 </script>
 
 <template>
-<svgContainer>
-  <g v-if="!readyToPlay">
-    <GameConnect @readyToPlay="this.readyToPlay = true" />
-  </g>
-  <g v-else>
-    <World />
-    <g  font-size="42px" :transform="'translate(0 ' + (ui.bottom - 20) + ')'">
-      <g :transform="'scale(' + ui.UIScale + ')'">
-        <btn
-          :width="200" :height="60"
-          text="Title"
-            @click="routing.switchScreen('title')"
-          transform="translate(0 -80)" />
-      </g>
-    </g>
-  </g>
-  <EVMStatus />
-</svgContainer>
+  <World />
 </template>
 
 <style scoped>

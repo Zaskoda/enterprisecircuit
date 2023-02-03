@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import svgContainer from './layouts/svgContainer.vue'
 import About from './storyboard-panels/About.svg.vue'
 
 
@@ -11,13 +10,11 @@ export default {
 </script>
 
 <template>
-  <svgContainer>
 
     <g>
       <About />
     </g>
 
-  </svgContainer>
 </template>
 
 <style scoped>

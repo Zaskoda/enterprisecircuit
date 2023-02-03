@@ -12,7 +12,7 @@ import SpaceBackground from '../assets/sprites/SpaceBackground.svg.vue'
 
 import { useAutoPlay } from './composables/autoPlay'
 
-import { useUI } from '../../stores/ui'
+import { useScreen } from '../../stores/screen'
 import { useRouting } from '../../stores/routing'
 </script>
 
@@ -20,7 +20,7 @@ import { useRouting } from '../../stores/routing'
 export default {
   data() {
     return {
-      ui: useUI(),
+      screen: useScreen(),
       panel: 0,
       panelCount: 6,
       routing: useRouting(),
@@ -77,7 +77,7 @@ export default {
     }
   },
   mounted() {
-    if (this.ui.isAutoPresent) {
+    if (this.screen.isAutoPresent) {
       this.panel = useAutoPlay(this.waitTime)
     }
   },
@@ -93,10 +93,10 @@ export default {
   },
   methods: {
     finish() {
-      this.routing.switchScreen('play')
+      this.routing.switch('play')
     },
     close() {
-      this.routing.switchScreen('title')
+      this.routing.switch('title')
     }
 
   }

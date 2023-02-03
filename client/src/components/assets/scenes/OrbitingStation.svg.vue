@@ -13,19 +13,20 @@ export default {
 <g>
   <g>
     <g>
-      <g transform="translate(-300 0) scale(2)" opacity="1">
+      <g transform="translate(100 0) scale(1)" opacity="1">
         <g>
           <SpaceStation :size="30" />
-          <g transform="translate(30 0) scale(0.30) rotate(180)">
+
+          <g transform="translate(20 0) scale(2.5)">
             <PlayerShip :type="137" />
           </g>
-          <g transform="translate(-30 0) scale(0.30)">
+          <g transform="translate(-20 0) scale(2.5) rotate(180)">
             <PlayerShip :type="288" />
           </g>
-          <g transform="translate(0 30) scale(0.35) rotate(270)">
+          <g transform="translate(0 20) scale(2.5) rotate(90)">
             <PlayerShip :type="1284" />
           </g>
-          <g transform="translate(0 -30) scale(0.30) rotate(90)">
+          <g transform="translate(0 -20) scale(2.5) rotate(270)">
             <PlayerShip :type="1" />
           </g>
 
