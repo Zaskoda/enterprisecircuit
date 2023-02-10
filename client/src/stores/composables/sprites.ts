@@ -6,11 +6,11 @@ const planetDistance = 500
 const planetGap = 480
 
 const maxMoons = 8
-const moonDistance = 60
-const moonGap = 15
+const moonDistance = 65
+const moonGap = 30
 
-const stationDistance = 28
-const shipDistance = 16
+const stationDistance = 40
+const shipDistance = 12
 
 export function useSprites(chainData:any) {
 

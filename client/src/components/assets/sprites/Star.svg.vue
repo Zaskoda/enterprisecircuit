@@ -11,7 +11,7 @@ export default {
 
 <template>
 <g>
-  <g :transform="'scale(' + (size * 2 + 0.5) + ')'">
+  <g :transform="'scale(' + (size + 0.5) + ')'">
     <g opacity="0.25">
       <g>
         <g v-for="n in 9">
@@ -27,7 +27,7 @@ export default {
         <animateTransform
               attributeName="transform"
               attributeType="XML"
-              type="rotate" dur="720s"
+              type="rotate" dur="240s"
               values="360; 0"
               repeatCount="indefinite"
             />
@@ -45,7 +45,7 @@ export default {
         <animateTransform
               attributeName="transform"
               attributeType="XML"
-              type="rotate" dur="720s"
+              type="rotate" dur="240s"
               values="0; 360"
               repeatCount="indefinite"
             />

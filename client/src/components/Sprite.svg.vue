@@ -36,7 +36,7 @@ export default {
           stroke-opacity="0.5"
           :stroke-width="4 / world.zoomLevel"
           stroke-dasharray="4 4"
-          :r="sprite.meta.size * 1.1 + 3"
+          :r="sprite.meta.size * 1.1 + 6"
           v-if="selected"
           />
       <Star

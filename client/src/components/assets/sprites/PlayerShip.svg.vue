@@ -42,7 +42,7 @@ export default {
 <g>
   <g :transform="'scale(' + size +  ')'">
     <g :transform="'rotate(' + ((rotation + 180) % 360) + ')'">
-      <g transform="scale(0.001)">
+      <g transform="scale(0.002 )">
         <circle cx="0" cy="0" r="4000" stroke-width="0" stroke="#ffffff" fill="#c3b3da00" />
 
         <g>

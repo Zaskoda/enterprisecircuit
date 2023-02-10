@@ -71,7 +71,7 @@ export const useWorld = defineStore('world', {
     select(id:number) {
       if (id in this.sprites) {
         this.selectedSprite= id
-        this.zoomLevel = 10
+        this.zoomLevel = 5
       }
     },
     selectByRefId(refid:string) {

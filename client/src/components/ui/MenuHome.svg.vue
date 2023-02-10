@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import btn from './widgets/button-basic.svg.vue'
+import LogoOrbiter8 from '../assets/sprites/LogoOrbiter8.svg.vue'
 
 import { useUI } from '../../stores/ui'
 import { useScreen } from '../../stores/screen'
@@ -23,33 +24,43 @@ export default {
 </script>
 
 <template>
-    <g transform="translate(0 240)">
+    <g transform="translate(0 140)">
       <g>
         <rect
-          :x="screen.left"
-          :y="-240 * ui.UIScale"
-          :width="screen.width"
-          :height="420 * ui.UIScale"
+          :x="screen.left - 5"
+          :y="-400 * ui.UIScale"
+          :width="screen.width + 10"
+          :height="500 * ui.UIScale"
+          stroke="#ffffff"
+          stroke-width="1"
+          stroke-opacity="0.25"
           fill="#000000"
           fill-opacity="0.2"
           />
       </g>
+
+      <g transform="translate(0 -240)">
+        <g>
+          <LogoOrbiter8 transform="scale(0.8)" />
+        </g>
+      </g>
+
       <g :transform="'scale(' + ui.UIScale + ')'">
-        <g  font-size="48px" transform="translate(0 -160)">
+        <g  font-size="48px" transform="translate(0 -50)">
           <btn
             :width="300" :height="80"
             text="Play"
             @click="ui.changeMenu('connect')"
              />
         </g>
-        <g  font-size="42px" transform="translate(0 -40)">
+        <g  font-size="36px" transform="translate(0 65)">
           <btn
             :width="300" :height="65"
             text="Settings"
             @click="ui.changeMenu('settings')"
             transform="translate(0 -25)" />
         </g>
-        <g  font-size="36px" transform="translate(0 50)">
+        <g  font-size="28px" transform="translate(0 170) scale(0.75)">
           <btn
             :width="180" :height="50"
             text="Window"
@@ -71,7 +82,7 @@ export default {
             @click="routing.switch('galaxy')"
             transform="translate(300 0)" />
         </g>
-        <g  font-size="36px" transform="translate(0 120)">
+        <g  font-size="28px" transform="translate(0 220) scale(0.75)">
           <btn
             :width="180" :height="50"
             text="Assets"
