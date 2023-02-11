@@ -54,9 +54,7 @@ export default {
     </g>
 
     <g  font-size="12px" :transform="'translate(0 ' + (screen.top + 150) + ')'">
-    <g :transform="'scale(' + ui.UIScale + ')'">
-      <MinervaScreen />
-    </g>
+
   </g>
 
     <g transform="translate(0 120)">

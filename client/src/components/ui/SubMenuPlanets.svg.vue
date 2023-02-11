@@ -33,7 +33,7 @@ export default {
 <template>
   <SubMenu @close="$emit('close')">
     <g v-for="(sprite, index) in world.planetSprites">
-      <SubMenuSlot :slot="index" @click="selectPlanet(sprite.refid)">
+      <SubMenuSlot :slot="index" @click="selectPlanet(sprite.refid)" :highlight="world.selectedSprite == sprite.index">
         <SubMenuSlotPlanet :planetIndex="sprite.index" />
 
       </SubMenuSlot>

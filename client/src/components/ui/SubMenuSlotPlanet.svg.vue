@@ -58,13 +58,13 @@ export default {
             <text stroke="#000000" stroke-width="4" fill="#000000">{{ planet.meta.name }}</text>
           </g>
           <g transform="translate(0 -10)">
-            <text fill="#aaaaaa">{{ planet.meta.name }}</text>
+            <text fill="#ffddff">{{ planet.meta.name }}</text>
           </g>
           <g transform="translate(2 22)" font-size="20px">
             <text stroke="#000000" stroke-width="4" fill="#000000">{{ planet.meta.className }}</text>
           </g>
           <g transform="translate(0 24)" font-size="20px">
-            <text fill="#ffffff">{{ planet.meta.className }}</text>
+            <text fill="#ffffdd">{{ planet.meta.className }}</text>
           </g>
         </g>
         <g transform="translate(-40 38)">
