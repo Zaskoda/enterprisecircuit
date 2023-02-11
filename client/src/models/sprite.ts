@@ -19,6 +19,23 @@ export interface Luminance {
 
 export class Sprite {
 
+  planetClassNames= [
+    'Terrestrial', //0
+    'Rocky',       //1
+    'Oceanic',     //2
+    'Desert',      //3
+    'Ice',         //4
+    'Volcanic',    //5
+    'Gaseous',     //6
+    'Ferrous',     //7
+    'Lava',        //8
+    'Swamp',       //9
+  ]
+
+  refid:string = ''
+
+  index:number = 0
+
   type:string = ''
 
   orbit:Orbit = {
@@ -52,6 +69,8 @@ export class Sprite {
       this.meta.id = payload['id']
       this.meta.name = payload['name']
       this.orbit.offset = payload['id'] % 1000
+      //note that an id for a planet will be the same as its moons and station
+      this.refid = payload['id'] + this.type + payload['type']
       switch (this.type) {
         case 'Star': {
           this.meta.size = payload['size']
@@ -60,6 +79,7 @@ export class Sprite {
         case 'Planet': {
           this.meta.size = payload['size']
           this.meta.class = payload['class']
+          this.meta.className = this.planetClassNames[payload['class']]
           this.meta.rings = payload['rings']
           this.orbit.position = payload['orbit']
           this.orbit.velocity = payload['velocity']
@@ -71,6 +91,7 @@ export class Sprite {
           this.orbit.parent = payload['parent']
           this.orbit.position = payload['orbit']
           this.orbit.velocity = payload['velocity']
+          this.refid += this.orbit.position = payload['orbit']
           break
         }
         case 'Station': {
@@ -86,6 +107,38 @@ export class Sprite {
         }
       }
     }
+  }
+
+  getPortType () {
+    let type = ''
+    if (this.meta.inventory.equipment > 0) {
+      type += 'S'
+    } else if (this.meta.inventory.equipment < 0) {
+      type += 'B'
+    } else {
+      type += '-'
+    }
+
+    if (this.meta.inventory.fuel > 0) {
+      type += 'S'
+    } else if (this.meta.inventory.fuel < 0) {
+      type += 'B'
+    } else {
+      type += '-'
+    }
+
+    if (this.meta.inventory.organics > 0) {
+      type += 'S'
+    } else if (this.meta.inventory.organics < 0) {
+      type += 'B'
+    } else {
+      type += '-'
+    }
+    return type
+  }
+
+  setIndex(index:number) {
+    this.index = index
   }
 
 

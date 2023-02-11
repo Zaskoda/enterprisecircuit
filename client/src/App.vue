@@ -62,7 +62,6 @@ body {
 }
 .canclick:hover {
   cursor: pointer;
-  text-decoration: underline;
 }
 </style>
 

@@ -178,24 +178,26 @@ export default {
       </g>
     </g>
 
-    <circle
-      v-if="rings"
-      cy="0"
-      :r="20"
-      stroke="url(#ringGradient)"
-      opacity="0.5"
-      :stroke-width="rings"
-      fill="none" />
-    <circle
-      v-for="n in parseInt(rings)"
-      :key="n"
-      cx="0"
-      cy="0"
-      :r="20 + (n - (rings/2))"
-      stroke="url(#ringGradient)"
-      opacity="0.2"
-      :stroke-width="0.1 + ((rings/2) - Math.abs(n - (rings/2)))/100"
-      fill="none" />
+    <g  :transform="'rotate(' + luminanceRotation + ')'">
+      <circle
+        v-if="rings"
+        cy="0"
+        :r="20"
+        stroke="url(#ringGradient)"
+        opacity="0.5"
+        :stroke-width="rings"
+        fill="none" />
+      <circle
+        v-for="n in parseInt(rings)"
+        :key="n"
+        cx="0"
+        cy="0"
+        :r="20 + (n - (rings/2))"
+        stroke="url(#ringGradient)"
+        opacity="0.2"
+        :stroke-width="0.1 + ((rings/2) - Math.abs(n - (rings/2)))/100"
+        fill="none" />
+    </g>
   </g>
 </g>
 </template>

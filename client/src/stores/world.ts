@@ -4,6 +4,8 @@ import { useGalaxy } from '../stores/galaxy'
 import { useClock } from '../stores/clock'
 
 import { useSprites } from './composables/sprites'
+import { Sprite, Coords } from '../models/sprite'
+
 
 const maxPlanets = 14
 const planetDistance = 600
@@ -15,11 +17,6 @@ const moonGap = 20
 
 const stationDistance = 25
 
-
-interface Coords {
-  x: number,
-  y: number,
-}
 
 
 export const useWorld = defineStore('world', {
@@ -52,6 +49,16 @@ export const useWorld = defineStore('world', {
       }
       return this.viewPoint
     },
+    planetSprites():Sprite[] {
+      return this.sprites.filter(sprite => {
+        return sprite.type == 'Planet'
+      })
+    },
+    shipSprites():Sprite[] {
+      return this.sprites.filter(sprite => {
+        return sprite.type == 'Ship'
+      })
+    }
   },
   actions: {
     deselect() {
@@ -62,8 +69,18 @@ export const useWorld = defineStore('world', {
       }
     },
     select(id:number) {
-      this.selectedSprite= id
-      this.zoomLevel = 10
+      if (id in this.sprites) {
+        this.selectedSprite= id
+        this.zoomLevel = 5
+      }
+    },
+    selectByRefId(refid:string) {
+      this.select(this.findByRefId(refid))
+    },
+    findByRefId(refid:string) {
+      return this.sprites.findIndex((sprite) => {
+        return sprite.refid == refid
+      }, refid)
     },
     zoomOut(multiplier:number = 1) {
       this.zoomLevel = Math.max(
