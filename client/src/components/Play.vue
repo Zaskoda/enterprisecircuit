@@ -1,17 +1,11 @@
 <script setup lang="ts">
-import EVMStatus from './ui/EVMStatus.svg.vue'
 import { mapState } from 'pinia'
 import World from './World.svg.vue'
 
 import { useScreen } from '../stores/screen'
 import { useRouting } from '../stores/routing'
 import { useEVM } from "../stores/evm"
-
-import { useAvatar } from '../stores/avatar'
-import { useGalaxy } from '../stores/galaxy'
-import btn from './ui/widgets/button-basic.svg.vue'
-
-import GameConnect from './ui/GameConnet.svg.vue'
+import { useWorld } from "../stores/world"
 </script>
 
 <script lang="ts">
@@ -19,10 +13,9 @@ export default {
   data() {
     return {
       screen: useScreen(),
-      avatar: useAvatar(),
       routing: useRouting(),
-      galaxy: useGalaxy(),
       evm: useEVM(),
+      world: useWorld(),
       readyToPlay: false
     }
   },
@@ -51,12 +44,7 @@ export default {
   methods: {
     async loadChainData() {
       this.evm.getBalance()
-      if (this.avatar.isConnected) {
-        await this.avatar.getAll()
-      }
-      if (this.galaxy.isConnected) {
-        await this.galaxy.getAll()
-      }
+      await this.world.loadFromNetwork()
     },
     openNewWindow(url:string) {
       window.open(url)

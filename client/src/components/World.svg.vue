@@ -8,9 +8,6 @@ import { useClock } from "../stores/clock"
 
 import { useWorld } from '../stores/world'
 
-import { useAvatar } from '../stores/avatar'
-import { useGalaxy } from '../stores/galaxy'
-
 import Sprite from './Sprite.svg.vue'
 
 import SpaceBackground from './assets/sprites/SpaceBackground.svg.vue'
@@ -27,8 +24,6 @@ export default {
       mouseHold: false,
       screen: useScreen(),
       routing: useRouting(),
-      avatar: useAvatar(),
-      galaxy: useGalaxy(),
       world: useWorld(),
       evm: useEVM(),
       clock: useClock(),
@@ -53,7 +48,7 @@ export default {
   },
   methods: {
     async moveTo(systemId:number) {
-      await this.galaxy.moveToSystem(systemId)
+      await this.world.galaxy.moveToSystem(systemId)
     },
     wheelHandler(event:any) {
       if (event.deltaY > 0) {
@@ -137,39 +132,39 @@ export default {
 
   <g font-size="10px" transform="translate(0 200)" v-if="false">
     <g transform="translate(0 -100)">
-      <text fill="#888">System Count: <tspan fill="#ffffff" font-weight="bold">{{ galaxy.chainstate.systemCount }}</tspan></text>
+      <text fill="#888">System Count: <tspan fill="#ffffff" font-weight="bold">{{ world.galaxy.chainstate.systemCount }}</tspan></text>
     </g>
 
     <g transform="translate(0 -80)">
-      <text fill="#888">Credit Balance: <tspan fill="#ffffff" font-weight="bold">{{ galaxy.chainstate.creditBalance }}</tspan></text>
+      <text fill="#888">Credit Balance: <tspan fill="#ffffff" font-weight="bold">{{ world.galaxy.chainstate.creditBalance }}</tspan></text>
     </g>
     <g transform="translate(0 -60)">
-      <text fill="#888">Ship Location: <tspan fill="#ffffff" font-weight="bold">{{ galaxy.chainstate.shipLocation }}</tspan></text>
+      <text fill="#888">Ship Location: <tspan fill="#ffffff" font-weight="bold">{{ world.galaxy.chainstate.shipLocation }}</tspan></text>
     </g>
     <g transform="translate(0 -40)">
-      <text fill="#888">Ship Id: <tspan fill="#ffffff" font-weight="bold">{{ galaxy.chainstate.shipId }}</tspan></text>
+      <text fill="#888">Ship Id: <tspan fill="#ffffff" font-weight="bold">{{ world.galaxy.chainstate.shipId }}</tspan></text>
     </g>
     <g transform="translate(0 -20)">
-      <text fill="#888">Ship: <tspan fill="#ffffff" font-weight="bold">{{ galaxy.chainstate.ship }}</tspan></text>
+      <text fill="#888">Ship: <tspan fill="#ffffff" font-weight="bold">{{ world.galaxy.chainstate.ship }}</tspan></text>
     </g>
     <g transform="translate(0 15)">
-      <text transform="translate(-170 0)" fill="#888">Id: <tspan fill="#ffffff" font-weight="bold">{{ galaxy.chainstate.systemData.id }}</tspan></text>
-      <text transform="translate(-135 0)" fill="#888">Name: <tspan fill="#ffffff" font-weight="bold">{{ galaxy.chainstate.systemData.name }}</tspan></text>
-      <text transform="translate(-95 0)" fill="#888">Size: <tspan fill="#ffffff" font-weight="bold">{{ galaxy.chainstate.systemData.starSize }}</tspan></text>
-      <text transform="translate(-30 0)" fill="#888">Birth: <tspan fill="#ffffff" font-weight="bold">{{ galaxy.chainstate.systemData.birthtime }}</tspan></text>
-      <text transform="translate(150 0)" fill="#888">Disc By: <tspan fill="#ffffff" font-weight="bold">{{ galaxy.chainstate.systemData.discoveredBy }}</tspan></text>
-      <text transform="translate(-150 15)" fill="#888">Neighbors: <tspan @click="moveTo(n)" class="canclick" fill="#ffffff" font-weight="bold" v-for="n in galaxy.chainstate.systemData.neighbors"> ({{  n }})  </tspan></text>
-      <text transform="translate(120 15)" fill="#888">Planets: <tspan fill="#ffffff" font-weight="bold" v-for="p in galaxy.chainstate.systemData.planets"> ({{ p }}) </tspan></text>
-      <text transform="translate(0 30)" fill="#888">Logs: <tspan fill="#ffffff" font-weight="bold" v-for="l in galaxy.chainstate.systemData.logs"> ({{ l }}) </tspan></text>
+      <text transform="translate(-170 0)" fill="#888">Id: <tspan fill="#ffffff" font-weight="bold">{{ world.galaxy.chainstate.systemData.id }}</tspan></text>
+      <text transform="translate(-135 0)" fill="#888">Name: <tspan fill="#ffffff" font-weight="bold">{{ world.galaxy.chainstate.systemData.name }}</tspan></text>
+      <text transform="translate(-95 0)" fill="#888">Size: <tspan fill="#ffffff" font-weight="bold">{{ world.galaxy.chainstate.systemData.starSize }}</tspan></text>
+      <text transform="translate(-30 0)" fill="#888">Birth: <tspan fill="#ffffff" font-weight="bold">{{ world.galaxy.chainstate.systemData.birthtime }}</tspan></text>
+      <text transform="translate(150 0)" fill="#888">Disc By: <tspan fill="#ffffff" font-weight="bold">{{ world.galaxy.chainstate.systemData.discoveredBy }}</tspan></text>
+      <text transform="translate(-150 15)" fill="#888">Neighbors: <tspan @click="moveTo(n)" class="canclick" fill="#ffffff" font-weight="bold" v-for="n in world.galaxy.chainstate.systemData.neighbors"> ({{  n }})  </tspan></text>
+      <text transform="translate(120 15)" fill="#888">Planets: <tspan fill="#ffffff" font-weight="bold" v-for="p in world.galaxy.chainstate.systemData.planets"> ({{ p }}) </tspan></text>
+      <text transform="translate(0 30)" fill="#888">Logs: <tspan fill="#ffffff" font-weight="bold" v-for="l in world.galaxy.chainstate.systemData.logs"> ({{ l }}) </tspan></text>
     </g>
     <g transform="translate(0 70)">
-      <text fill="#888">Ships: <tspan fill="#ffffff" font-weight="bold" v-for="s in galaxy.chainstate.ships"> ({{ s }}) </tspan></text>
+      <text fill="#888">Ships: <tspan fill="#ffffff" font-weight="bold" v-for="s in world.galaxy.chainstate.ships"> ({{ s }}) </tspan></text>
     </g>
     <g transform="translate(0 85)">
-      <text fill="#888">planets: <tspan fill="#ffffff" font-weight="bold" v-for="p in galaxy.chainstate.planets"> ({{ p }}) </tspan></text>
+      <text fill="#888">planets: <tspan fill="#ffffff" font-weight="bold" v-for="p in world.galaxy.chainstate.planets"> ({{ p }}) </tspan></text>
     </g>
     <g transform="translate(0 100)">
-      <text fill="#888">localPlanets: <tspan fill="#ffffff" font-weight="bold" v-for="p in galaxy.chainstate.localPlanets"> ({{ p }}) </tspan></text>
+      <text fill="#888">localPlanets: <tspan fill="#ffffff" font-weight="bold" v-for="p in world.galaxy.chainstate.localPlanets"> ({{ p }}) </tspan></text>
     </g>
   </g>
 </template>
