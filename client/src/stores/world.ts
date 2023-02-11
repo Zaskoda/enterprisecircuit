@@ -66,6 +66,10 @@ export const useWorld = defineStore('world', {
         this.avatar.getAll(),
         this.galaxy.getAll()
       ])
+      await this.avatar.preloadForAddresses(
+        this.galaxy.knownAddresses
+      )
+
     },
     deselect() {
       if (this.selectedSprite != null) {

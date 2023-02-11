@@ -63,7 +63,13 @@ export class Sprite {
     size: 1
   }
 
+  owner:string = ''
+
   constructor(payload:any) {
+    if (payload.hasOwnProperty('owner')) {
+      this.owner = payload['owner']
+      console.log('onwer: ' + this.owner)
+    }
     if (payload.hasOwnProperty('type')) {
       this.type = payload['type']
       this.meta.id = payload['id']

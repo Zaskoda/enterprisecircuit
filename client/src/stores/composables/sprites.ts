@@ -22,6 +22,7 @@ export function useSprites(chainData:any) {
     id: chainData.systemData.id,
     name: chainData.systemData.name,
     size:  chainData.systemData.starSize,
+    owner: chainData.systemData.discoveredBy
   })
 
 
@@ -36,6 +37,7 @@ export function useSprites(chainData:any) {
       rings: planet.rings,
       orbit: planet.orbit,
       velocity: planet.velocity,
+      owner: planet.owner
     }))
 
     let planetIndex = sprites.length - 1
@@ -51,6 +53,7 @@ export function useSprites(chainData:any) {
         parent: planetIndex,
         orbit: moon.orbit,
         velocity: moon.velocity,
+        owner: planet.owner
       }))
       let moonIndex = sprites.length - 1
       sprites[moonIndex].setIndex(moonIndex)
@@ -64,7 +67,8 @@ export function useSprites(chainData:any) {
         size: planet.station.size,
         inventory: planet.station.inventory,
         price: planet.station.price,
-        parent: planetIndex
+        parent: planetIndex,
+        owner: planet.owner
       }))
       let stationIndex = sprites.length - 1
       sprites[stationIndex].setIndex(stationIndex)

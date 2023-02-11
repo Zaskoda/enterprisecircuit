@@ -11,6 +11,7 @@ export const useGalaxy = defineStore('galaxy', {
       contract: useContract('Galaxy', GalaxyArtifact.abi),
       isLoaded: false,
       isLoading: false,
+      knownAddresses: [],
       chainstate: {
         systemId: 0,
         creditBalance: 0,
@@ -72,6 +73,7 @@ export const useGalaxy = defineStore('galaxy', {
        ] = await this.contract.read(
         'getPlayerSystemData'
       )
+      this.knownAddresses.push(this.chainstate.systemData.discoveredBy)
     },
     async loadShipLogs() {
       this.chainstate.systemData.ships = []
@@ -96,6 +98,7 @@ export const useGalaxy = defineStore('galaxy', {
                   fuel: 0,
                   organics: 0
                 }
+                this.knownAddresses.push(ship.owner)
               }
 
             }
@@ -288,6 +291,7 @@ export const useGalaxy = defineStore('galaxy', {
         moons: [],
         station: {} as Station
       }
+      this.knownAddresses.push(planet.owner)
       return planet
     },
     mapMoonObject(data:any[], orbit:number):Moon {
