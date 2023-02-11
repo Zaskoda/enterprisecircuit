@@ -61,6 +61,12 @@ export const useWorld = defineStore('world', {
     }
   },
   actions: {
+    async loadFromNetwork() {
+      await Promise.all([
+        this.avatar.getAll(),
+        this.galaxy.getAll()
+      ])
+    },
     deselect() {
       if (this.selectedSprite != null) {
         this.viewPoint.x = this.sprites[this.selectedSprite].position.x * -1
