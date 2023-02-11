@@ -17,6 +17,7 @@ import JumpIcon from './icons/jump.svg.vue'
 import InfoIcon from './icons/info.svg.vue'
 
 import SubMenuPlanets from './SubMenuPlanets.svg.vue'
+import SubMenuShips from './SubMenuShips.svg.vue'
 
 import { useRouting } from '../../stores/routing'
 import { useUI } from '../../stores/ui'
@@ -31,7 +32,8 @@ export default {
       ui: useUI(),
       routing: useRouting(),
       screen: useScreen(),
-      showPlanetMenu: false
+      showPlanetsMenu: false,
+      showShipsMenu: false
     }
   },
   mounted() {
@@ -71,11 +73,11 @@ export default {
 
 
   <g :transform="'translate(' + (screen.right - 60) + ' ' + (screen.bottom - 180)  + ')'">
-    <ShipsIcon :counter="10" @click="showShips()" />
+    <ShipsIcon :counter="10" @click="showShipsMenu = true" />
   </g>
 
   <g :transform="'translate(' + (screen.right - 60) + ' ' + (screen.bottom - 300)  + ')'">
-    <PlanetsIcon :counter="1" @click="showPlanetMenu = true" />
+    <PlanetsIcon :counter="1" @click="showPlanetsMenu = true" />
   </g>
 
   <g :transform="'translate(' + (screen.right - 60) + ' ' + (screen.bottom - 60)  + ')'">
@@ -92,7 +94,12 @@ export default {
 
 
   <g>
-    <SubMenuPlanets :show="showPlanetMenu" @close="showPlanetMenu = false" />
+    <SubMenuPlanets :show="showPlanetsMenu" @close="showPlanetsMenu = false" />
+  </g>
+
+
+  <g>
+    <SubMenuShips :show="showShipsMenu" @close="showShipsMenu = false" />
   </g>
 
 

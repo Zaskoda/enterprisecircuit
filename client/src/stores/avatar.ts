@@ -14,6 +14,7 @@ export const useAvatar = defineStore('avatar', {
       isLoaded: false,
       isLoading: false,
       knownAvatars: {} as any,
+      addressToName: {} as any,
       chainstate: {
         myAvatarId: null,
         myAvatarName: null,
@@ -58,6 +59,12 @@ export const useAvatar = defineStore('avatar', {
       ])
       this.isLoaded = true
       this.isLoading = false
+    },
+
+    async preloadForAddresses(addresses:[]) {
+      for(let n = 0; n < addresses.length; n++) {
+        this.addressToName[addresses[n]] = await this.getAvatarNameByAddress(addresses[n])
+      }
     },
 
     async getAllAvatars() {
