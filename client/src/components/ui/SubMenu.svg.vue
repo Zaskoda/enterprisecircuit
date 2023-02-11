@@ -48,7 +48,7 @@ export default {
       :width="screen.width"
       :height="screen.height"
       v-on:click.prevent="$emit('close')"
-      fill-opacity="0.5"
+      fill-opacity="0.25"
       fill="#000000" />
   </g>
   <g :class="[show ? 'slidein' : 'slideout', 'slide']">

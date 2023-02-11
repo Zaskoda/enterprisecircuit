@@ -17,22 +17,13 @@ export function useSprites(chainData:any) {
   let sprites:Sprite[] = []
 
   sprites[0] = new Sprite({
+    index: 0,
     type: 'Star',
     id: chainData.systemData.id,
     name: chainData.systemData.name,
     size:  chainData.systemData.starSize,
   })
 
-  function indexFromId(id:string) {
-    let index = 0
-    for (let i = 0; i < sprites.length; i++) {
-      if ((BigInt(sprites[i].meta.id) == BigInt(id)) &&
-         ((sprites[i].type == 'Planet') || (sprites[i].type == 'Star'))) {
-        index = i
-      }
-    }
-    return index
-  }
 
   chainData.localPlanets.forEach((planet:any) => {
 
@@ -48,8 +39,9 @@ export function useSprites(chainData:any) {
     }))
 
     let planetIndex = sprites.length - 1
+    sprites[planetIndex].setIndex(planetIndex)
 
-    planet.moons.forEach((moon) => {
+    planet.moons.forEach((moon:any) => {
       sprites.push(new Sprite({
         type: 'Moon',
         id: planet.id,
@@ -60,6 +52,8 @@ export function useSprites(chainData:any) {
         orbit: moon.orbit,
         velocity: moon.velocity,
       }))
+      let moonIndex = sprites.length - 1
+      sprites[moonIndex].setIndex(moonIndex)
     })
 
     if (planet.hasPort) {
@@ -72,6 +66,8 @@ export function useSprites(chainData:any) {
         price: planet.station.price,
         parent: planetIndex
       }))
+      let stationIndex = sprites.length - 1
+      sprites[stationIndex].setIndex(stationIndex)
     }
 
   })
@@ -82,9 +78,22 @@ export function useSprites(chainData:any) {
       id: ship.id,
       name: ship.name,
       owner: ship.owner,
-      parent: indexFromId(ship.orbit),
+      parent: planetIndexFromId(ship.orbit),
     }))
+    let shipIndex = sprites.length - 1
+    sprites[shipIndex].setIndex(shipIndex)
   })
+
+  function planetIndexFromId(id:string) {
+    let index = 0
+    for (let i = 0; i < sprites.length; i++) {
+      if ((BigInt(sprites[i].meta.id) == BigInt(id)) &&
+         ((sprites[i].type == 'Planet') || (sprites[i].type == 'Star'))) {
+        index = i
+      }
+    }
+    return index
+  }
 
   function setOrbitalData (id:number) {
     let sprite = sprites[id]

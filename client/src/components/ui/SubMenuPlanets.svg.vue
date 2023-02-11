@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import SubMenu from './SubMenu.svg.vue'
 import SubMenuSlot from './SubMenuSlot.svg.vue'
+import SubMenuSlotPlanet from './SubMenuSlotPlanet.svg.vue'
 import { useWorld } from '../../stores/world'
 import { useScreen } from '../../stores/screen'
 </script>
@@ -11,7 +12,8 @@ export default {
   data () {
     return {
       world: useWorld(),
-      screen: useScreen()
+      screen: useScreen(),
+      hover: false,
     }
   },
   computed: {
@@ -22,16 +24,18 @@ export default {
     selectPlanet(refid:string) {
       this.world.selectByRefId(refid)
       this.$emit('close')
-    }
+    },
+
   }
 }
 </script>
 
 <template>
-  <SubMenu>
+  <SubMenu @close="$emit('close')">
     <g v-for="(sprite, index) in world.planetSprites">
       <SubMenuSlot :slot="index" @click="selectPlanet(sprite.refid)">
-        <text>- {{ sprite.meta.name }}</text>
+        <SubMenuSlotPlanet :planetIndex="sprite.index" />
+
       </SubMenuSlot>
     </g>
   </SubMenu>

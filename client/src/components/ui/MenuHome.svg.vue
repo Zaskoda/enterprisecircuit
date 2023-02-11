@@ -24,70 +24,70 @@ export default {
 </script>
 
 <template>
-    <g transform="translate(0 140)">
+    <g transform="translate(0 100)">
       <g>
         <rect
           :x="screen.left - 5"
-          :y="-400 * ui.UIScale"
+          :y="-420 * ui.UIScale"
           :width="screen.width + 10"
-          :height="500 * ui.UIScale"
+          :height="560 * ui.UIScale"
           stroke="#ffffff"
-          stroke-width="1"
-          stroke-opacity="0.25"
+          stroke-width="2"
+          stroke-opacity="0.1"
           fill="#000000"
           fill-opacity="0.2"
           />
       </g>
 
-      <g transform="translate(0 -240)">
+      <g transform="translate(0 -270)">
         <g>
-          <LogoOrbiter8 transform="scale(0.8)" />
+          <LogoOrbiter8 transform="scale(1.25)" />
         </g>
       </g>
 
       <g :transform="'scale(' + ui.UIScale + ')'">
-        <g  font-size="48px" transform="translate(0 -50)">
+        <g  font-size="48px" transform="translate(0 -10)">
           <btn
             :width="300" :height="80"
             text="Play"
             @click="ui.changeMenu('connect')"
              />
         </g>
-        <g  font-size="36px" transform="translate(0 65)">
+        <g  font-size="36px" transform="translate(0 105)">
           <btn
             :width="300" :height="65"
             text="Settings"
             @click="ui.changeMenu('settings')"
             transform="translate(0 -25)" />
         </g>
-        <g  font-size="28px" transform="translate(0 170) scale(0.75)">
+        <g  font-size="28px" transform="translate(0 180) scale(0.75)">
           <btn
             :width="180" :height="50"
             text="Window"
             @click="routing.switch('window')"
-            transform="translate(-300 0)" />
+            transform="translate(-285 0)" />
           <btn
             :width="180" :height="50"
             text="Portal"
             @click="routing.switch('storya')"
-            transform="translate(-100 0)" />
+            transform="translate(-95 0)" />
           <btn
             :width="180" :height="50"
             text="Tween"
             @click="routing.switch('storyb')"
-            transform="translate(100 0)" />
+            transform="translate(95 0)" />
           <btn
             :width="180" :height="50"
             text="Galaxy"
             @click="routing.switch('galaxy')"
-            transform="translate(300 0)" />
+            transform="translate(285 0)" />
         </g>
-        <g  font-size="28px" transform="translate(0 220) scale(0.75)">
+        <g  font-size="28px" transform="translate(0 230) scale(0.75)">
           <btn
             :width="180" :height="50"
             text="Assets"
             @click="routing.switch('assets')"
-            transform="translate(-200 0)" />
+            transform="translate(-190 0)" />
           <btn
             :width="180" :height="50"
             text="Ships"
@@ -97,7 +97,7 @@ export default {
             :width="180" :height="50"
             text="Avatars"
             @click="routing.switch('avatars')"
-            transform="translate(200 0)" />
+            transform="translate(190 0)" />
         </g>
       </g>
     </g>

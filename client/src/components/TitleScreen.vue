@@ -45,8 +45,8 @@ export default {
           attributeType="XML"
           type="scale"
           from="0"
-          to="40"
-          dur="160s"
+          to="20"
+          dur="60s"
           repeatCount="indefinite"
         />
         </g>
@@ -55,9 +55,9 @@ export default {
         attributeName="transform"
         attributeType="XML"
         type="translate"
-        :from="(screen.right * 2) + ' ' + (screen.top * 2)"
+        :from="(screen.right * 3) + ' ' + (screen.top * 2)"
         :to="(screen.left * 3) + ' ' + (screen.bottom * 2)"
-        dur="160s"
+        dur="60s"
         repeatCount="indefinite"
       />
     </g>
