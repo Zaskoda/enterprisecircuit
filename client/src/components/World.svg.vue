@@ -40,6 +40,8 @@ export default {
     window.addEventListener('keyup', this.keyHandler)
     window.addEventListener('wheel', this.wheelHandler)
     window.addEventListener('mousemove', this.mouseMoveHandler)
+
+    this.world.newWorldZoom()
   },
   beforeDestroy() {
     window.removeEventListener('wheel', this.wheelHandler)
@@ -101,7 +103,7 @@ export default {
       <SpaceBackground />
     </Worldly>
 
-    <Worldly v-for="n in 4" :depth="6 - n">
+    <Worldly v-for="n in 6" :depth="8 - n">
       <StarfieldRandom :count="250" :scale="10 + (n / 2)" :range="4000 / n" />
     </Worldly>
 
