@@ -5,7 +5,7 @@ import { useClock } from '../stores/clock'
 
 import { useSprites } from './composables/sprites'
 import { Sprite, Coords } from '../models/sprite'
-
+import { useTween } from '../composables/tween'
 
 const maxPlanets = 14
 const planetDistance = 600
@@ -30,8 +30,13 @@ export const useWorld = defineStore('world', {
       zoomLevel: 1,
       viewPoint: {
         x: 0,
-        y:0
+        y: 0,
       } as Coords,
+      tweens: {
+        x: useTween(),
+        y: useTween(),
+        z: useTween()
+      },
       maxMap: 6500,
       maxZoom: 100,
       minZoom: 0.005,
@@ -41,13 +46,20 @@ export const useWorld = defineStore('world', {
   },
   getters: {
     getViewPoint():Coords {
+
+      let x = this.viewPoint.x
+      let y = this.viewPoint.y
       if (this.selectedSprite!= null) {
-        return {
-          x: this.sprites[this.selectedSprite].position.x * -1,
-          y: this.sprites[this.selectedSprite].position.y * -1
-        }
+        x = this.sprites[this.selectedSprite].position.x * -1,
+        y = this.sprites[this.selectedSprite].position.y * -1
       }
-      return this.viewPoint
+      return {
+        x: x + this.tweens.x,
+        y: y + this.tweens.y
+      }
+    },
+    getZoomLevel():number {
+      return (this.zoomLevel + this.tweens.z)
     },
     planetSprites():Sprite[] {
       return this.sprites.filter(sprite => {
@@ -80,8 +92,40 @@ export const useWorld = defineStore('world', {
     },
     select(id:number) {
       if (id in this.sprites) {
+
+        let viewPoint:Coords = this.getViewPoint
+        let target:Coords = this.sprites[id].position
+        let offset:Coords = {
+          x: viewPoint.x + target.x,
+          y: viewPoint.y + target.y
+        }
+        let time = Math.sqrt(offset.x * offset.x + offset.y * offset.y)
+        time = time / 2 + 200
+        this.tweens.x = useTween(
+          offset.x,
+          0,
+          time
+        )
+        this.tweens.y = useTween(
+          offset.y,
+          0,
+          time
+        )
+
+        let preferredZoom = 5
+        if (this.sprites[id].type == "Star") {
+          preferredZoom = 2
+        }
+        if (this.sprites[id].type == "Planet") {
+          preferredZoom = 4
+        }
         this.selectedSprite= id
-        this.zoomLevel = 5
+        this.tweens.z = useTween(
+          -1 * preferredZoom + this.zoomLevel,
+          0,
+          time
+        )
+        this.zoomLevel = preferredZoom
       }
     },
     selectByRefId(refid:string) {

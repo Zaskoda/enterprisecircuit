@@ -35,7 +35,7 @@ export default {
       return (this.restrainedDepth - 1) / (this.maxDepth)
     },
     scale() {
-      return this.lockedPercentage + (this.world.zoomLevel / this.restrainedDepth) * (1 - this.lockedPercentage)
+      return this.lockedPercentage + (this.world.getZoomLevel / this.restrainedDepth) * (1 - this.lockedPercentage)
     }
 
   }
