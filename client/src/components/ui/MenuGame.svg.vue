@@ -22,6 +22,7 @@ import SubMenuShips from './SubMenuShips.svg.vue'
 import { useRouting } from '../../stores/routing'
 import { useUI } from '../../stores/ui'
 import { useScreen } from '../../stores/screen'
+import { useWorld } from '../../stores/world'
 
 </script>
 
@@ -32,6 +33,7 @@ export default {
       ui: useUI(),
       routing: useRouting(),
       screen: useScreen(),
+      world: useWorld(),
       showPlanetsMenu: false,
       showShipsMenu: false
     }
@@ -73,11 +75,11 @@ export default {
 
 
   <g :transform="'translate(' + (screen.right - 60) + ' ' + (screen.bottom - 180)  + ')'">
-    <ShipsIcon :counter="10" @click="showShipsMenu = true" />
+    <ShipsIcon :counter="world.shipSprites.length" @click="showShipsMenu = true" />
   </g>
 
   <g :transform="'translate(' + (screen.right - 60) + ' ' + (screen.bottom - 300)  + ')'">
-    <PlanetsIcon :counter="1" @click="showPlanetsMenu = true" />
+    <PlanetsIcon :counter="world.planetSprites.length" @click="showPlanetsMenu = true" />
   </g>
 
   <g :transform="'translate(' + (screen.right - 60) + ' ' + (screen.bottom - 60)  + ')'">

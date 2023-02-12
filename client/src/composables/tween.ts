@@ -41,7 +41,7 @@ export function useTween(
   watchEffect(() => {
     const progress = (toValue - fromValue) * percentage()
     const value = fromValue + progress
-    currentValue.value = value.toFixed(3)
+    currentValue.value = (Math.round(value * 1000) / 1000)
   })
 
   return currentValue

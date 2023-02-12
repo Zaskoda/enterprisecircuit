@@ -14,13 +14,13 @@ export default {
   },
   computed: {
     zoomLine():number {
-      console.log('Log of ' + this.world.zoomLevel + ' is ' + Math.log(this.world.zoomLevel + 0.005))
-      console.log('Log of ' + this.world.zoomLevel + ' is ' + Math.log(this.world.zoomLevel + 0.005))
+      console.log('Log of ' + this.world.getZoomLevel + ' is ' + Math.log(this.world.getZoomLevel + 0.005))
+      console.log('Log of ' + this.world.getZoomLevel + ' is ' + Math.log(this.world.getZoomLevel + 0.005))
       return Math.min(
         this.width / 2,
         Math.max(
           this.width / -2,
-          (Math.log(this.world.zoomLevel + 0.005) * this.width / 10)
+          (Math.log(this.world.getZoomLevel + 0.005) * this.width / 10)
         )
       )
     }

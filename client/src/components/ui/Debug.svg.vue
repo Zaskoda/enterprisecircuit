@@ -42,8 +42,9 @@ export default {
       <text transform="translate(0 40)" fill="#ffffff">UI Scale {{ ui.UIScale }} Rez {{ screen.width }} x  {{ screen.height }}</text>
       <text transform="translate(0 60)" fill="#ffffff">Orientation: <tspan v-if="screen.portrait">Portrait</tspan><tspan v-else-if="screen.landscape">Landscape</tspan><tspan v-else>Error</tspan></text>
       <text transform="translate(0 80)" fill="#ffffff">MX: {{ screen.mouseX.toFixed(3) }} MY: {{ screen.mouseY.toFixed(3) }}</text>
-      <text transform="translate(0 100)" fill="#ffffff">Zoom: {{ world.zoomLevel.toFixed(3) }}</text>
-      <text transform="translate(0 120)" fill="#ffffff">WX: {{ world.viewPoint.x.toFixed(3) }} WY: {{ world.viewPoint.y.toFixed(3) }}</text>
+      <text transform="translate(0 100)" fill="#ffffff">Zoom: {{ world.getZoomLevel.toFixed(3) }}</text>
+      <text transform="translate(0 120)" fill="#ffffff">WX: {{ world.getViewPoint.x.toFixed(3) }} WY: {{ world.getViewPoint.y.toFixed(3) }}</text>
+      <text transform="translate(0 140)" fill="#ffffff">TX: {{ world.tweens.x.toFixed(3) }} TY: {{ world.tweens.y.toFixed(3) }}</text>
     </g>
   </g>
 

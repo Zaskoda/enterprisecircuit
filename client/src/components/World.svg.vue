@@ -79,8 +79,8 @@ export default {
       if (this.mouseHold) {
         let newX = this.screen.mouseX
         let newY = this.screen.mouseY
-        let xDiff = (newX - this.dragOriginX) / this.world.zoomLevel
-        let yDiff = (newY - this.dragOriginY) / this.world.zoomLevel
+        let xDiff = (newX - this.dragOriginX) / this.world.getZoomLevel
+        let yDiff = (newY - this.dragOriginY) / this.world.getZoomLevel
         this.world.moveViewTo(this.world.viewPoint.x + xDiff, this.world.viewPoint.y + yDiff)
         this.dragOriginX = newX
         this.dragOriginY = newY
