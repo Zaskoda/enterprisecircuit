@@ -83,6 +83,14 @@ export const useWorld = defineStore('world', {
       )
 
     },
+    newWorldZoom() {
+      this.zoomLevel = 2
+      this.tweens.z = useTween(
+        this.minZoom - 2,
+        0,
+        4000
+      )
+    },
     deselect() {
       if (this.selectedSprite != null) {
         this.viewPoint.x = this.sprites[this.selectedSprite].position.x * -1

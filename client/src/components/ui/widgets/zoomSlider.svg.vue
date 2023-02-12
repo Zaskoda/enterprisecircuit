@@ -84,7 +84,11 @@ export default {
     </g>
 
 
-
+    <text
+        x="0" y="40"
+        font-size="20px"
+        fill="#888888"
+        dominant-baseline="middle">{{  world.zoomLevel.toFixed(3) }}</text>
   </g>
 </template>
 

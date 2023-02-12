@@ -77,15 +77,24 @@ export const useGalaxy = defineStore('galaxy', {
     },
     async loadShipLogs() {
       this.chainstate.systemData.ships = []
+
+      //removing dupliates
+      //todo this is not the best place to do this
+      let obj={}
+      this.chainstate.systemData.shipLogs.forEach((x)=>obj[x]=x)
+      let cleanLog = Object.keys(obj)
+
+      console.log('cleaned ' + cleanLog)
       let shipData:any[] = await Promise.all(
-        this.chainstate.systemData.shipLogs.map(
+        cleanLog.map(
           async (shipId:any, sindex) => {
             let ship = null
             if (BigInt(shipId) > BigInt(0)) {
               let rawData = await this.contract.read(
-                  'getShip',
-                  [shipId]
-                )
+                'getShip',
+                [shipId]
+              )
+
               if (BigInt(rawData[1]) == BigInt(this.chainstate.systemData.id)) {
                 ship = {
                   name: rawData[0],
@@ -100,7 +109,6 @@ export const useGalaxy = defineStore('galaxy', {
                 }
                 this.knownAddresses.push(ship.owner)
               }
-
             }
             return ship
           }
