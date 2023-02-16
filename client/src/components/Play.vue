@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { mapState } from 'pinia'
 import World from './World.svg.vue'
+import RegisterAvatar from './RegisterAvatar.svg.vue'
+import RegisterShip from './RegisterShip.svg.vue'
 
 import { useScreen } from '../stores/screen'
 import { useRouting } from '../stores/routing'
@@ -54,7 +56,9 @@ export default {
 </script>
 
 <template>
-  <World />
+  <RegisterAvatar v-if="!world.avatar.haveAvatar" />
+  <RegisterShip v-else-if="!world.galaxy.haveShip" />
+  <World v-else />
 </template>
 
 <style scoped>

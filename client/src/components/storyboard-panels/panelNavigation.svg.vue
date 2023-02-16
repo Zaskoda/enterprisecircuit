@@ -61,30 +61,30 @@ export default {
         />
       <g font-size="10px">
         <g fill-opacity="0.5"
-          :transform="'translate(' + ((panelCount + 3) * -25) + ' 0)'"
+          :transform="'translate(' + ((panelCount + 3) * -35) + ' 0)'"
         >
           <btn
             v-if="panel > 0"
             fill="#ffff88"
             :width="20" :height="20"
             @click="prev" text="&larr;"
-            transform="scale(1.75)" />
+            transform="scale(3)" />
             />
           <btn
             v-if="panel == 0"
             fill="#ff88ff"
             :width="40" :height="20"
             @click="$emit('close')" text="Close"
-            transform="scale(1.5)" />
+            transform="scale(3)" />
             />
         </g>
         <g fill-opacity="0.75" fill="#ffff88"
-          :transform="'translate(' + ((panelCount + 3) * 25) + ' 0)'">
+          :transform="'translate(' + ((panelCount + 3) * 35) + ' 0)'">
           <btn
-            :width="60" :height="20"
+            :width="50" :height="20"
             @click="next" text="next &rarr;"
             v-if="panel != (panelCount-1)"
-            transform="scale(1.75)" />
+            transform="scale(3)" />
           <btn
             :width="60" :height="20"
             @click="finish" text="Try It"
@@ -96,14 +96,14 @@ export default {
       <btn
         v-for="n in panelCount"
         v-bind:key="n"
-        font-size="12px"
+        font-size="28px"
         fill="#ffffff"
-        :width="30"
-        :height="20"
+        :width="50"
+        :height="40"
         :text="(n).toString()"
         :selected="n <= panel + 1"
         @click="seek(n - 1)"
-        :transform="'translate(' + ((n * 50) - ((panelCount + 1) * 25)) + ' 0) scale(1.25)'" />
+        :transform="'translate(' + ((n * 70) - ((panelCount + 1) * 35)) + ' 0) scale(1.25)'" />
 
     </g>
   </g>

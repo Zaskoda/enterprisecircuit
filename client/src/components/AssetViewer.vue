@@ -10,6 +10,7 @@ import LogoEthereum from './assets/sprites/LogoEthereum.svg.vue'
 import LogoBoba from './assets/sprites/LogoBoba.svg.vue'
 import LogoMoonbeam from './assets/sprites/LogoMoonbeam.svg.vue'
 import LogoPolygon from './assets/sprites/LogoPolygon.svg.vue'
+import LogoMetaMask from './assets/sprites/LogoMetaMask.svg.vue'
 
 import Planet from './assets/sprites/Planet.svg.vue'
 import Moon from './assets/sprites/Moon.svg.vue'
@@ -104,6 +105,7 @@ export default {
     <LogoPolygon  :transform="'translate(100 0) scale(1)'" />
     <LogoMoonbeam  :transform="'translate(150 0) scale(1)'" />
     <LogoBoba  :transform="'translate(200 0) scale(1)'" />
+    <LogoMetaMask  :transform="'translate(250 0) scale(1)'" />
   </g>
 
   <g  font-size="12px" :transform="'translate(0 ' + (screen.bottom - 80) + ')'" stroke="#888888" stroke-width="1" >

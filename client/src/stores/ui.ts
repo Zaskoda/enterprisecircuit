@@ -15,7 +15,9 @@ export const useUI = defineStore('ui', {
       'home',
       'settings',
       'connect',
-      'game'
+      'game',
+      'avatar',
+      'ship'
     ]
   }),
   actions: {

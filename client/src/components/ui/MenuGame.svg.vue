@@ -66,11 +66,7 @@ export default {
 
 
   <g :transform="'translate(' + (screen.right - 60) + ' ' + (screen.top + 60)  + ')'">
-    <JumpIcon @click="selectStar()" />
-  </g>
-
-  <g v-if="false" :transform="'translate(' + (screen.left + 60) + ' ' + (screen.bottom - 180)  + ')'">
-    <SpeakerIcon @click="mute()" />
+    <JumpIcon @click="world.select(0)" />
   </g>
 
 

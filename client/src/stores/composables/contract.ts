@@ -61,7 +61,13 @@ export function useContract(contractName:string, contractABI:any) {
   }
 
   //todo: should return package with error codes
-  async function callTransaction(contractMethod:string, params:any[], callback:Function = ()=>{}) {
+  async function callTransaction(
+    contractMethod:string,
+    params:any[],
+    callbackSuccess:Function = ()=>{},
+    callbackFailed:Function = ()=>{},
+    callbackRejected:Function = ()=>{},
+  ) {
     if (!isConnected.value) {
       return
     }
@@ -69,14 +75,17 @@ export function useContract(contractName:string, contractABI:any) {
       const transaction = await contract[`${contractMethod}`](...params)
       const transactionReceipt = await transaction.wait()
       if (transactionReceipt.status !== 1) {
+        callbackFailed()
         alert('error problem thing happened')
       } else {
-        callback()
+        callbackSuccess()
       }
     } catch (e:any) {
       if (e.code == 'ACTION_REJECTED') {
+        callbackRejected()
         console.log('user cancelled')
       } else {
+        callbackFailed()
         console.log('Error: ', e)
       }
     }

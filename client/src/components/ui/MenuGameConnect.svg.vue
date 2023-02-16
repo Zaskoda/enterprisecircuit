@@ -9,6 +9,7 @@ import { useRouting } from '../../stores/routing'
 import { useEVM } from "../../stores/evm"
 import { useAvatar } from '../../stores/avatar'
 import { useGalaxy } from '../../stores/galaxy'
+import { useWorld } from '../../stores/world'
 </script>
 
 <script lang="ts">
@@ -21,6 +22,7 @@ export default {
       routing: useRouting(),
       galaxy: useGalaxy(),
       evm: useEVM(),
+      world: useWorld()
     }
   },
   async mounted() {
@@ -111,7 +113,7 @@ export default {
 
     <g v-if="avatar.isLoaded && galaxy.isLoaded" transform="translate(0 120)">
 
-      <g v-if="avatar.hasAvatar">
+      <g v-if="world.avatar.haveAvatar">
         <g font-size="28px" transform="translate(0 0)">
           <text transform="translate(-5 0)" fill="#aaaaaa">Welcome back {{  avatar.chainstate.myAvatarName  }}.</text>
           <text transform="translate(5 0)" text-anchor="start"></text>
