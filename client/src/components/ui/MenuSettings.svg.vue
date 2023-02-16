@@ -76,7 +76,7 @@ export default {
     <g :transform="'scale(' + ui.UIScale + ')'">
       <btn
         :width="200" :height="60"
-        text="Close"
+        text="Title"
           @click="ui.changeMenu('home')"
         transform="translate(0 -80)" />
     </g>

@@ -282,7 +282,7 @@ const networks =  {
     name: 'Arbitrum Testnet',
     shortName: 'Arbitrum',
     description: '',
-    id: '421616',
+    id: '421611',
     hexId: '0x66EEB',
     currency: {
       name: 'Arbitrum Ether',
@@ -297,7 +297,7 @@ const networks =  {
     name: 'Sepolia Testnet',
     shortName: 'Sepolia',
     description: 'Official Ethereum test network',
-    id: '421611',
+    id: '11155111',
     hexId: '0xAA36A7',
     currency: {
       name: 'Arbitrum Ether',

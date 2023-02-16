@@ -19,7 +19,7 @@ export const useAvatar = defineStore('avatar', {
         myAvatarId: null,
         myAvatarName: null,
         avatarCount: null as number | null,
-        haveAvatar: false
+        haveAvatar: false as boolean
       },
     }
   },
@@ -32,6 +32,9 @@ export const useAvatar = defineStore('avatar', {
     },
     isConnected():boolean {
       return this.contract.isConnected
+    },
+    haveAvatar():boolean {
+      return this.chainstate.haveAvatar
     }
   },
   actions: {
@@ -40,8 +43,19 @@ export const useAvatar = defineStore('avatar', {
 
     //controls
 
-    async createAvatar(name:string) {
-      this.contract.call('createAvatar', [name], this.getMyAvatarName)
+    async createAvatar(
+      name:string,
+      callbackSuccess:Function = ()=>{},
+      callbackFailed:Function = ()=>{},
+      callbackRejected:Function = ()=>{},
+    ) {
+      this.contract.call(
+        'createAvatar',
+        [name],
+        callbackSuccess,
+        callbackFailed,
+        callbackRejected
+      )
     },
 
     //setters
@@ -55,7 +69,7 @@ export const useAvatar = defineStore('avatar', {
         this.getAvatarCount(),
         this.getMyAvatarName(),
         this.getMyAvatarId(),
-        this.haveAvatar()
+        this.getHaveAvatar()
       ])
       this.isLoaded = true
       this.isLoading = false
@@ -89,7 +103,7 @@ export const useAvatar = defineStore('avatar', {
         'getMyAvatarId'
       )
     },
-    async haveAvatar(){
+    async getHaveAvatar(){
       this.chainstate.haveAvatar = await this.contract.read(
         'haveAvatar'
       )

@@ -31,6 +31,14 @@ export const useGalaxy = defineStore('galaxy', {
     },
     isConnected():boolean {
       return this.contract.isConnected
+    },
+    haveShip():boolean {
+      if (this.chainstate.ship.hasOwnProperty('id')) {
+        if (BigInt(this.chainstate.ship.id) > BigInt(0)) {
+          return true
+        }
+      }
+      return false
     }
   },
   actions: {
@@ -48,7 +56,7 @@ export const useGalaxy = defineStore('galaxy', {
       await Promise.all([
         this.getSystemCount(),
         this.getPlayerSystemData(),
-        this.myBalance(),
+        this.getMyBalance(),
         this.getMyShipLocation(),
         this.getMyShipId(),
         this.getMyShip(),
@@ -169,7 +177,7 @@ export const useGalaxy = defineStore('galaxy', {
       )
       this.chainstate.localPlanets = planetData.filter(planet => planet != null)
     },
-    async myBalance() {
+    async getMyBalance() {
       this.chainstate.creditBalance = await this.contract.read(
         'myBalance'
       )

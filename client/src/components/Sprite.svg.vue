@@ -34,7 +34,7 @@ export default {
           fill-opacity="0" fill="#000000"
           stroke="#ffffff"
           stroke-opacity="0.5"
-          :stroke-width="4 / world.zoomLevel"
+          :stroke-width="4 / world.getZoomLevel"
           stroke-dasharray="4 4"
           :r="sprite.meta.size * 1.1 + 6"
           v-if="selected"

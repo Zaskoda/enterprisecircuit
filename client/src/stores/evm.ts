@@ -7,6 +7,7 @@ export const useEVM = defineStore('wallet', {
   state: () => {
     return {
       isConnected: false,
+      hasWallet: false,
       signer: null as ethers.Signer | null,
       signerAddress: '' as string,
       provider: null as ethers.providers.Web3Provider | null,
@@ -93,6 +94,7 @@ export const useEVM = defineStore('wallet', {
         console.log(e.message)
         return
       }
+      this.hasWallet = true
     },
 
     async getBalance () {

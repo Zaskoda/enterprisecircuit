@@ -70,6 +70,9 @@ export const useWorld = defineStore('world', {
       return this.sprites.filter(sprite => {
         return sprite.type == 'Ship'
       })
+    },
+    isConnected():boolean {
+      return (this.avatar.isConnected && this.galaxy.isConnected)
     }
   },
   actions: {

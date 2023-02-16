@@ -5,6 +5,7 @@ import LogoOrbiter8 from '../assets/sprites/LogoOrbiter8.svg.vue'
 import { useUI } from '../../stores/ui'
 import { useScreen } from '../../stores/screen'
 import { useRouting } from '../../stores/routing'
+import { useWorld } from '../../stores/world'
 </script>
 
 <script lang="ts">
@@ -14,6 +15,7 @@ export default {
       ui: useUI(),
       screen: useScreen(),
       routing: useRouting(),
+      world: useWorld()
     }
   },
   mounted() {
@@ -30,12 +32,12 @@ export default {
           :x="screen.left - 5"
           :y="-420 * ui.UIScale"
           :width="screen.width + 10"
-          :height="560 * ui.UIScale"
+          :height="640 * ui.UIScale"
           stroke="#ffffff"
           stroke-width="2"
           stroke-opacity="0.1"
           fill="#000000"
-          fill-opacity="0.2"
+          fill-opacity="0.4"
           />
       </g>
 
@@ -47,20 +49,56 @@ export default {
 
       <g :transform="'scale(' + ui.UIScale + ')'">
         <g  font-size="48px" transform="translate(0 -10)">
-          <btn
-            :width="300" :height="80"
-            text="Play"
-            @click="ui.changeMenu('connect')"
-             />
+          <g v-if="!world.isConnected">
+            <btn
+              :width="320" :height="80"
+              transform="translate(0 50)"
+              text="Connect"
+              @click="ui.changeMenu('connect')"
+              />
+            </g>
+          <g v-else-if="!world.avatar.haveAvatar">
+            <btn
+              fill="#ffffff"
+              :width="320"
+              :height="80"
+              text="Begin"
+              @click="ui.changeMenu('avatar')"
+            />
+          </g>
+          <g v-else-if="!world.galaxy.haveShip">
+            <btn
+              fill="#ffffff"
+              :width="320"
+              :height="80"
+              text="Launch"
+              @click="ui.changeMenu('ship')"
+            />
+          </g>
+          <g v-else>
+            <btn
+              fill="#ffffff"
+              :width="320"
+              :height="80"
+              text="Continue"
+              @click="routing.switch('play')"
+            />
+          </g>
         </g>
-        <g  font-size="36px" transform="translate(0 105)">
+        <g  font-size="34px" transform="translate(0 90)">
           <btn
-            :width="300" :height="65"
+            v-if="world.isConnected"
+            :width="280" :height="65"
+            text="Network"
+            @click="ui.changeMenu('connect')"
+            transform="translate(0 0)" />
+          <btn
+            :width="280" :height="65"
             text="Settings"
             @click="ui.changeMenu('settings')"
-            transform="translate(0 -25)" />
+            transform="translate(0 80)" />
         </g>
-        <g  font-size="28px" transform="translate(0 180) scale(0.75)">
+        <g  font-size="28px" transform="translate(0 240) scale(0.5)">
           <btn
             :width="180" :height="50"
             text="Window"
@@ -82,7 +120,7 @@ export default {
             @click="routing.switch('galaxy')"
             transform="translate(285 0)" />
         </g>
-        <g  font-size="28px" transform="translate(0 230) scale(0.75)">
+        <g  font-size="28px" transform="translate(0 270) scale(0.5)">
           <btn
             :width="180" :height="50"
             text="Assets"

@@ -5,6 +5,8 @@ import Debug from './ui/Debug.svg.vue'
 import MenuHome from './ui/MenuHome.svg.vue'
 import MenuSettings from './ui/MenuSettings.svg.vue'
 import MenuConnect from './ui/MenuConnect.svg.vue'
+import MenuShip from './ui/MenuShip.svg.vue'
+import MenuAvatar from './ui/MenuAvatar.svg.vue'
 import MenuGame from './ui/MenuGame.svg.vue'
 
 import { useUI } from '../stores/ui'
@@ -31,6 +33,8 @@ export default {
     <MenuHome  v-if="ui.menu == 'home'" />
     <MenuSettings  v-if="ui.menu == 'settings'" />
     <MenuConnect  v-if="ui.menu == 'connect'" />
+    <MenuAvatar  v-if="ui.menu == 'avatar'" />
+    <MenuShip  v-if="ui.menu == 'ship'" />
     <MenuGame  v-if="ui.menu == 'game'" />
   </g>
 
