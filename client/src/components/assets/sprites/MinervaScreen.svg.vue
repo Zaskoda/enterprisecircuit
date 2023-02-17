@@ -5,11 +5,11 @@ import minerva from '../geometry/Minerva.svg.vue'
 <template>
 <g>
   <rect
-    x="-100"
+    x="-110"
     y="-64"
-    width="200"
-    height="128"
-    fill="#280b4b"
+    width="220"
+    height="192"
+    fill="#310e5b"
     fill-opacity="1"
     stroke="#ffffff"
     stroke-width="1"
@@ -18,5 +18,16 @@ import minerva from '../geometry/Minerva.svg.vue'
     ry="10"
   />
   <minerva />
+  <text transform="translate(0 80)"
+    font-size="29px"
+    font-family="monospace"
+    fill="#aaaaaa"
+    >MINERVA AMI</text>
+  <text transform="translate(0 108)"
+    font-size="14px"
+    fill="#888888"
+    >
+    Artificial Machine Intelligence
+  </text>
 </g>
 </template>

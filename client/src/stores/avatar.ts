@@ -35,6 +35,13 @@ export const useAvatar = defineStore('avatar', {
     },
     haveAvatar():boolean {
       return this.chainstate.haveAvatar
+    },
+    me():object {
+      return {
+        name: this.chainstate.myAvatarName,
+        address: this.evm.signerAddress,
+        id: this.chainstate.myAvatarId
+      }
     }
   },
   actions: {
