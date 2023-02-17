@@ -286,8 +286,15 @@ export const useGalaxy = defineStore('galaxy', {
     async moveToSystem(destinationSystemId:number) {
       this.contract.call('moveToSystem', [destinationSystemId])
     },
-    async launchShip(name:string) {
-      this.contract.call('launchShip', [name])
+    async launchShip(name:string,
+      callbackSuccess:Function = ()=>{},
+      callbackFailed:Function = ()=>{},
+      callbackRejected:Function = ()=>{},
+    ) {
+      this.contract.call('launchShip', [name],
+      callbackSuccess,
+      callbackFailed,
+      callbackRejected)
     },
 
 

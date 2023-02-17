@@ -2,36 +2,45 @@
 <script lang="ts">
 export default {
   emits: [
-    'value'
+    'value',
+    'submit'
   ],
   data() {
     return {
       editing: false,
-      editingClicked: false,
       returnValue: '',
-      hover: false
+      hover: false,
     }
   },
   mounted() {
-    window.addEventListener('keydown', (e) => {
-      if (this.editing) {
-        this.keyHandler(e.key)
-      }
-    }),
-    window.addEventListener('click', () => {
-      this.editing = this.editingClicked
-      this.editingClicked = false
-    })
+    window.addEventListener('keydown', this.keyHandler),
+    window.addEventListener('mousedown', this.mousedownHandler)
     this.returnValue = this.value
+    this.editing = this.focus
+  },
+  beforeDestroy() {
+    window.removeEventListener('keydown', this.keyHandler),
+    window.removeEventListener('mousedown', this.mousedownHandler)
   },
   props: {
     value: {
       type: String,
       default: ''
+    },
+    focus: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {
-    keyHandler(key:string) {
+    mousedownHandler() {
+      this.editing = false
+    },
+    keyHandler(e:Event) {
+      let key:string = e.key
+      if (!this.editing) {
+        return
+      }
       if(key.length == 1 || (key.length > 1 && /[^a-zA-Z0-9]/.test(key))) {
         if (this.returnValue.length < 26) {
           this.returnValue += key
@@ -44,8 +53,9 @@ export default {
         this.editing = false
       }
       if (key == 'Enter') {
-        this.$emit('value', this.returnValue)
+        this.$emit('submit')
       }
+      this.$emit('value', this.returnValue)
 
     },
   },
@@ -75,7 +85,9 @@ export default {
       font-family="monospace"
       transform="translate(-250 0)" fill="#ffffff">{{ displayText }}</text>
 
-   <rect x="-280" y="-25" width="500" height="40" fill-opacity="0" class="canclick" @click="editingClicked = true" />
+   <rect x="-280" y="-25"
+     width="500" height="50"
+     fill-opacity="0" class="canclick" @click="editing = true" />
 
    <rect
       x="230" y="-25" width="50" height="50"
@@ -101,8 +113,8 @@ export default {
       stroke-width="3"
       stroke="#ffffff"
       :stroke-opacity="hover ? 1 : 0.5"
-      @click="$emit('value', returnValue)"
-      :stroke-width="0" />
+      @click="$emit('submit')"
+      />
 
 
 </template>
