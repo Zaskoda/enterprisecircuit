@@ -191,7 +191,7 @@ export default {
     </g>
 
     <g transform="translate(0 50)">
-    <networkSelect v-on:close="ui.changeMenu('home')" />
+    <networkSelect v-on:close="routing.switch('play')" />
     </g>
 
 

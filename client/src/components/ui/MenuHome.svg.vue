@@ -48,11 +48,10 @@ export default {
       </g>
 
       <g :transform="'scale(' + ui.UIScale + ')'">
-        <g  font-size="48px" transform="translate(0 -10)">
+        <g  font-size="48px" transform="translate(0 20)">
           <g v-if="!world.isConnected">
             <btn
-              :width="320" :height="80"
-              transform="translate(0 50)"
+              :width="520" :height="100"
               text="Connect"
               @click="ui.changeMenu('connect')"
               />
@@ -60,43 +59,42 @@ export default {
           <g v-else-if="!world.avatar.haveAvatar">
             <btn
               fill="#ffffff"
-              :width="320"
-              :height="80"
+              :width="520"
+              :height="100"
               text="Begin"
-              @click="ui.changeMenu('avatar')"
+              @click="routing.switch('play')"
             />
           </g>
           <g v-else-if="!world.galaxy.haveShip">
             <btn
               fill="#ffffff"
-              :width="320"
-              :height="80"
+              :width="520"
+              :height="100"
               text="Launch"
-              @click="ui.changeMenu('ship')"
+              @click="routing.switch('play')"
             />
           </g>
           <g v-else>
             <btn
               fill="#ffffff"
-              :width="320"
-              :height="80"
+              :width="520"
+              :height="100"
               text="Continue"
               @click="routing.switch('play')"
             />
           </g>
         </g>
-        <g  font-size="34px" transform="translate(0 90)">
+        <g  font-size="34px" transform="translate(0 140)">
           <btn
-            v-if="world.isConnected"
-            :width="280" :height="65"
+            :width="240" :height="65"
             text="Network"
             @click="ui.changeMenu('connect')"
-            transform="translate(0 0)" />
+            transform="translate(140 0)" />
           <btn
-            :width="280" :height="65"
+            :width="240" :height="65"
             text="Settings"
             @click="ui.changeMenu('settings')"
-            transform="translate(0 80)" />
+            transform="translate(-140 0)" />
         </g>
         <g  font-size="28px" transform="translate(0 240) scale(0.5)">
           <btn
