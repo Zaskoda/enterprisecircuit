@@ -86,8 +86,8 @@ export const useGalaxy = defineStore('galaxy', {
     async loadShipLogs() {
       this.chainstate.systemData.ships = []
 
-      //removing dupliates
-      //todo this is not the best place to do this
+      //This is s quick way to remove duplicates
+      //todo: this is not the best place to do this
       let obj={}
       this.chainstate.systemData.shipLogs.forEach((x)=>obj[x]=x)
       let cleanLog = Object.keys(obj)

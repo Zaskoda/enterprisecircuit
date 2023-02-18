@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { useAvatar } from '../stores/avatar'
 import { useGalaxy } from '../stores/galaxy'
 import { useClock } from '../stores/clock'
+import { useEVM } from '../stores/evm'
 
 import { useSprites } from './composables/sprites'
 import { Sprite, Coords } from '../models/sprite'
@@ -25,6 +26,7 @@ export const useWorld = defineStore('world', {
       avatar: useAvatar(),
       galaxy: useGalaxy(),
       clock: useClock(),
+      evm: useEVM(),
       sprites: [] as Sprite[],
       updating: false,
       zoomLevel: 1,
@@ -71,6 +73,16 @@ export const useWorld = defineStore('world', {
         return sprite.type == 'Ship'
       })
     },
+    myShipSpriteId():Number | null {
+      console.log('myship')
+      for (let i=0; i < this.sprites.length; i++) {
+        console.log('ship owner: ' + this.sprites[i].owner)
+        if (this.sprites[i].owner == this.evm.signerAddress) {
+          return i
+        }
+      }
+      return null
+    },
     isConnected():boolean {
       return (this.avatar.isConnected && this.galaxy.isConnected)
     }
@@ -99,6 +111,11 @@ export const useWorld = defineStore('world', {
         this.viewPoint.x = this.sprites[this.selectedSprite].position.x * -1
         this.viewPoint.y = this.sprites[this.selectedSprite].position.y * -1
         this.selectedSprite = null
+      }
+    },
+    selectMyShip() {
+      if (this.myShipSpriteId != null) {
+        this.select(this.myShipSpriteId)
       }
     },
     select(id:number) {
