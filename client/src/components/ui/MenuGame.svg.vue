@@ -41,6 +41,9 @@ export default {
   mounted() {
   },
   methods: {
+    selectMyShip() {
+      this.world.selectMyShip()
+    }
   }
 }
 </script>
