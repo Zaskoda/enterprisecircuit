@@ -47,7 +47,6 @@ clock.play()
 
 <style lang="scss">
 body {
-  @import url('https://fonts.googleapis.com/css?family=Ubuntu');
   font-family: 'Ubuntu', sans-serif;
   background: var(--color-bg);
   color: var(--color-light);
