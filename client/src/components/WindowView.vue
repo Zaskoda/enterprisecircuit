@@ -210,13 +210,6 @@ export default {
      </g>
   </g>
 
-   <g font-size="20px" :transform="'translate(0 ' + (screen.bottom - 50) + ')'">
-        <btn
-          :width="120" :height="40"
-          text="close"
-           @click="routing.switch('title')"
-          transform="translate(0 -25)" />
-      </g>
 </template>
 
 <style scoped>

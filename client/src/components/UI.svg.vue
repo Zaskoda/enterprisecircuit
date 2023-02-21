@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import FPS from './ui/FPS.svg.vue'
 import Debug from './ui/Debug.svg.vue'
+import EVMStatus from './ui/EVMStatus.svg.vue'
 
 import MenuHome from './ui/MenuHome.svg.vue'
 import MenuSettings from './ui/MenuSettings.svg.vue'
@@ -36,6 +37,10 @@ export default {
     <MenuAvatar  v-if="ui.menu == 'avatar'" />
     <MenuShip  v-if="ui.menu == 'ship'" />
     <MenuGame  v-if="ui.menu == 'game'" />
+  </g>
+
+  <g v-if="ui.menu != 'connect'">
+    <EVMStatus />
   </g>
 
   <g v-if="ui.showFPS">

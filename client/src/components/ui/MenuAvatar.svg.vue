@@ -206,7 +206,7 @@ export default {
         stroke-width="1"
         stroke-opacity="0.25"
       />
-      <btn :width="250" :height="60" text="Find A Ship" @click="ui.changeMenu('home')" />
+      <btn :width="250" :height="60" text="Find A Ship" @click="ui.changeMenu('ship')" />
     </g>
   </g>
 

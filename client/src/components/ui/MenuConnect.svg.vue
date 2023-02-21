@@ -1,9 +1,7 @@
 <script setup lang="ts">
-import EVMStatus from './EVMStatus.svg.vue'
 import networkSelect from './EVMNetworkSelect.svg.vue'
 
 import btn from './widgets/button-basic.svg.vue'
-import LoadingBar from './LoadingBar.svg.vue'
 import LogoMetaMask from '../assets/sprites/LogoMetaMask.svg.vue'
 import LogoEthereum from '../assets/graphics/LogoEthereum.svg.vue'
 import { mapState } from 'pinia'
@@ -191,7 +189,7 @@ export default {
     </g>
 
     <g transform="translate(0 50)">
-    <networkSelect v-on:close="ui.changeMenu('home')" />
+    <networkSelect v-on:close="routing.switch('play')" />
     </g>
 
 

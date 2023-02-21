@@ -5,8 +5,6 @@ import TitleScreen from './components/TitleScreen.vue'
 import AssetViewer from './components/AssetViewer.vue'
 import StoryA from './components/StoryA.vue'
 import StoryB from './components/StoryB.vue'
-import Avatars from './components/Avatars.vue'
-import Galaxy from './components/Galaxy.vue'
 import Play from './components/Play.vue'
 import FourShips from './components/FourShips.vue'
 import WindowView from './components/WindowView.vue'
@@ -35,8 +33,8 @@ clock.play()
     <StoryB v-if="routing.is('storyb')" />
     <FourShips v-if="routing.is('four')"/>
     <AssetViewer v-if="routing.is('assets')" />
-    <Avatars v-if="routing.is('avatars')" />
-    <Galaxy v-if="routing.is('galaxy')" />
+
+
     <WindowView v-if="routing.is('window')" />
 
     <UI />
@@ -47,7 +45,6 @@ clock.play()
 
 <style lang="scss">
 body {
-  @import url('https://fonts.googleapis.com/css?family=Ubuntu');
   font-family: 'Ubuntu', sans-serif;
   background: var(--color-bg);
   color: var(--color-light);

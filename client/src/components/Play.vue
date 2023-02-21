@@ -8,6 +8,8 @@ import { useScreen } from '../stores/screen'
 import { useRouting } from '../stores/routing'
 import { useEVM } from "../stores/evm"
 import { useWorld } from "../stores/world"
+import { useUI } from "../stores/ui"
+import { onBeforeMount } from 'vue'
 </script>
 
 <script lang="ts">
@@ -18,13 +20,24 @@ export default {
       routing: useRouting(),
       evm: useEVM(),
       world: useWorld(),
-      readyToPlay: false
+      ui: useUI(),
     }
   },
-  async mounted() {
+  async onBeforeMount() {
+  },
+  async mounted () {
+    this.ui.showMenu = false
     if (this.isConnected) {
-      this.loadChainData()
+      await this.loadChainData()
     }
+    if (!this.world.avatar.haveAvatar) {
+      this.ui.changeMenu('avatar')
+    } else if (!this.world.galaxy.haveShip) {
+      this.ui.changeMenu('ship')
+    } else {
+      this.ui.changeMenu('game')
+    }
+    this.ui.showMenu = true
   },
   watch: {
     async block(newVal, oldVal) {
@@ -35,9 +48,6 @@ export default {
       if ((newVal) && (!oldVal)) {
         this.loadChainData()
       }
-    },
-    chainId() {
-      this.readyToPlay = false
     }
   },
   computed: {
@@ -47,6 +57,7 @@ export default {
     async loadChainData() {
       this.evm.getBalance()
       await this.world.loadFromNetwork()
+      await this.world.loadEntities()
     },
     openNewWindow(url:string) {
       window.open(url)
@@ -58,7 +69,9 @@ export default {
 <template>
   <RegisterAvatar v-if="!world.avatar.haveAvatar" />
   <RegisterShip v-else-if="!world.galaxy.haveShip" />
-  <World v-else />
+  <g v-else-if="world.isLoaded">
+    <World />
+  </g>
 </template>
 
 <style scoped>

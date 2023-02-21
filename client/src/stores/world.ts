@@ -43,7 +43,8 @@ export const useWorld = defineStore('world', {
       maxZoom: 100,
       minZoom: 0.005,
       selectedSprite: null as null | number,
-      isLoaded: false
+      isLoaded: false,
+      isLoading: false
     }
   },
   getters: {
@@ -74,9 +75,7 @@ export const useWorld = defineStore('world', {
       })
     },
     myShipSpriteId():Number | null {
-      console.log('myship')
       for (let i=0; i < this.sprites.length; i++) {
-        console.log('ship owner: ' + this.sprites[i].owner)
         if (this.sprites[i].owner == this.evm.signerAddress) {
           return i
         }
@@ -85,7 +84,7 @@ export const useWorld = defineStore('world', {
     },
     isConnected():boolean {
       return (this.avatar.isConnected && this.galaxy.isConnected)
-    }
+    },
   },
   actions: {
     async loadFromNetwork() {
@@ -96,7 +95,6 @@ export const useWorld = defineStore('world', {
       await this.avatar.preloadForAddresses(
         this.galaxy.knownAddresses
       )
-
     },
     newWorldZoom() {
       this.zoomLevel = 2
@@ -220,6 +218,7 @@ export const useWorld = defineStore('world', {
       this.updating = false
     },
     async loadEntities() {
+      this.isLoading = true
       await Promise.all([
         this.avatar.getAll(),
         this.galaxy.getAll()
@@ -231,6 +230,7 @@ export const useWorld = defineStore('world', {
       this.updateSpriteOrbits()
 
       this.isLoaded = true
+      this.isLoading = false
     },
   }
 })

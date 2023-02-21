@@ -12,8 +12,6 @@ export const useRouting = defineStore('routing', {
       'storyb',
       'four',
       'assets',
-      'avatars',
-      'galaxy',
       'window'
     ]
   }),
