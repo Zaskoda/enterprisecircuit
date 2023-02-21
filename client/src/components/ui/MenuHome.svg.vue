@@ -112,11 +112,6 @@ export default {
             text="Tween"
             @click="routing.switch('storyb')"
             transform="translate(95 0)" />
-          <btn
-            :width="180" :height="50"
-            text="Galaxy"
-            @click="routing.switch('galaxy')"
-            transform="translate(285 0)" />
         </g>
         <g  font-size="28px" transform="translate(0 270) scale(0.5)">
           <btn
@@ -129,11 +124,6 @@ export default {
             text="Ships"
             @click="routing.switch('four')"
             transform="translate(0 0)" />
-          <btn
-            :width="180" :height="50"
-            text="Avatars"
-            @click="routing.switch('avatars')"
-            transform="translate(190 0)" />
         </g>
       </g>
     </g>

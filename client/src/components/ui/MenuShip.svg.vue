@@ -142,7 +142,7 @@ export default {
           stroke-width="1"
           stroke-opacity="0.25"
         />
-        <btn :width="250" :height="60" text="Take Command" @click="ui.changeMenu('home')" />
+        <btn :width="250" :height="60" text="Take Command" @click="ui.changeMenu('game')" />
     </g>
   </g>
 

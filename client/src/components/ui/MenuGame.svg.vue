@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import EVMStatus from './EVMStatus.svg.vue'
-
-import btn from './widgets/button-basic.svg.vue'
 
 import Profile from './widgets/profile.svg.vue'
 import System from './widgets/system.svg.vue'

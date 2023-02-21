@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useScreen } from '../stores/screen'
-import WindowView from './WindowView.vue'
+import backdrop from './assets/sprites/SpaceBackground.svg.vue'
 </script>
 
 <script lang="ts">
@@ -25,7 +25,12 @@ export default {
 
 <template>
   <g transform="translate(0 0)">
-    <WindowView />
+    <backdrop />
+    <rect
+      :x="screen.left" :y="screen.top"
+      :width="screen.width" :height="screen.height"
+      fill="#000000"
+      fill-opacity="0.5" />
   </g>
 </template>
 

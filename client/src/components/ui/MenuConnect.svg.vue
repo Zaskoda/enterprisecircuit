@@ -1,9 +1,7 @@
 <script setup lang="ts">
-import EVMStatus from './EVMStatus.svg.vue'
 import networkSelect from './EVMNetworkSelect.svg.vue'
 
 import btn from './widgets/button-basic.svg.vue'
-import LoadingBar from './LoadingBar.svg.vue'
 import LogoMetaMask from '../assets/sprites/LogoMetaMask.svg.vue'
 import LogoEthereum from '../assets/graphics/LogoEthereum.svg.vue'
 import { mapState } from 'pinia'
