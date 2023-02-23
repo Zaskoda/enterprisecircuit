@@ -20,8 +20,40 @@ export default {
 </script>
 
 <template>
+  <g>
+    <rect
+      :x="screen.left"
+      :y="screen.top"
+      :height="screen.height"
+      :width="screen.width"
+      fill="#000000"
+      opacity="0.25"
+      @click="ui.goHome()"
+      />
+  </g>
+  <g>
+    <rect
+      :x="-420 * ui.UIScale"
+      :y="screen.top - 5"
+      :height="screen.height + 10"
+      :width="420 * 2 * ui.UIScale"
+      stroke="#ffffff"
+      stroke-width="2"
+      stroke-opacity="0.1"
+      fill="#000000"
+      fill-opacity="0.4"
+      />
+  </g>
 
   <g :transform="'scale(' + ui.UIScale + ')'">
+    <g transform="translate(0 -300)" v-if="ui.homeMenu == 'game'">
+      <btn
+        font-size="30px"
+        :width="350" :height="50"
+        text="Quit to Title Screen"
+        @click="routing.switch('title')"
+        transform="translate(0 0)" />
+    </g>
     <g>
       <text text-anchor="end" transform="translate(-70 0)">UI Scale:</text>
       <text transform="translate(0 0)">{{ Math.round(ui.UIScale * 100) }}%</text>
@@ -76,8 +108,8 @@ export default {
     <g :transform="'scale(' + ui.UIScale + ')'">
       <btn
         :width="200" :height="60"
-        text="Title"
-          @click="ui.changeMenu('home')"
+        text="Close"
+        @click="ui.goHome()"
         transform="translate(0 -80)" />
     </g>
   </g>

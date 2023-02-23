@@ -61,7 +61,7 @@ export default {
 
 
   <g :transform="'translate(' + (screen.left + 60) + ' ' + (screen.bottom - 60)  + ')'">
-    <GearIcon @click="routing.switch('title')" />
+    <GearIcon @click="ui.changeMenu('settings')" />
   </g>
 
 

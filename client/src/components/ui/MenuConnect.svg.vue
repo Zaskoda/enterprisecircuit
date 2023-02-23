@@ -66,6 +66,17 @@ export default {
 <template>
   <g>
     <rect
+      :x="screen.left"
+      :y="screen.top"
+      :height="screen.height"
+      :width="screen.width"
+      fill="#000000"
+      opacity="0.25"
+      @click="ui.goHome()"
+      />
+  </g>
+  <g>
+    <rect
       :x="-420 * ui.UIScale"
       :y="screen.top - 5"
       :height="screen.height + 10"
@@ -195,12 +206,12 @@ export default {
 
   </g>
 
-  <g  font-size="42px" :transform="'translate(0 ' + (screen.bottom - 20) + ')'">
+  <g  font-size="36px" :transform="'translate(0 ' + (screen.bottom - 20) + ')'">
     <g :transform="'scale(' + ui.UIScale + ')'">
       <btn
         :width="200" :height="60"
-        text="Title"
-          @click="ui.changeMenu('home')"
+        text="Close"
+        @click="ui.goHome()"
         transform="translate(0 -80)" />
     </g>
   </g>
