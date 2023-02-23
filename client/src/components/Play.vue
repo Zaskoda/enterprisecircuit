@@ -24,9 +24,9 @@ export default {
     }
   },
   async onBeforeMount() {
+    this.ui.showMenu = false
   },
   async mounted () {
-    this.ui.showMenu = false
     if (this.isConnected) {
       await this.loadChainData()
     }
@@ -37,7 +37,6 @@ export default {
     } else {
       this.ui.changeMenu('game')
     }
-    this.ui.showMenu = true
   },
   watch: {
     async block(newVal, oldVal) {

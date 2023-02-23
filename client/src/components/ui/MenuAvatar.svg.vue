@@ -216,7 +216,7 @@ export default {
       <btn
         :width="200" :height="60"
         text="Title"
-          @click="ui.changeMenu('home')"
+        @click="ui.changeMenu('title')"
         transform="translate(0 -80)" />
     </g>
   </g>

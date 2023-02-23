@@ -3,7 +3,7 @@ import FPS from './ui/FPS.svg.vue'
 import Debug from './ui/Debug.svg.vue'
 import EVMStatus from './ui/EVMStatus.svg.vue'
 
-import MenuHome from './ui/MenuHome.svg.vue'
+import MenuTitle from './ui/MenuTitle.svg.vue'
 import MenuSettings from './ui/MenuSettings.svg.vue'
 import MenuConnect from './ui/MenuConnect.svg.vue'
 import MenuShip from './ui/MenuShip.svg.vue'
@@ -31,7 +31,7 @@ export default {
 
 <template>
   <g v-if="ui.showMenu">
-    <MenuHome  v-if="ui.menu == 'home'" />
+    <MenuTitle  v-if="ui.menu == 'title'" />
     <MenuSettings  v-if="ui.menu == 'settings'" />
     <MenuConnect  v-if="ui.menu == 'connect'" />
     <MenuAvatar  v-if="ui.menu == 'avatar'" />

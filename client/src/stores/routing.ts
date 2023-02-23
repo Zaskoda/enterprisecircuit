@@ -22,10 +22,10 @@ export const useRouting = defineStore('routing', {
 
       switch(route) {
         case 'title':
-          this.ui.changeMenu('home')
+          this.ui.goHome()
           break
         case 'play':
-          this.ui.changeMenu('game')
+          this.ui.goHome()
           break
         case 'storya':
         case 'storyb':
